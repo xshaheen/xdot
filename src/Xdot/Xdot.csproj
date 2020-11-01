@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
+
+    <RootNamespace>Xdot</RootNamespace>
+    <Title>Xdot</Title>
+    <AssemblyName>Xdot</AssemblyName>
+    <PackageId>Xdot</PackageId>
+    <PackageTags>xdot</PackageTags>
+    <MinVerTagPrefix>xdot-</MinVerTagPrefix>
+  </PropertyGroup>
+
+</Project>

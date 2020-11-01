@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
+
+    <RootNamespace>X.Domain</RootNamespace>
+    <Title>Xdot.Domain</Title>
+    <AssemblyName>Xdot.Domain</AssemblyName>
+    <PackageId>Xdot.Domain</PackageId>
+    <Description>Domain utilities.</Description>
+    <PackageTags>xdot, domain, utilities</PackageTags>
+    <MinVerTagPrefix>domain-</MinVerTagPrefix>
+  </PropertyGroup>
+
+</Project>

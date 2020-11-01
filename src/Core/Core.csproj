@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
+
+    <RootNamespace>X.Core</RootNamespace>
+    <Title>Xdot.Core</Title>
+    <AssemblyName>Xdot.Core</AssemblyName>
+    <PackageId>Xdot.Core</PackageId>
+    <Description>Core helper extensions and utilities.</Description>
+    <PackageTags>xdot, core extensions, extensions, core utility, utility</PackageTags>
+    <MinVerTagPrefix>core-</MinVerTagPrefix>
+  </PropertyGroup>
+
+</Project>
