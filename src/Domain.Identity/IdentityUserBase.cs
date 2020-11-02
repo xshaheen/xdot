@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
-using X.Domain;
 
-namespace Domain.Identity
+namespace X.Domain.Identity
 {
     public abstract class IdentityUserBase : IdentityUser, IEquatable<IdentityUserBase>, IAuditable
     {
