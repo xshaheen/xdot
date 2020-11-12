@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 
 namespace X.Core.Utils
@@ -6,9 +6,9 @@ namespace X.Core.Utils
     public static class Url
     {
         /// <summary>
-        ///     Basically a Path.Combine for URLs. Ensures exactly one '/' separates each segment,
-        ///     and exactly on '&amp;' separates each query parameter.
-        ///     URL-encodes illegal characters but not reserved characters.
+        /// Basically a Path.Combine for URLs. Ensures exactly one '/' separates each segment,
+        /// and exactly on '&amp;' separates each query parameter.
+        /// URL-encodes illegal characters but not reserved characters.
         /// </summary>
         /// <param name="parts">URL parts to combine.</param>
         public static string? Combine(params string[]? parts)
@@ -55,8 +55,8 @@ namespace X.Core.Utils
         }
 
         /// <summary>
-        ///     URL-encodes characters in a string that are neither reserved nor unreserved. Avoids encoding reserved characters
-        ///     such as '/' and '?'. Avoids encoding '%' if it begins a %-hex-hex sequence (i.e. avoids double-encoding).
+        /// URL-encodes characters in a string that are neither reserved nor unreserved. Avoids encoding reserved characters
+        /// such as '/' and '?'. Avoids encoding '%' if it begins a %-hex-hex sequence (i.e. avoids double-encoding).
         /// </summary>
         /// <param name="s">The string to encode.</param>
         /// <param name="encodeSpaceAsPlus">If true, spaces will be encoded as + signs. Otherwise, they'll be encoded as %20.</param>
@@ -75,7 +75,9 @@ namespace X.Core.Utils
 
             // pick out all %-hex-hex matches and avoid double-encoding
             return Regex.Replace(
-                s, "(.*?)((%[0-9A-Fa-f]{2})|$)", c =>
+                s,
+                "(.*?)((%[0-9A-Fa-f]{2})|$)",
+                c =>
                 {
                     var a = c.Groups[1].Value; // group 1 is a sequence with no %-encoding - encode illegal characters
                     var b = c.Groups[2].Value; // group 2 is a valid 3-character %-encoded sequence - leave it alone!

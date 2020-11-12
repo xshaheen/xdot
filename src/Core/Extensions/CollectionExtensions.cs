@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -7,20 +7,18 @@ using X.Core.Utils;
 namespace X.Core.Extensions
 {
     /// <summary>
-    ///     Extension methods for Collections.
+    /// Extension methods for Collections.
     /// </summary>
     public static class CollectionExtensions
     {
         /// <summary>
-        ///     Checks whatever given collection object is null or has no item.
+        /// Checks whatever given collection object is null or has no item.
         /// </summary>
         public static bool IsNullOrEmpty<T>([NotNullWhen(false)] this ICollection<T>? source)
-        {
-            return source is null || source.Count <= 0;
-        }
+            => source is null || source.Count <= 0;
 
         /// <summary>
-        ///     Adds an item to the collection if it's not already in the collection.
+        /// Adds an item to the collection if it's not already in the collection.
         /// </summary>
         /// <param name="source">The collection</param>
         /// <param name="item">Item to check and add</param>
@@ -37,7 +35,7 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Adds items to the collection which are not already in the collection.
+        /// Adds items to the collection which are not already in the collection.
         /// </summary>
         /// <param name="source">The collection</param>
         /// <param name="items">Item to check and add</param>
@@ -61,8 +59,8 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Adds an item to the collection if it's not already in the collection based on the given
-        ///     <paramref name="predicate"/>.
+        /// Adds an item to the collection if it's not already in the collection based on the given
+        /// <paramref name="predicate"/>.
         /// </summary>
         /// <param name="source">The collection</param>
         /// <param name="predicate">The condition to decide if the item is already in the collection</param>
@@ -71,8 +69,8 @@ namespace X.Core.Extensions
         /// <returns>Returns True if added, returns False if not.</returns>
         public static bool AddIfNotContains<T>(this ICollection<T> source, Func<T, bool> predicate, Func<T> itemFactory)
         {
-            Check.NotNull(source, nameof(source));
-            Check.NotNull(predicate, nameof(predicate));
+            Check.NotNull(source,      nameof(source));
+            Check.NotNull(predicate,   nameof(predicate));
             Check.NotNull(itemFactory, nameof(itemFactory));
 
             if (source.Any(predicate)) return false;
@@ -82,7 +80,7 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Removes all items from the collection those satisfy the given <paramref name="predicate"/>.
+        /// Removes all items from the collection those satisfy the given <paramref name="predicate"/>.
         /// </summary>
         /// <typeparam name="T">Type of the items in the collection</typeparam>
         /// <param name="source">The collection</param>

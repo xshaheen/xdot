@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,19 +7,20 @@ using X.Core.Utils;
 namespace X.Core.Extensions
 {
     /// <summary>
-    ///     Some useful extension methods for <see cref="IQueryable{T}"/>.
+    /// Some useful extension methods for <see cref="IQueryable{T}"/>.
     /// </summary>
     public static class QueryableExtensions
     {
         /// <summary>
-        ///     Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
+        /// Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
         /// </summary>
         /// <param name="query">Queryable to apply filtering</param>
         /// <param name="condition">A boolean value</param>
         /// <param name="predicate">Predicate to filter the query</param>
         /// <returns>Filtered or not filtered query based on <paramref name="condition"/></returns>
         public static IQueryable<T> WhereIf<T>(
-            this IQueryable<T> query, bool condition,
+            this IQueryable<T> query,
+            bool condition,
             Expression<Func<T, bool>> predicate)
         {
             Check.NotNull(query, nameof(query));
@@ -28,14 +29,15 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
+        /// Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
         /// </summary>
         /// <param name="query">Queryable to apply filtering</param>
         /// <param name="condition">A boolean value</param>
         /// <param name="predicate">Predicate to filter the query</param>
         /// <returns>Filtered or not filtered query based on <paramref name="condition"/></returns>
         public static TQueryable WhereIf<T, TQueryable>(
-            [NotNull] this TQueryable query, bool condition,
+            [NotNull] this TQueryable query,
+            bool condition,
             Expression<Func<T, bool>> predicate)
             where TQueryable : IQueryable<T>
         {
@@ -45,14 +47,15 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
+        /// Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
         /// </summary>
         /// <param name="query">Queryable to apply filtering</param>
         /// <param name="condition">A boolean value</param>
         /// <param name="predicate">Predicate to filter the query</param>
         /// <returns>Filtered or not filtered query based on <paramref name="condition"/></returns>
         public static IQueryable<T> WhereIf<T>(
-            [NotNull] this IQueryable<T> query, bool condition,
+            [NotNull] this IQueryable<T> query,
+            bool condition,
             Expression<Func<T, int, bool>> predicate)
         {
             Check.NotNull(query, nameof(query));
@@ -61,14 +64,15 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
+        /// Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
         /// </summary>
         /// <param name="query">Queryable to apply filtering</param>
         /// <param name="condition">A boolean value</param>
         /// <param name="predicate">Predicate to filter the query</param>
         /// <returns>Filtered or not filtered query based on <paramref name="condition"/></returns>
         public static TQueryable WhereIf<T, TQueryable>(
-            [NotNull] this TQueryable query, bool condition,
+            [NotNull] this TQueryable query,
+            bool condition,
             Expression<Func<T, int, bool>> predicate) where TQueryable : IQueryable<T>
         {
             Check.NotNull(query, nameof(query));

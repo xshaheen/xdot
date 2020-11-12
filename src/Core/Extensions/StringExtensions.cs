@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -12,47 +12,40 @@ namespace X.Core.Extensions
     public static partial class StringExtensions
     {
         /// <summary>
-        ///     Returns null if the string is null or empty or white spaces
-        ///     otherwise return a trim-ed string.
+        /// Returns null if the string is null or empty or white spaces
+        /// otherwise return a trim-ed string.
         /// </summary>
-        public static string? NullableTrim(this string? input)
-        {
-            return input.IsNullOrWhiteSpace() ? null : input.Trim();
-        }
+        public static string? NullableTrim(this string? input) => input.IsNullOrWhiteSpace() ? null : input.Trim();
 
         /// <summary>
-        ///     Indicates whether this string is null or an System.String.Empty string.
+        /// Indicates whether this string is null or an System.String.Empty string.
         /// </summary>
-        public static bool IsNullOrEmpty([NotNullWhen(false)] this string? str) { return string.IsNullOrEmpty(str); }
+        public static bool IsNullOrEmpty([NotNullWhen(false)] this string? str) => string.IsNullOrEmpty(str);
 
         /// <summary>
-        ///     indicates whether this string is null, empty, or consists only of white-space characters.
+        /// indicates whether this string is null, empty, or consists only of white-space characters.
         /// </summary>
-        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? str)
-        {
-            return string.IsNullOrWhiteSpace(str);
-        }
+        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? str) => string.IsNullOrWhiteSpace(str);
 
         /// <summary>
-        ///     Converts line endings in the string to <see cref="Environment.NewLine"/>.
+        /// Converts line endings in the string to <see cref="Environment.NewLine"/>.
         /// </summary>
         public static string NormalizeLineEndings(this string str)
-        {
-            return str.Replace("\r\n", "\n")
+            => str.Replace("\r\n", "\n")
                 .Replace("\r", "\n")
                 .Replace("\n", Environment.NewLine);
-        }
 
         /// <summary>
-        ///     Replace any white space characters [\r\n\t\f\v ] with one white space.
+        /// Replace any white space characters [\r\n\t\f\v ] with one white space.
         /// </summary>
-        public static string OneSpace(this string input) { return Regex.Replace(input, @"\s+", " "); }
+        public static string OneSpace(this string input) => Regex.Replace(input, @"\s+", " ");
 
         /// <summary>
-        ///     Adds a char to beginning of given string if it does not starts with the char.
+        /// Adds a char to beginning of given string if it does not starts with the char.
         /// </summary>
         public static string EnsureStartsWith(
-            this string str, char c,
+            this string str,
+            char c,
             StringComparison comparisonType = StringComparison.Ordinal)
         {
             Check.NotNull(str, nameof(str));
@@ -63,10 +56,11 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Adds a char to end of given string if it does not ends with the char.
+        /// Adds a char to end of given string if it does not ends with the char.
         /// </summary>
         public static string EnsureEndsWith(
-            this string str, char c,
+            this string str,
+            char c,
             StringComparison comparisonType = StringComparison.Ordinal)
         {
             Check.NotNull(str, nameof(str));
@@ -75,32 +69,28 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Uses string.Split method to split given string by <see cref="Environment.NewLine"/>.
+        /// Uses string.Split method to split given string by <see cref="Environment.NewLine"/>.
         /// </summary>
-        public static string[] SplitToLines(this string str) { return str.Split(Environment.NewLine); }
+        public static string[] SplitToLines(this string str) => str.Split(Environment.NewLine);
 
         /// <summary>
-        ///     Uses string.Split method to split given string by <see cref="Environment.NewLine"/>.
+        /// Uses string.Split method to split given string by <see cref="Environment.NewLine"/>.
         /// </summary>
         public static string[] SplitToLines(this string str, StringSplitOptions options)
-        {
-            return str.Split(Environment.NewLine, options);
-        }
+            => str.Split(Environment.NewLine, options);
 
         /// <summary>
-        ///     Converts string to enum value.
+        /// Converts string to enum value.
         /// </summary>
         /// <typeparam name="T">Type of enum</typeparam>
         /// <param name="value">String value to convert</param>
         /// <param name="ignoreCase">Ignore case</param>
         /// <returns>Returns enum object</returns>
         public static T ToEnum<T>(this string value, bool ignoreCase = true) where T : struct
-        {
-            return (T) Enum.Parse(typeof(T), Check.NotNull(value, nameof(value)), ignoreCase);
-        }
+            => (T) Enum.Parse(typeof(T), Check.NotNull(value, nameof(value)), ignoreCase);
 
         /// <summary>
-        ///     Gets a substring of a string from beginning of the string.
+        /// Gets a substring of a string from beginning of the string.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="len"/> is bigger that string's length</exception>
@@ -115,7 +105,7 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Gets a substring of a string from end of the string.
+        /// Gets a substring of a string from end of the string.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="len"/> is bigger that string's length</exception>
@@ -130,11 +120,14 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Replace first occurrence of <paramref name="search"/> in the string <paramref name="str"/>
-        ///     with <paramref name="replace"/>.
+        /// Replace first occurrence of <paramref name="search"/> in the string <paramref name="str"/>
+        /// with <paramref name="replace"/>.
         /// </summary>
         public static string ReplaceFirst(
-            this string str, string search, string replace, StringComparison comparisonType = StringComparison.Ordinal)
+            this string str,
+            string search,
+            string replace,
+            StringComparison comparisonType = StringComparison.Ordinal)
         {
             Check.NotNull(str, nameof(str));
 
@@ -144,49 +137,48 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Removes first occurrence of the given postfixes from end of the given string.
+        /// Removes first occurrence of the given postfixes from end of the given string.
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="postFixes">one or more postfix.</param>
         /// <returns>Modified string or the same string if it has not any of given postfixes</returns>
         public static string? RemovePostfix(this string? str, params string[]? postFixes)
-        {
-            return str.RemovePostfix(StringComparison.Ordinal, postFixes);
-        }
+            => str.RemovePostfix(StringComparison.Ordinal, postFixes);
 
         /// <summary>
-        ///     Removes first occurrence of the given postfixes from end of the given string.
+        /// Removes first occurrence of the given postfixes from end of the given string.
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="comparisonType">String comparison type</param>
         /// <param name="postfixes">one or more postfix.</param>
         /// <returns>Modified string or the same string if it has not any of given postfixes</returns>
         public static string? RemovePostfix(
-            this string? str, StringComparison comparisonType, params string[]? postfixes)
+            this string? str,
+            StringComparison comparisonType,
+            params string[]? postfixes)
         {
             if (str.IsNullOrEmpty()) return null;
             if (postfixes.IsNullOrEmpty()) return str;
 
             foreach (var postFix in postfixes)
-                if (str.EndsWith(postFix, comparisonType))
-                    return str.Left(str.Length - postFix.Length);
+            {
+                if (str.EndsWith(postFix, comparisonType)) return str.Left(str.Length - postFix.Length);
+            }
 
             return str;
         }
 
         /// <summary>
-        ///     Removes first occurrence of the given prefixes from beginning of the given string.
+        /// Removes first occurrence of the given prefixes from beginning of the given string.
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="prefixes">one or more prefix.</param>
         /// <returns>Modified string or the same string if it has not any of given prefixes</returns>
         public static string? RemovePrefix(this string? str, params string[]? prefixes)
-        {
-            return str.RemovePrefix(StringComparison.Ordinal, prefixes);
-        }
+            => str.RemovePrefix(StringComparison.Ordinal, prefixes);
 
         /// <summary>
-        ///     Removes first occurrence of the given prefixes from beginning of the given string.
+        /// Removes first occurrence of the given prefixes from beginning of the given string.
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="comparisonType">String comparison type</param>
@@ -198,14 +190,15 @@ namespace X.Core.Extensions
             if (prefixes.IsNullOrEmpty()) return str;
 
             foreach (var preFix in prefixes)
-                if (str.StartsWith(preFix, comparisonType))
-                    return str.Right(str.Length - preFix.Length);
+            {
+                if (str.StartsWith(preFix, comparisonType)) return str.Right(str.Length - preFix.Length);
+            }
 
             return str;
         }
 
         /// <summary>
-        ///     Gets a substring of a string from beginning of the string if it exceeds maximum length.
+        /// Gets a substring of a string from beginning of the string if it exceeds maximum length.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
         public static string? Truncate(this string? str, int maxLength)
@@ -217,7 +210,7 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Gets a substring of a string from Ending of the string if it exceeds maximum length.
+        /// Gets a substring of a string from Ending of the string if it exceeds maximum length.
         /// </summary>
         public static string? TruncateFromBeginning(this string? str, int maxLength)
         {
@@ -227,9 +220,9 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Gets a substring of a string from beginning of the string if it exceeds maximum length.
-        ///     It adds a "..." postfix to end of the string if it's truncated.
-        ///     Returning string can not be longer than maxLength.
+        /// Gets a substring of a string from beginning of the string if it exceeds maximum length.
+        /// It adds a "..." postfix to end of the string if it's truncated.
+        /// Returning string can not be longer than maxLength.
         /// </summary>
         public static string? TruncateWithPostfix(this string? str, int maxLength, string postfix = "...")
         {
@@ -241,23 +234,23 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Converts given string to a byte array using <see cref="Encoding.UTF8"/> encoding.
+        /// Converts given string to a byte array using <see cref="Encoding.UTF8"/> encoding.
         /// </summary>
-        public static byte[] GetBytes(this string str) { return str.GetBytes(Encoding.UTF8); }
+        public static byte[] GetBytes(this string str) => str.GetBytes(Encoding.UTF8);
 
         /// <summary>
-        ///     Converts given string to a byte array using the given <paramref name="encoding"/>
+        /// Converts given string to a byte array using the given <paramref name="encoding"/>
         /// </summary>
         public static byte[] GetBytes(this string str, Encoding encoding)
         {
-            Check.NotNull(str, nameof(str));
+            Check.NotNull(str,      nameof(str));
             Check.NotNull(encoding, nameof(encoding));
 
             return encoding.GetBytes(str);
         }
 
         /// <summary>
-        ///     Gets index of nth occurrence of a char in a string.
+        /// Gets index of nth occurrence of a char in a string.
         /// </summary>
         /// <param name="str">source string to be searched</param>
         /// <param name="c">Char to search in <see cref="str"/></param>
@@ -277,8 +270,8 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Replace a new string applying on it <see cref="String.Replace(string, string)"/>
-        ///     using <paramref name="replaces"/>.
+        /// Replace a new string applying on it <see cref="String.Replace(string, string)"/>
+        /// using <paramref name="replaces"/>.
         /// </summary>
         public static string Replace(this string str, IEnumerable<(string oldValue, string newValue)> replaces)
         {
@@ -290,8 +283,8 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Replace a new string applying on it <see cref="String.Replace(char, char)"/>
-        ///     using <paramref name="replaces"/>.
+        /// Replace a new string applying on it <see cref="String.Replace(char, char)"/>
+        /// using <paramref name="replaces"/>.
         /// </summary>
         public static string Replace(this string str, IEnumerable<(char oldValue, char newValue)> replaces)
         {
@@ -303,11 +296,11 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Convert any digit in the string to the equivalent english digit.
-        ///     <para>"١٢٨" to "128"</para>
-        ///     <para>"١,٢٨" to "1,28"</para>
-        ///     <para>"١.٢٨" to "1.28"</para>
-        ///     <para>"This ١٢٨" to "This 128"</para>
+        /// Convert any digit in the string to the equivalent english digit.
+        /// <para>"١٢٨" to "128"</para>
+        /// <para>"١,٢٨" to "1,28"</para>
+        /// <para>"١.٢٨" to "1.28"</para>
+        /// <para>"This ١٢٨" to "This 128"</para>
         /// </summary>
         public static string ConvertDigitsToEnglishDigits(this string input)
         {
@@ -316,43 +309,47 @@ namespace X.Core.Extensions
             var sb = new StringBuilder();
 
             foreach (var c in input)
+            {
                 if (char.IsDigit(c))
                     sb.Append(char.GetNumericValue(c).ToString(CultureInfo.InvariantCulture));
                 else
                     sb.Append(c);
+            }
 
             return sb.ToString();
         }
 
         /// <summary>
-        ///     Convert any digit in the string to the equivalent english digit.
-        ///     <para>"١٢٨" to "128"</para>
-        ///     <para>"١,٢٨" to "1,28"</para>
-        ///     <para>"١.٢٨" to "1.28"</para>
-        ///     <para>"This ١٢٨" to "This 128"</para>
+        /// Convert any digit in the string to the equivalent english digit.
+        /// <para>"١٢٨" to "128"</para>
+        /// <para>"١,٢٨" to "1,28"</para>
+        /// <para>"١.٢٨" to "1.28"</para>
+        /// <para>"This ١٢٨" to "This 128"</para>
         /// </summary>
         public static string ConvertDigitsToEnglishDigits(this IEnumerable<char> input)
         {
             var sb = new StringBuilder();
             foreach (var c in input)
+            {
                 if (char.IsDigit(c))
                     sb.Append(char.GetNumericValue(c).ToString(CultureInfo.InvariantCulture));
                 else
                     sb.Append(c);
+            }
 
             return sb.ToString();
         }
 
         /// <summary>
-        ///     Remove accents (diacritics) from the string.
-        ///     <para>"crème brûlée" to "creme-brulee"</para>
-        ///     <para>"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ" to "بسم الله الرحمن الرحيم"</para>
+        /// Remove accents (diacritics) from the string.
+        /// <para>"crème brûlée" to "creme-brulee"</para>
+        /// <para>"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ" to "بسم الله الرحمن الرحيم"</para>
         /// </summary>
         /// <remarks>
-        ///     Remarks:
-        ///     <para>* Normalize to FormD splits accented letters in letters+accents.</para>
-        ///     <para>* Remove those accents (and other non-spacing characters).</para>
-        ///     <para>* Return a new string from the remaining chars.</para>
+        /// Remarks:
+        /// <para>* Normalize to FormD splits accented letters in letters+accents.</para>
+        /// <para>* Remove those accents (and other non-spacing characters).</para>
+        /// <para>* Return a new string from the remaining chars.</para>
         /// </remarks>
         public static string RemoveAccent(this string input)
         {
@@ -372,17 +369,17 @@ namespace X.Core.Extensions
         }
 
         /// <summary>
-        ///     Compares two strings, character by character, and returns the
-        ///     first position where the two strings differ from one another.
+        /// Compares two strings, character by character, and returns the
+        /// first position where the two strings differ from one another.
         /// </summary>
         /// <param name="s1">
-        ///     The first string to compare
+        /// The first string to compare
         /// </param>
         /// <param name="s2">
-        ///     The second string to compare
+        /// The second string to compare
         /// </param>
         /// <returns>
-        ///     The first position where the two strings differ.
+        /// The first position where the two strings differ.
         /// </returns>
         public static int StringDifference(this string s1, string s2)
         {
@@ -391,8 +388,9 @@ namespace X.Core.Extensions
             var len  = len1 < len2 ? len1 : len2;
 
             for (var i = 0; i < len; i++)
-                if (s1[i] != s2[i])
-                    return i;
+            {
+                if (s1[i] != s2[i]) return i;
+            }
 
             return len;
         }

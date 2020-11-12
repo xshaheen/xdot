@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
@@ -38,8 +38,9 @@ namespace X.Domain.Identity
             return Equals().SequenceEqual(other.Equals());
         }
 
-        public override int GetHashCode() => Equals().Select(x => x != null ? x.GetHashCode() : 0)
-            .Aggregate((x, y) => x ^ y);
+        public override int GetHashCode()
+            => Equals().Select(x => x != null ? x.GetHashCode() : 0)
+                .Aggregate((x, y) => x ^ y);
 
         private IEnumerable<object?> Equals() { yield return Id; }
     }

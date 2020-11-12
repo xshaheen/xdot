@@ -1,11 +1,11 @@
-﻿using System.Text;
+using System.Text;
 
 namespace X.Core.Utils
 {
     public class StringHelper
     {
         /// <summary>
-        ///     Converts a byte[] to string without BOM (byte order mark).
+        /// Converts a byte[] to string without BOM (byte order mark).
         /// </summary>
         /// <param name="bytes">The byte[] to be converted to string</param>
         /// <param name="encoding">The encoding to get string. Default is UTF8</param>

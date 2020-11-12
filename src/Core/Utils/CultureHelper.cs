@@ -53,8 +53,9 @@ namespace X.Core.Utils
             }
         }
 
-        public static string GetBaseCultureName(string cultureName) => cultureName.Contains("-")
-            ? cultureName.Left(cultureName.IndexOf("-", StringComparison.Ordinal))
-            : cultureName;
+        public static string GetBaseCultureName(string cultureName)
+            => cultureName.Contains("-")
+                ? cultureName.Left(cultureName.IndexOf("-", StringComparison.Ordinal))
+                : cultureName;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -30,22 +30,20 @@ namespace X.Core.Extensions
         }
 
         public static T Object<T>(this byte[] bytes)
-        {
-            return JsonSerializer.Deserialize<T>(Encoding.Default.GetString(bytes));
-        }
+            => JsonSerializer.Deserialize<T>(Encoding.Default.GetString(bytes));
 
         /// <summary>
-        ///     Compares two byte[] arrays, element by element, and returns the
-        ///     number of elements common to both arrays.
+        /// Compares two byte[] arrays, element by element, and returns the
+        /// number of elements common to both arrays.
         /// </summary>
         /// <param name="bytes1">
-        ///     The first byte[] to compare
+        /// The first byte[] to compare
         /// </param>
         /// <param name="bytes2">
-        ///     The second byte[] to compare
+        /// The second byte[] to compare
         /// </param>
         /// <returns>
-        ///     The number of common elements.
+        /// The number of common elements.
         /// </returns>
         public static int BytesDifference(this byte[] bytes1, byte[] bytes2)
         {
@@ -54,8 +52,9 @@ namespace X.Core.Extensions
             var len  = len1 < len2 ? len1 : len2;
 
             for (var i = 0; i < len; i++)
-                if (bytes1[i] != bytes2[i])
-                    return i;
+            {
+                if (bytes1[i] != bytes2[i]) return i;
+            }
 
             return len;
         }

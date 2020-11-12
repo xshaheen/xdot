@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -10,21 +10,18 @@ namespace X.Core.Extensions
     public static partial class StringExtensions
     {
         /// <summary>
-        ///     Convert the string to SEO optimized and valid url.
+        /// Convert the string to SEO optimized and valid url.
         /// </summary>
         /// <param name="input">The string to be converted.</param>
-        public static string PermaLink(this string input) { return ExcludeNonAlpha(input); }
+        public static string PermaLink(this string input) => ExcludeNonAlpha(input);
 
         /// <summary>
-        ///     Convert the string to SEO optimized and valid url.
+        /// Convert the string to SEO optimized and valid url.
         /// </summary>
         /// <param name="input">The string to be converted.</param>
         /// <param name="key">A unique identifier to append at the end to make uri unique.</param>
         /// <returns></returns>
-        public static string PermaLink(this string input, string key)
-        {
-            return $"{ExcludeNonAlpha(input)}-{key.Truncate(10)}";
-        }
+        public static string PermaLink(this string input, string key) => $"{ExcludeNonAlpha(input)}-{key.Truncate(10)}";
 
         private static string ExcludeNonAlpha(string input)
         {
@@ -38,7 +35,7 @@ namespace X.Core.Extensions
                         ("#", " Sharp "),
                         ("+", " Plus "),
                         ("%", " Percent "),
-                        ("$", " Dollar ")
+                        ("$", " Dollar "),
                     })
                 .NoAccent()
                 .NoSymbols()
@@ -61,9 +58,7 @@ namespace X.Core.Extensions
         }
 
         private static IEnumerable<char> NoSymbols(this IEnumerable<char> input)
-        {
-            return input.Select(c => (char.IsPunctuation(c) || char.IsSymbol(c)) && c != '.' ? ' ' : c);
-        }
+            => input.Select(c => (char.IsPunctuation(c) || char.IsSymbol(c)) && c != '.' ? ' ' : c);
 
         private static IEnumerable<char> FirstUpper(this IEnumerable<char> str)
         {

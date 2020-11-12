@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using X.Core.Utils;
@@ -15,9 +15,8 @@ namespace X.Core.Extensions
         public static int FindIndex<T>(this IList<T> source, Predicate<T> selector)
         {
             for (var i = 0; i < source.Count; ++i)
-            {
-                if (selector(source[i])) return i;
-            }
+                if (selector(source[i]))
+                    return i;
 
             return -1;
         }
@@ -77,9 +76,8 @@ namespace X.Core.Extensions
         public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, T item)
         {
             for (var i = 0; i < source.Count; i++)
-            {
-                if (selector(source[i])) source[i] = item;
-            }
+                if (selector(source[i]))
+                    source[i] = item;
         }
 
         public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, Func<T, T> itemFactory)

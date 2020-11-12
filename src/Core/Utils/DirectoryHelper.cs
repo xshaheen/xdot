@@ -1,9 +1,9 @@
-﻿using System.IO;
+using System.IO;
 
 namespace X.Core.Utils
 {
     /// <summary>
-    ///     A helper class for Directory operations.
+    /// A helper class for Directory operations.
     /// </summary>
     public static class DirectoryHelper
     {
@@ -30,7 +30,7 @@ namespace X.Core.Utils
         public static bool IsSubDirectoryOf(string parentDirectoryPath, string childDirectoryPath)
         {
             Check.NotNull(parentDirectoryPath, nameof(parentDirectoryPath));
-            Check.NotNull(childDirectoryPath, nameof(childDirectoryPath));
+            Check.NotNull(childDirectoryPath,  nameof(childDirectoryPath));
 
             return IsSubDirectoryOf(
                 new DirectoryInfo(parentDirectoryPath),
@@ -41,7 +41,7 @@ namespace X.Core.Utils
         public static bool IsSubDirectoryOf(DirectoryInfo parentDirectory, DirectoryInfo childDirectory)
         {
             Check.NotNull(parentDirectory, nameof(parentDirectory));
-            Check.NotNull(childDirectory, nameof(childDirectory));
+            Check.NotNull(childDirectory,  nameof(childDirectory));
 
             if (parentDirectory.FullName == childDirectory.FullName) return true;
 

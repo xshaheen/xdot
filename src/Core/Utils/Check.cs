@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using X.Core.Extensions;
 
 namespace X.Core.Utils
@@ -8,6 +7,7 @@ namespace X.Core.Utils
     public static class Check
     {
         public static T NotNull<T>([NotNullWhen(true)] T value, string parameterName)
+        public static T NotNull<T>(T? value, string parameterName)
         {
             if (value is null) throw new ArgumentNullException(parameterName);
 
@@ -15,7 +15,9 @@ namespace X.Core.Utils
         }
 
         public static string NotNull(
-            string? value, string parameterName, int maxLength = int.MaxValue,
+            string? value,
+            string parameterName,
+            int maxLength = int.MaxValue,
             int minLength = 0)
         {
             if (value is null) throw new ArgumentException($"{parameterName} can not be null!", parameterName);
@@ -34,7 +36,10 @@ namespace X.Core.Utils
         }
 
         public static string NotNullOrWhiteSpace(
-            string? value, string parameterName, int maxLength = int.MaxValue, int minLength = 0)
+            string? value,
+            string parameterName,
+            int maxLength = int.MaxValue,
+            int minLength = 0)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException($"{parameterName} can not be null, empty or white space!", parameterName);
@@ -53,7 +58,10 @@ namespace X.Core.Utils
         }
 
         public static string NotNullOrEmpty(
-            string? value, string parameterName, int maxLength = int.MaxValue, int minLength = 0)
+            string? value,
+            string parameterName,
+            int maxLength = int.MaxValue,
+            int minLength = 0)
         {
             if (string.IsNullOrEmpty(value))
                 throw new ArgumentException($"{parameterName} can not be null or empty!", parameterName);

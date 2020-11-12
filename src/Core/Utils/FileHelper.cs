@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 namespace X.Core.Utils
 {
     /// <summary>
-    ///     A helper class for File operations.
+    /// A helper class for File operations.
     /// </summary>
     public static class FileHelper
     {
         /// <summary>
-        ///     Checks and deletes given file if it does exists.
+        /// Checks and deletes given file if it does exists.
         /// </summary>
         /// <param name="filePath">Path of the file</param>
         public static bool DeleteIfExists(string filePath)
@@ -23,12 +23,12 @@ namespace X.Core.Utils
         }
 
         /// <summary>
-        ///     Gets extension of a file.
+        /// Gets extension of a file.
         /// </summary>
         /// <param name="fileNameWithExtension"></param>
         /// <returns>
-        ///     Returns extension without dot.
-        ///     Returns null if given <paramref name="fileNameWithExtension"></paramref> does not include dot.
+        /// Returns extension without dot.
+        /// Returns null if given <paramref name="fileNameWithExtension"></paramref> does not include dot.
         /// </returns>
         public static string? GetExtension(string fileNameWithExtension)
         {
@@ -40,7 +40,7 @@ namespace X.Core.Utils
         }
 
         /// <summary>
-        ///     Opens a text file, reads all lines of the file, and then closes the file.
+        /// Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
@@ -51,7 +51,7 @@ namespace X.Core.Utils
         }
 
         /// <summary>
-        ///     Opens a text file, reads all lines of the file, and then closes the file.
+        /// Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
@@ -65,20 +65,20 @@ namespace X.Core.Utils
         }
 
         /// <summary>
-        ///     Opens a text file, reads all lines of the file, and then closes the file.
+        /// Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
         /// <param name="path">The file to open for reading.</param>
         /// <param name="encoding">Encoding of the file. Default is UTF8</param>
         /// <param name="fileMode">Specifies how the operating system should open a file. Default is Open</param>
         /// <param name="fileAccess">Defines constants for read, write, or read/write access to a file. Default is Read</param>
         /// <param name="fileShare">
-        ///     Contains constants for controlling the kind of access other FileStream objects can have to the
-        ///     same file. Default is Read
+        /// Contains constants for controlling the kind of access other FileStream objects can have to the
+        /// same file. Default is Read
         /// </param>
         /// <param name="bufferSize">Length of StreamReader buffer. Default is 4096.</param>
         /// <param name="fileOptions">
-        ///     Indicates FileStream options. Default is Asynchronous (The file is to be used for
-        ///     asynchronous reading.) and SequentialScan (The file is to be accessed sequentially from beginning to end.)
+        /// Indicates FileStream options. Default is Asynchronous (The file is to be used for
+        /// asynchronous reading.) and SequentialScan (The file is to be accessed sequentially from beginning to end.)
         /// </param>
         /// <returns>A string containing all lines of the file.</returns>
         public static async Task<string[]> ReadAllLinesAsync(
@@ -108,13 +108,11 @@ namespace X.Core.Utils
         }
 
         /// <summary>
-        ///     Opens a text file, reads content without BOM
+        /// Opens a text file, reads content without BOM
         /// </summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
         public static async Task<string?> ReadFileWithoutBomAsync(string path)
-        {
-            return StringHelper.ConvertFromBytesWithoutBom(await ReadAllBytesAsync(path));
-        }
+            => StringHelper.ConvertFromBytesWithoutBom(await ReadAllBytesAsync(path));
     }
 }

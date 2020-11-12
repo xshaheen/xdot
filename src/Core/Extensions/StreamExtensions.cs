@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +27,8 @@ namespace X.Core.Extensions
         }
 
         public static Task CopyToAsync(
-            this Stream stream, Stream destination,
+            this Stream stream,
+            Stream destination,
             CancellationToken cancellationToken = default)
         {
             stream.Position = 0;

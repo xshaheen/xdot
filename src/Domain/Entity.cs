@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace X.Domain
@@ -29,9 +29,9 @@ namespace X.Domain
         public DateTime? LastModifiedAt { get; protected set; }
         public string? LastModifiedBy { get; protected set; }
 
-        public void UpdateLasModifiedAtBy(DateTime at, string by) { (LastModifiedAt, LastModifiedBy) = (at, by); }
+        public void UpdateLasModifiedAtBy(DateTime at, string by) => (LastModifiedAt, LastModifiedBy) = (at, by);
 
-        public void SetCreatedAtBy(DateTime at, string by) { (CreatedAt, CreatedBy) = (at, by); }
+        public void SetCreatedAtBy(DateTime at, string by) => (CreatedAt, CreatedBy) = (at, by);
     }
 
     public abstract class AuditableEntity<TId> : Entity<TId>, IAuditable
@@ -41,8 +41,8 @@ namespace X.Domain
         public DateTime? LastModifiedAt { get; protected set; }
         public string? LastModifiedBy { get; protected set; }
 
-        public void UpdateLasModifiedAtBy(DateTime at, string by) { (LastModifiedAt, LastModifiedBy) = (at, by); }
+        public void UpdateLasModifiedAtBy(DateTime at, string by) => (LastModifiedAt, LastModifiedBy) = (at, by);
 
-        public void SetCreatedAtBy(DateTime at, string by) { (CreatedAt, CreatedBy) = (at, by); }
+        public void SetCreatedAtBy(DateTime at, string by) => (CreatedAt, CreatedBy) = (at, by);
     }
 }
