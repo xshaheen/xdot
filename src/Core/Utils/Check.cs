@@ -6,7 +6,6 @@ namespace X.Core.Utils
 {
     public static class Check
     {
-        public static T NotNull<T>([NotNullWhen(true)] T value, string parameterName)
         public static T NotNull<T>(T? value, string parameterName)
         {
             if (value is null) throw new ArgumentNullException(parameterName);

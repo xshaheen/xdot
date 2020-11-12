@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Nullable>enable</Nullable>
-
+    <TargetFramework>net5.0</TargetFramework>
+    
     <RootNamespace>X.Core</RootNamespace>
     <Title>Xdot.Core</Title>
     <AssemblyName>Xdot.Core</AssemblyName>

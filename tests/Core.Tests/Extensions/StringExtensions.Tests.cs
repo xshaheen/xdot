@@ -41,7 +41,7 @@ namespace Core.Tests.Extensions
             const string str = "This\r\n is a\r test \n string";
 
             var normalized = str.NormalizeLineEndings();
-            var lines      = normalized.SplitToLines();
+            var lines = normalized.SplitToLines();
 
             lines.Length.Should().Be(4);
         }
@@ -103,7 +103,7 @@ namespace Core.Tests.Extensions
         [Fact]
         public void Truncate_Test()
         {
-            const string  str       = "This is a test string";
+            const string str = "This is a test string";
             const string? nullValue = null;
 
             str.Truncate(7).Should().Be("This is");
@@ -116,7 +116,7 @@ namespace Core.Tests.Extensions
         [Fact]
         public void TruncateWithPostfix_Test()
         {
-            const string  str       = "This is a test string";
+            const string str = "This is a test string";
             const string? nullValue = null;
 
             str.TruncateWithPostfix(3).Should().Be("...");

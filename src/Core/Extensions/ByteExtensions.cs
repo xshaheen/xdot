@@ -29,7 +29,7 @@ namespace X.Core.Extensions
             return output.ToArray();
         }
 
-        public static T Object<T>(this byte[] bytes)
+        public static T? Object<T>(this byte[] bytes)
             => JsonSerializer.Deserialize<T>(Encoding.Default.GetString(bytes));
 
         /// <summary>

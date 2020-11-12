@@ -18,7 +18,7 @@ namespace X.Core.Utils
             => Directory.EnumerateFiles(folderPath, "*.*", searchOption)
                 .Where(s => s.EndsWith(".dll") || s.EndsWith(".exe"));
 
-        public static IReadOnlyList<Type>? GetAllTypes(Assembly assembly)
+        public static IReadOnlyList<Type?> GetAllTypes(Assembly assembly)
         {
             try
             {
