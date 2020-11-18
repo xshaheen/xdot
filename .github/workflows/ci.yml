@@ -23,7 +23,7 @@ jobs:
           # 0 indicates all history for all branches and tags. (Default: 1)
           fetch-depth: 0
 
-      - name: Get SDKs to install
+      - name: Get SDK
         shell: pwsh
         # Get SDK version from global.json
         run: |

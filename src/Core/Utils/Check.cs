@@ -1,110 +1,137 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using X.Core.Extensions;
 
 namespace X.Core.Utils
 {
+    /// <summary>
+    /// A collection of common checks clauses, implemented as static methods.
+    /// </summary>
     public static class Check
     {
-        public static T NotNull<T>(T? value, string parameterName)
+        /// <summary>
+        /// Throws an <see cref="ArgumentNullException"/> if <paramref name="input"/> is null.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <returns><paramref name="input"/> if the value is not null.</returns>
+        public static T NotNull<T>([NotNull] T? input, string parameterName)
         {
-            if (value is null) throw new ArgumentNullException(parameterName);
+            if (input is null) throw new ArgumentNullException(parameterName);
 
-            return value;
+            return input;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="maxLength"></param>
+        /// <param name="minLength"></param>
+        /// <returns><paramref name="input"/> if the value is not null.</returns>
         public static string NotNull(
-            string? value,
+            [NotNull] string? input,
             string parameterName,
             int maxLength = int.MaxValue,
             int minLength = 0)
         {
-            if (value is null) throw new ArgumentException($"{parameterName} can not be null!", parameterName);
+            if (input is null) throw new ArgumentException($"{parameterName} can not be null!", parameterName);
 
-            if (value.Length > maxLength)
+            if (input.Length > maxLength)
                 throw new ArgumentException(
                     $"{parameterName} length must be equal to or lower than {maxLength}!",
                     parameterName);
 
-            if (minLength > 0 && value.Length < minLength)
+            if (minLength > 0 && input.Length < minLength)
                 throw new ArgumentException(
                     $"{parameterName} length must be equal to or bigger than {minLength}!",
                     parameterName);
 
-            return value;
+            return input;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="maxLength"></param>
+        /// <param name="minLength"></param>
+        /// <returns></returns>
         public static string NotNullOrWhiteSpace(
-            string? value,
+            [NotNull] string? input,
             string parameterName,
             int maxLength = int.MaxValue,
             int minLength = 0)
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(input))
                 throw new ArgumentException($"{parameterName} can not be null, empty or white space!", parameterName);
 
-            if (value.Length > maxLength)
+            if (input.Length > maxLength)
                 throw new ArgumentException(
                     $"{parameterName} length must be equal to or lower than {maxLength}!",
                     parameterName);
 
-            if (minLength > 0 && value.Length < minLength)
+            if (minLength > 0 && input.Length < minLength)
                 throw new ArgumentException(
                     $"{parameterName} length must be equal to or bigger than {minLength}!",
                     parameterName);
 
-            return value;
+            return input;
         }
 
         public static string NotNullOrEmpty(
-            string? value,
+            [NotNull] string? input,
             string parameterName,
             int maxLength = int.MaxValue,
             int minLength = 0)
         {
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(input))
                 throw new ArgumentException($"{parameterName} can not be null or empty!", parameterName);
 
-            if (value.Length > maxLength)
+            if (input.Length > maxLength)
                 throw new ArgumentException(
                     $"{parameterName} length must be equal to or lower than {maxLength}!",
                     parameterName);
 
-            if (minLength > 0 && value.Length < minLength)
+            if (minLength > 0 && input.Length < minLength)
                 throw new ArgumentException(
                     $"{parameterName} length must be equal to or bigger than {minLength}!",
                     parameterName);
 
-            return value;
+            return input;
         }
 
-        public static ICollection<T> NotNullOrEmpty<T>(ICollection<T>? value, string parameterName)
+        public static ICollection<T> NotNullOrEmpty<T>([NotNull] ICollection<T>? input, string parameterName)
         {
-            if (value.IsNullOrEmpty())
+            if (input.IsNullOrEmpty())
                 throw new ArgumentException(parameterName + " can not be null or empty!", parameterName);
 
-            return value;
+            return input;
         }
 
-        public static string? Length(string? value, string parameterName, int maxLength, int minLength = 0)
+        public static string? Length(string? input, string parameterName, int maxLength, int minLength = 0)
         {
             if (minLength > 0)
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(input))
                     throw new ArgumentException(parameterName + " can not be null or empty!", parameterName);
 
-                if (value.Length < minLength)
+                if (input.Length < minLength)
                     throw new ArgumentException(
                         $"{parameterName} length must be equal to or bigger than {minLength}!",
                         parameterName);
             }
 
-            if (value != null && value.Length > maxLength)
+            if (input is not null && input.Length > maxLength)
                 throw new ArgumentException(
                     $"{parameterName} length must be equal to or lower than {maxLength}!",
                     parameterName);
 
-            return value;
+            return input;
         }
     }
 }

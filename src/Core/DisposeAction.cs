@@ -1,4 +1,5 @@
 using System;
+using X.Core.Utils;
 
 namespace X.Core
 {
@@ -14,7 +15,7 @@ namespace X.Core
         /// Creates a new <see cref="DisposeAction"/> object.
         /// </summary>
         /// <param name="action">Action to be executed when this object is disposed.</param>
-        public DisposeAction(Action action) => _action = action ?? throw new ArgumentNullException(nameof(action));
+        public DisposeAction(Action action) => _action = Check.NotNull(action, nameof(action)) ;
 
         public void Dispose() => _action();
     }

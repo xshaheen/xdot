@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <Title>Xdot.Table</Title>
+    <RootNamespace>X.Table</RootNamespace>
+    <AssemblyName>Xdot.Table</AssemblyName>
+    <PackageId>Xdot.Table</PackageId>
+    <Description>IQueryable extension methods and models to perform common table queries like filteration, sorting, and pagination.</Description>
+    <PackageTags>xdot,Table,Grid,Order,Filter,Page,Paging,Pagination,IQueryable</PackageTags>
+    <MinVerTagPrefix>table-</MinVerTagPrefix>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
