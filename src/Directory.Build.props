@@ -19,6 +19,7 @@
     <Company>xshaheen.com</Company>
     <Authors>Mahmoud Shaheen</Authors>
     <Copyright>Copyright (c) contributors</Copyright>
+    <MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
   </PropertyGroup>
 
   <ItemGroup>
