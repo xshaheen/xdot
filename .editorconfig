@@ -95,7 +95,7 @@ resharper_xmldoc_indent_text=RemoveIndent
 resharper_xmldoc_wrap_lines=false
 
 # Identation for other files
-[*.{c,c++,cc,cginc,compute,cp,cpp,cs,cu,cuh,cxx,h,hh,hlsl,hlsli,hlslinc,hpp,hxx,inc,inl,ino,ipp,mpp,tpp,usf,ush,vb,proto}]
+[*.{c,c++,cc,cginc,compute,cp,cpp,cs,sln,cu,cuh,cxx,h,hh,hlsl,hlsli,hlslinc,hpp,hxx,inc,inl,ino,ipp,mpp,tpp,usf,ush,vb,proto}]
 
 # Standard properties
 indent_size=4
