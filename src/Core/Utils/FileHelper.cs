@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Ardalis.GuardClauses;
 
 namespace X.Core.Utils
 {
@@ -32,7 +33,7 @@ namespace X.Core.Utils
         /// </returns>
         public static string? GetExtension(string fileNameWithExtension)
         {
-            Check.NotNull(fileNameWithExtension, nameof(fileNameWithExtension));
+            Guard.Against.Null(fileNameWithExtension, nameof(fileNameWithExtension));
 
             var lastDotIndex = fileNameWithExtension.LastIndexOf('.');
 

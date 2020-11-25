@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using X.Core.Utils;
+using Ardalis.GuardClauses;
 
 namespace X.Core.Extensions
 {
@@ -25,7 +25,7 @@ namespace X.Core.Extensions
 
         private static string ExcludeNonAlpha(string input)
         {
-            Check.NotNullOrEmpty(input, nameof(input));
+            Guard.Against.NullOrEmpty(input, nameof(input));
 
             var result = input.Trim()
                 .Replace(

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using X.Core.Utils;
+using Ardalis.GuardClauses;
 
 namespace X.Core.Extensions
 {
@@ -26,7 +26,7 @@ namespace X.Core.Extensions
         /// <returns>Returns True if added, returns False if not.</returns>
         public static bool AddIfNotContains<T>(this ICollection<T> source, T item)
         {
-            Check.NotNull(source, nameof(source));
+            Guard.Against.Null(source, nameof(source));
 
             if (source.Contains(item)) return false;
 
@@ -43,7 +43,7 @@ namespace X.Core.Extensions
         /// <returns>Returns the added items.</returns>
         public static IEnumerable<T> AddIfNotContains<T>(this ICollection<T> source, IEnumerable<T> items)
         {
-            Check.NotNull(source, nameof(source));
+            Guard.Against.Null(source, nameof(source));
 
             var addedItems = new List<T>();
 
@@ -69,9 +69,9 @@ namespace X.Core.Extensions
         /// <returns>Returns True if added, returns False if not.</returns>
         public static bool AddIfNotContains<T>(this ICollection<T> source, Func<T, bool> predicate, Func<T> itemFactory)
         {
-            Check.NotNull(source,      nameof(source));
-            Check.NotNull(predicate,   nameof(predicate));
-            Check.NotNull(itemFactory, nameof(itemFactory));
+            Guard.Against.Null(source,      nameof(source));
+            Guard.Against.Null(predicate,   nameof(predicate));
+            Guard.Against.Null(itemFactory, nameof(itemFactory));
 
             if (source.Any(predicate)) return false;
 

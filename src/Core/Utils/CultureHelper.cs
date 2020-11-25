@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using Ardalis.GuardClauses;
 using X.Core.Extensions;
 
 namespace X.Core.Utils
@@ -10,7 +11,7 @@ namespace X.Core.Utils
 
         public static IDisposable Use(string culture, string? uiCulture = null)
         {
-            Check.NotNull(culture, nameof(culture));
+            Guard.Against.Null(culture, nameof(culture));
 
             return Use(
                 new CultureInfo(culture),
@@ -22,7 +23,7 @@ namespace X.Core.Utils
 
         public static IDisposable Use(CultureInfo culture, CultureInfo? uiCulture = null)
         {
-            Check.NotNull(culture, nameof(culture));
+            Guard.Against.Null(culture, nameof(culture));
 
             var currentCulture   = CultureInfo.CurrentCulture;
             var currentUiCulture = CultureInfo.CurrentUICulture;

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using X.Core.Utils;
+using Ardalis.GuardClauses;
 
 namespace X.Core.Extensions
 {
@@ -142,7 +142,7 @@ namespace X.Core.Extensions
 
         public static T GetOrAdd<T>(this IList<T> source, Func<T, bool> selector, Func<T> factory)
         {
-            Check.NotNull(source, nameof(source));
+            Guard.Against.Null(source, nameof(source));
 
             var item = source.FirstOrDefault(selector);
 

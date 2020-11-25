@@ -1,4 +1,5 @@
 using System.IO;
+using Ardalis.GuardClauses;
 
 namespace X.Core.Utils
 {
@@ -29,8 +30,8 @@ namespace X.Core.Utils
 
         public static bool IsSubDirectoryOf(string parentDirectoryPath, string childDirectoryPath)
         {
-            Check.NotNull(parentDirectoryPath, nameof(parentDirectoryPath));
-            Check.NotNull(childDirectoryPath,  nameof(childDirectoryPath));
+            Guard.Against.Null(parentDirectoryPath, nameof(parentDirectoryPath));
+            Guard.Against.Null(childDirectoryPath,  nameof(childDirectoryPath));
 
             return IsSubDirectoryOf(
                 new DirectoryInfo(parentDirectoryPath),
@@ -40,15 +41,14 @@ namespace X.Core.Utils
 
         public static bool IsSubDirectoryOf(DirectoryInfo parentDirectory, DirectoryInfo childDirectory)
         {
-            Check.NotNull(parentDirectory, nameof(parentDirectory));
-            Check.NotNull(childDirectory,  nameof(childDirectory));
+            Guard.Against.Null(parentDirectory, nameof(parentDirectory));
+            Guard.Against.Null(childDirectory,  nameof(childDirectory));
 
             if (parentDirectory.FullName == childDirectory.FullName) return true;
 
             var parentOfChild = childDirectory.Parent;
-            if (parentOfChild == null) return false;
 
-            return IsSubDirectoryOf(parentDirectory, parentOfChild);
+            return parentOfChild is not null && IsSubDirectoryOf(parentDirectory, parentOfChild);
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
-using X.Core.Utils;
+using Ardalis.GuardClauses;
 
 namespace X.Core.Extensions
 {
@@ -23,7 +23,7 @@ namespace X.Core.Extensions
             bool condition,
             Expression<Func<T, bool>> predicate)
         {
-            Check.NotNull(query, nameof(query));
+            Guard.Against.Null(query, nameof(query));
 
             return condition ? query.Where(predicate) : query;
         }
@@ -41,7 +41,7 @@ namespace X.Core.Extensions
             Expression<Func<T, bool>> predicate)
             where TQueryable : IQueryable<T>
         {
-            Check.NotNull(query, nameof(query));
+            Guard.Against.Null(query, nameof(query));
 
             return condition ? (TQueryable) query.Where(predicate) : query;
         }
@@ -58,7 +58,7 @@ namespace X.Core.Extensions
             bool condition,
             Expression<Func<T, int, bool>> predicate)
         {
-            Check.NotNull(query, nameof(query));
+            Guard.Against.Null(query, nameof(query));
 
             return condition ? query.Where(predicate) : query;
         }
@@ -75,7 +75,7 @@ namespace X.Core.Extensions
             bool condition,
             Expression<Func<T, int, bool>> predicate) where TQueryable : IQueryable<T>
         {
-            Check.NotNull(query, nameof(query));
+            Guard.Against.Null(query, nameof(query));
 
             return condition ? (TQueryable) query.Where(predicate) : query;
         }

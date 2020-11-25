@@ -12,4 +12,8 @@
     <MinVerTagPrefix>core-</MinVerTagPrefix>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Ardalis.GuardClauses" Version="3.0.1" />
+  </ItemGroup>
+
 </Project>

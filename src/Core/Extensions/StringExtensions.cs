@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using X.Core.Utils;
+using Ardalis.GuardClauses;
 
 namespace X.Core.Extensions
 {
@@ -48,7 +48,7 @@ namespace X.Core.Extensions
             char c,
             StringComparison comparisonType = StringComparison.Ordinal)
         {
-            Check.NotNull(str, nameof(str));
+            Guard.Against.Null(str, nameof(str));
 
             if (str.StartsWith(c.ToString(), comparisonType)) return str;
 
@@ -63,7 +63,7 @@ namespace X.Core.Extensions
             char c,
             StringComparison comparisonType = StringComparison.Ordinal)
         {
-            Check.NotNull(str, nameof(str));
+            Guard.Against.Null(str, nameof(str));
             if (str.EndsWith(c.ToString(), comparisonType)) return str;
             return str + c;
         }
@@ -87,7 +87,7 @@ namespace X.Core.Extensions
         /// <param name="ignoreCase">Ignore case</param>
         /// <returns>Returns enum object</returns>
         public static T ToEnum<T>(this string value, bool ignoreCase = true) where T : struct
-            => (T) Enum.Parse(typeof(T), Check.NotNull(value, nameof(value)), ignoreCase);
+            => (T) Enum.Parse(typeof(T), Guard.Against.Null(value, nameof(value)), ignoreCase);
 
         /// <summary>
         /// Gets a substring of a string from beginning of the string.
@@ -96,7 +96,7 @@ namespace X.Core.Extensions
         /// <exception cref="ArgumentException">Thrown if <paramref name="len"/> is bigger that string's length</exception>
         public static string Left(this string str, int len)
         {
-            Check.NotNull(str, nameof(str));
+            Guard.Against.Null(str, nameof(str));
 
             if (str.Length < len)
                 throw new ArgumentException("len argument can not be bigger than given string's length!");
@@ -111,7 +111,7 @@ namespace X.Core.Extensions
         /// <exception cref="ArgumentException">Thrown if <paramref name="len"/> is bigger that string's length</exception>
         public static string Right(this string str, int len)
         {
-            Check.NotNull(str, nameof(str));
+            Guard.Against.Null(str, nameof(str));
 
             if (str.Length < len)
                 throw new ArgumentException("len argument can not be bigger than given string's length!");
@@ -129,7 +129,7 @@ namespace X.Core.Extensions
             string replace,
             StringComparison comparisonType = StringComparison.Ordinal)
         {
-            Check.NotNull(str, nameof(str));
+            Guard.Against.Null(str, nameof(str));
 
             var pos = str.IndexOf(search, comparisonType);
 
@@ -243,8 +243,8 @@ namespace X.Core.Extensions
         /// </summary>
         public static byte[] GetBytes(this string str, Encoding encoding)
         {
-            Check.NotNull(str,      nameof(str));
-            Check.NotNull(encoding, nameof(encoding));
+            Guard.Against.Null(str,      nameof(str));
+            Guard.Against.Null(encoding, nameof(encoding));
 
             return encoding.GetBytes(str);
         }
@@ -257,7 +257,7 @@ namespace X.Core.Extensions
         /// <param name="n">Count of the occurrence</param>
         public static int NthIndexOf(this string str, char c, int n)
         {
-            Check.NotNull(str, nameof(str));
+            Guard.Against.Null(str, nameof(str));
 
             var count = 0;
             for (var i = 0; i < str.Length; i++)

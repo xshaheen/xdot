@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ardalis.GuardClauses;
 
 namespace X.Core.Utils
 {
@@ -63,7 +64,7 @@ namespace X.Core.Utils
         /// <param name="objects">List of object to select a random one</param>
         public static T GetRandomOf<T>(params T[] objects)
         {
-            Check.NotNullOrEmpty(objects, nameof(objects));
+            Guard.Against.NullOrEmpty(objects, nameof(objects));
 
             return objects[GetRandom(0, objects.Length)];
         }
@@ -75,7 +76,7 @@ namespace X.Core.Utils
         /// <param name="list">List of object to select a random one</param>
         public static T GetRandomOfList<T>(IList<T> list)
         {
-            Check.NotNullOrEmpty(list, nameof(list));
+            Guard.Against.NullOrEmpty(list, nameof(list));
 
             return list[GetRandom(0, list.Count)];
         }
@@ -87,7 +88,7 @@ namespace X.Core.Utils
         /// <param name="items">items</param>
         public static List<T> GenerateRandomizedList<T>(IList<T> items)
         {
-            Check.NotNull(items, nameof(items));
+            Guard.Against.Null(items, nameof(items));
 
             var randomList = new List<T>();
 
