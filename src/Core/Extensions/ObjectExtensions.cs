@@ -6,10 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 
-namespace X.Core.Extensions
-{
-    public static class ObjectExtensions
-    {
+namespace X.Core.Extensions {
+    public static class ObjectExtensions {
         /// <summary>
         /// Converts the value of a specified object into a JSON string and return
         /// byte representation of the string.
@@ -37,7 +35,11 @@ namespace X.Core.Extensions
         public static string ToJson(this object obj, bool camelCase = true)
             => JsonSerializer.Serialize(
                 obj,
-                camelCase ? new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase } : null);
+                camelCase
+                    ? new JsonSerializerOptions {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    }
+                    : null);
 
         /// <summary>
         /// Converts the value of a specified type into a JSON string.
@@ -62,10 +64,10 @@ namespace X.Core.Extensions
         /// <param name="obj">Object to be converted</param>
         /// <typeparam name="T">Type of the target object</typeparam>
         /// <returns>Converted object</returns>
-        public static T To<T>(this object obj) where T : struct
-        {
+        public static T To<T>(this object obj) where T : struct {
             if (typeof(T) == typeof(Guid))
-                return (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(obj.ToString());
+                return (T) TypeDescriptor.GetConverter(typeof(T))
+                    .ConvertFromInvariantString(obj.ToString());
 
             return (T) Convert.ChangeType(obj, typeof(T), CultureInfo.InvariantCulture);
         }
@@ -87,7 +89,8 @@ namespace X.Core.Extensions
         public static bool IsIn<T>(this T item, IEnumerable<T> list) => list.Contains(item);
 
         /// <summary>
-        /// Can be used to conditionally perform a function on an object and return the modified or the original object.
+        /// Can be used to conditionally perform a function on an object and return the modified or the
+        /// original object.
         /// It is useful for chained calls.
         /// </summary>
         /// <param name="obj">An object</param>
@@ -99,7 +102,8 @@ namespace X.Core.Extensions
         /// <code>true</code>)
         /// or the original object if the <paramref name="condition"/> is <code>false</code>
         /// </returns>
-        public static T If<T>(this T obj, bool condition, Func<T, T> func) => condition ? func(obj) : obj;
+        public static T If<T>(this T obj, bool condition, Func<T, T> func)
+            => condition ? func(obj) : obj;
 
         /// <summary>
         /// Can be used to conditionally perform an action on an object and return the original object.
@@ -112,8 +116,7 @@ namespace X.Core.Extensions
         /// <returns>
         /// Returns the original object.
         /// </returns>
-        public static T If<T>(this T obj, bool condition, Action<T> action)
-        {
+        public static T If<T>(this T obj, bool condition, Action<T> action) {
             if (condition) action(obj);
 
             return obj;

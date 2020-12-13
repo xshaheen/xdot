@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
-namespace X.Core.Extensions
-{
-    public static class ClaimsPrincipalExtensions
-    {
+namespace X.Core.Extensions {
+    public static class ClaimsPrincipalExtensions {
         /// <summary>
         /// Get the <paramref name="claimType"/> claim.
         /// </summary>
@@ -21,13 +19,19 @@ namespace X.Core.Extensions
         /// <summary>
         /// Get user roles collection.
         /// </summary>
-        public static IList<string>? Roles(this ClaimsPrincipal? principal, string claimType = ClaimTypes.Role)
+        public static IList<string>? Roles(
+            this ClaimsPrincipal? principal,
+            string claimType = ClaimTypes.Role
+        )
             => principal?.Claims.Where(c => c.Type == claimType).Select(c => c.Value).ToList();
 
         /// <summary>
         /// Get user roles as Enum collection of type <typeparamref name="T"/>.
         /// </summary>
-        public static List<T>? Roles<T>(this ClaimsPrincipal? principal, string claimType = ClaimTypes.Role)
+        public static List<T>? Roles<T>(
+            this ClaimsPrincipal? principal,
+            string claimType = ClaimTypes.Role
+        )
             where T : struct
             => principal?.Claims.Where(c => c.Type == claimType)
                 .Select(c => c.Value.ToEnum<T>()).ToList();

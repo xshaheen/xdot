@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace X.Table
-{
-    public class Page<T>
-    {
-        public Page(List<T> items, int index, int size, int totalItems)
-        {
+namespace X.Table {
+    public class Page<T> {
+        public Page(List<T> items, int index, int size, int totalItems) {
             Items      = items;
             Index      = index;
             Size       = size;

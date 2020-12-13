@@ -3,13 +3,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 #nullable disable
-namespace X.Core.Extensions
-{
+namespace X.Core.Extensions {
     /// <summary>
     /// Extension methods for Dictionary.
     /// </summary>
-    public static class DictionaryExtensions
-    {
+    public static class DictionaryExtensions {
         /// <summary>
         /// This method is used to try to get a value in a dictionary if it does exists.
         /// </summary>
@@ -18,10 +16,12 @@ namespace X.Core.Extensions
         /// <param name="key">Key</param>
         /// <param name="value">Value of the key (or default value if key not exists)</param>
         /// <returns>True if key does exists in the dictionary</returns>
-        internal static bool TryGetValue<T>(this IDictionary<string, object> dictionary, string key, out T value)
-        {
-            if (dictionary.TryGetValue(key, out var valueObj) && valueObj is T obj)
-            {
+        internal static bool TryGetValue<T>(
+            this IDictionary<string, object> dictionary,
+            string key,
+            out T value
+        ) {
+            if (dictionary.TryGetValue(key, out var valueObj) && valueObj is T obj) {
                 value = obj;
                 return true;
             }
@@ -38,7 +38,10 @@ namespace X.Core.Extensions
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
+        public static TValue GetOrDefault<TKey, TValue>(
+            this Dictionary<TKey, TValue> dictionary,
+            TKey key
+        )
             where TKey : notnull
             => dictionary.TryGetValue(key, out var obj) ? obj : default;
 
@@ -50,7 +53,10 @@ namespace X.Core.Extensions
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        public static TValue GetOrDefault<TKey, TValue>(
+            this IDictionary<TKey, TValue> dictionary,
+            TKey key
+        )
             where TKey : notnull
             => dictionary.TryGetValue(key, out var obj) ? obj : default;
 
@@ -62,7 +68,10 @@ namespace X.Core.Extensions
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
+        public static TValue GetOrDefault<TKey, TValue>(
+            this IReadOnlyDictionary<TKey, TValue> dictionary,
+            TKey key
+        )
             where TKey : notnull
             => dictionary.TryGetValue(key, out var obj) ? obj : default;
 
@@ -74,7 +83,10 @@ namespace X.Core.Extensions
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary, TKey key)
+        public static TValue GetOrDefault<TKey, TValue>(
+            this ConcurrentDictionary<TKey, TValue> dictionary,
+            TKey key
+        )
             where TKey : notnull
             => dictionary.TryGetValue(key, out var obj) ? obj : default;
 
@@ -90,8 +102,8 @@ namespace X.Core.Extensions
         public static TValue GetOrAdd<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary,
             TKey key,
-            Func<TKey, TValue> factory) where TKey : notnull
-        {
+            Func<TKey, TValue> factory
+        ) where TKey : notnull {
             if (dictionary.TryGetValue(key, out var obj)) return obj;
 
             return dictionary[key] = factory(key);
@@ -109,7 +121,8 @@ namespace X.Core.Extensions
         public static TValue GetOrAdd<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary,
             TKey key,
-            Func<TValue> factory) where TKey : notnull
+            Func<TValue> factory
+        ) where TKey : notnull
             => dictionary.GetOrAdd(key, k => factory());
     }
 }

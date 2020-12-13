@@ -4,19 +4,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 
-namespace X.Core.Utils
-{
+namespace X.Core.Utils {
     /// <summary>
     /// A helper class for File operations.
     /// </summary>
-    public static class FileHelper
-    {
+    public static class FileHelper {
         /// <summary>
         /// Checks and deletes given file if it does exists.
         /// </summary>
         /// <param name="filePath">Path of the file</param>
-        public static bool DeleteIfExists(string filePath)
-        {
+        public static bool DeleteIfExists(string filePath) {
             if (!File.Exists(filePath)) return false;
 
             File.Delete(filePath);
@@ -31,8 +28,7 @@ namespace X.Core.Utils
         /// Returns extension without dot.
         /// Returns null if given <paramref name="fileNameWithExtension"></paramref> does not include dot.
         /// </returns>
-        public static string? GetExtension(string fileNameWithExtension)
-        {
+        public static string? GetExtension(string fileNameWithExtension) {
             Guard.Against.Null(fileNameWithExtension, nameof(fileNameWithExtension));
 
             var lastDotIndex = fileNameWithExtension.LastIndexOf('.');
@@ -45,8 +41,7 @@ namespace X.Core.Utils
         /// </summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
-        public static async Task<string> ReadAllTextAsync(string path)
-        {
+        public static async Task<string> ReadAllTextAsync(string path) {
             using var reader = File.OpenText(path);
             return await reader.ReadToEndAsync();
         }
@@ -56,8 +51,7 @@ namespace X.Core.Utils
         /// </summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
-        public static async Task<byte[]> ReadAllBytesAsync(string path)
-        {
+        public static async Task<byte[]> ReadAllBytesAsync(string path) {
             await using var stream = File.Open(path, FileMode.Open);
 
             var result = new byte[stream.Length];
@@ -71,7 +65,10 @@ namespace X.Core.Utils
         /// <param name="path">The file to open for reading.</param>
         /// <param name="encoding">Encoding of the file. Default is UTF8</param>
         /// <param name="fileMode">Specifies how the operating system should open a file. Default is Open</param>
-        /// <param name="fileAccess">Defines constants for read, write, or read/write access to a file. Default is Read</param>
+        /// <param name="fileAccess">
+        /// Defines constants for read, write, or read/write access to a file. Default
+        /// is Read
+        /// </param>
         /// <param name="fileShare">
         /// Contains constants for controlling the kind of access other FileStream objects can have to the
         /// same file. Default is Read
@@ -79,7 +76,8 @@ namespace X.Core.Utils
         /// <param name="bufferSize">Length of StreamReader buffer. Default is 4096.</param>
         /// <param name="fileOptions">
         /// Indicates FileStream options. Default is Asynchronous (The file is to be used for
-        /// asynchronous reading.) and SequentialScan (The file is to be accessed sequentially from beginning to end.)
+        /// asynchronous reading.) and SequentialScan (The file is to be accessed sequentially from beginning
+        /// to end.)
         /// </param>
         /// <returns>A string containing all lines of the file.</returns>
         public static async Task<string[]> ReadAllLinesAsync(
@@ -89,20 +87,22 @@ namespace X.Core.Utils
             FileAccess fileAccess = FileAccess.Read,
             FileShare fileShare = FileShare.Read,
             int bufferSize = 4096,
-            FileOptions fileOptions = FileOptions.Asynchronous | FileOptions.SequentialScan)
-        {
+            FileOptions fileOptions = FileOptions.Asynchronous | FileOptions.SequentialScan
+        ) {
             encoding ??= Encoding.UTF8;
 
             var lines = new List<string>();
 
-            await using (var stream = new FileStream(path, fileMode, fileAccess, fileShare, bufferSize, fileOptions))
-            {
-                using (var reader = new StreamReader(stream, encoding))
-                {
-                    string? line;
+            await using (var stream = new FileStream(path,
+                fileMode,
+                fileAccess,
+                fileShare,
+                bufferSize,
+                fileOptions))
+            using (var reader = new StreamReader(stream, encoding)) {
+                string? line;
 
-                    while ((line = await reader.ReadLineAsync()) != null) lines.Add(line);
-                }
+                while ((line = await reader.ReadLineAsync()) != null) lines.Add(line);
             }
 
             return lines.ToArray();

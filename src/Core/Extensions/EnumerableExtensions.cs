@@ -2,26 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace X.Core.Extensions
-{
+namespace X.Core.Extensions {
     /// <summary>
     /// Extension methods for <see cref="IEnumerable{T}"/>.
     /// </summary>
-    public static class EnumerableExtensions
-    {
+    public static class EnumerableExtensions {
         /// <summary>
         /// Performs the specified action on each element of the <see cref="IEnumerable{T}"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <param name="action"></param>
-        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
-        {
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action) {
             foreach (var obj in source) action(obj);
         }
 
         /// <summary>
-        /// Concatenates the members of a constructed <see cref="IEnumerable{T}"/> collection of type System.String, using the
+        /// Concatenates the members of a constructed <see cref="IEnumerable{T}"/> collection of type
+        /// System.String, using the
         /// specified separator between each member.
         /// This is a shortcut for string.Join(...)
         /// </summary>
@@ -31,7 +29,8 @@ namespace X.Core.Extensions
         /// has more than one element.
         /// </param>
         /// <returns>
-        /// A string that consists of the members of values delimited by the separator string. If values has no members,
+        /// A string that consists of the members of values delimited by the separator string. If values has no
+        /// members,
         /// the method returns System.String.Empty.
         /// </returns>
         public static string JoinAsString(this IEnumerable<string> source, string separator)
@@ -48,7 +47,8 @@ namespace X.Core.Extensions
         /// </param>
         /// <typeparam name="T">The type of the members of values.</typeparam>
         /// <returns>
-        /// A string that consists of the members of values delimited by the separator string. If values has no members,
+        /// A string that consists of the members of values delimited by the separator string. If values has no
+        /// members,
         /// the method returns System.String.Empty.
         /// </returns>
         public static string JoinAsString<T>(this IEnumerable<T> source, string separator)
@@ -61,7 +61,11 @@ namespace X.Core.Extensions
         /// <param name="condition">A boolean value</param>
         /// <param name="predicate">Predicate to filter the enumerable</param>
         /// <returns>Filtered or not filtered enumerable based on <paramref name="condition"/></returns>
-        public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition, Func<T, bool> predicate)
+        public static IEnumerable<T> WhereIf<T>(
+            this IEnumerable<T> source,
+            bool condition,
+            Func<T, bool> predicate
+        )
             => condition ? source.Where(predicate) : source;
 
         /// <summary>
@@ -74,17 +78,19 @@ namespace X.Core.Extensions
         public static IEnumerable<T> WhereIf<T>(
             this IEnumerable<T> source,
             bool condition,
-            Func<T, int, bool> predicate)
+            Func<T, int, bool> predicate
+        )
             => condition ? source.Where(predicate) : source;
 
-        public static bool HasDuplicates<T, TProp>(this IEnumerable<T> list, Func<T, TProp> selector)
-        {
+        public static bool HasDuplicates<T, TProp>(
+            this IEnumerable<T> list,
+            Func<T, TProp> selector
+        ) {
             var d = new HashSet<TProp>();
 
             foreach (var t in list)
-            {
-                if (!d.Add(selector(t))) return true;
-            }
+                if (!d.Add(selector(t)))
+                    return true;
 
             return false;
         }

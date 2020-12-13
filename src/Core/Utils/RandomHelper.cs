@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Ardalis.GuardClauses;
 
-namespace X.Core.Utils
-{
+namespace X.Core.Utils {
     /// <summary>
     /// A shortcut to use <see cref="Random"/> class.
     /// Also provides some useful methods.
     /// </summary>
-    public static class RandomHelper
-    {
-        private static readonly Random Rnd = new Random();
+    public static class RandomHelper {
+        private static readonly Random Rnd = new();
 
         /// <summary>
         /// Returns a random number within a specified range.
@@ -26,8 +24,7 @@ namespace X.Core.Utils
         /// that is, the range of return values includes minValue but not maxValue.
         /// If minValue equals maxValue, minValue is returned.
         /// </returns>
-        public static int GetRandom(int minValue, int maxValue)
-        {
+        public static int GetRandom(int minValue, int maxValue) {
             lock (Rnd) return Rnd.Next(minValue, maxValue);
         }
 
@@ -43,17 +40,17 @@ namespace X.Core.Utils
         /// that is, the range of return values ordinarily includes zero but not maxValue.
         /// However, if maxValue equals zero, maxValue is returned.
         /// </returns>
-        public static int GetRandom(int maxValue)
-        {
+        public static int GetRandom(int maxValue) {
             lock (Rnd) return Rnd.Next(maxValue);
         }
 
         /// <summary>
         /// Returns a nonnegative random number.
         /// </summary>
-        /// <returns>A 32-bit signed integer greater than or equal to zero and less than <see cref="int.MaxValue"/>.</returns>
-        public static int GetRandom()
-        {
+        /// <returns>
+        /// A 32-bit signed integer greater than or equal to zero and less than <see cref="int.MaxValue"/>.
+        /// </returns>
+        public static int GetRandom() {
             lock (Rnd) return Rnd.Next();
         }
 
@@ -62,8 +59,7 @@ namespace X.Core.Utils
         /// </summary>
         /// <typeparam name="T">Type of the objects</typeparam>
         /// <param name="objects">List of object to select a random one</param>
-        public static T GetRandomOf<T>(params T[] objects)
-        {
+        public static T GetRandomOf<T>(params T[] objects) {
             Guard.Against.NullOrEmpty(objects, nameof(objects));
 
             return objects[GetRandom(0, objects.Length)];
@@ -74,8 +70,7 @@ namespace X.Core.Utils
         /// </summary>
         /// <typeparam name="T">Type of the objects</typeparam>
         /// <param name="list">List of object to select a random one</param>
-        public static T GetRandomOfList<T>(IList<T> list)
-        {
+        public static T GetRandomOfList<T>(IList<T> list) {
             Guard.Against.NullOrEmpty(list, nameof(list));
 
             return list[GetRandom(0, list.Count)];
@@ -86,14 +81,12 @@ namespace X.Core.Utils
         /// </summary>
         /// <typeparam name="T">Type of items in the list</typeparam>
         /// <param name="items">items</param>
-        public static List<T> GenerateRandomizedList<T>(IList<T> items)
-        {
+        public static List<T> GenerateRandomizedList<T>(IList<T> items) {
             Guard.Against.Null(items, nameof(items));
 
             var randomList = new List<T>();
 
-            while (items.Any())
-            {
+            while (items.Any()) {
                 var randomIndex = GetRandom(0, items.Count);
                 randomList.Add(items[randomIndex]);
                 items.RemoveAt(randomIndex);

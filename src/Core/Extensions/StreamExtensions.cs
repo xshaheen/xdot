@@ -2,12 +2,9 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace X.Core.Extensions
-{
-    public static class StreamExtensions
-    {
-        public static byte[] GetAllBytes(this Stream stream)
-        {
+namespace X.Core.Extensions {
+    public static class StreamExtensions {
+        public static byte[] GetAllBytes(this Stream stream) {
             using var memoryStream = new MemoryStream();
 
             stream.Position = 0;
@@ -17,8 +14,8 @@ namespace X.Core.Extensions
 
         public static async Task<byte[]> GetAllBytesAsync(
             this Stream stream,
-            CancellationToken cancellationToken = default)
-        {
+            CancellationToken cancellationToken = default
+        ) {
             await using var memoryStream = new MemoryStream();
 
             stream.Position = 0;
@@ -29,8 +26,8 @@ namespace X.Core.Extensions
         public static Task CopyToAsync(
             this Stream stream,
             Stream destination,
-            CancellationToken cancellationToken = default)
-        {
+            CancellationToken cancellationToken = default
+        ) {
             stream.Position = 0;
             return stream.CopyToAsync(
                 destination,

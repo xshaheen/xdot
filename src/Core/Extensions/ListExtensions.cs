@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Ardalis.GuardClauses;
 
-namespace X.Core.Extensions
-{
-    public static class ListExtensions
-    {
-        public static void InsertRange<T>(this IList<T> source, int index, IEnumerable<T> items)
-        {
+namespace X.Core.Extensions {
+    public static class ListExtensions {
+        public static void InsertRange<T>(this IList<T> source, int index, IEnumerable<T> items) {
             foreach (var item in items) source.Insert(index++, item);
         }
 
-        public static int FindIndex<T>(this IList<T> source, Predicate<T> selector)
-        {
+        public static int FindIndex<T>(this IList<T> source, Predicate<T> selector) {
             for (var i = 0; i < source.Count; ++i)
                 if (selector(source[i]))
                     return i;
@@ -23,13 +19,12 @@ namespace X.Core.Extensions
 
         public static void AddFirst<T>(this IList<T> source, T item) => source.Insert(0, item);
 
-        public static void AddLast<T>(this IList<T> source, T item) => source.Insert(source.Count, item);
+        public static void AddLast<T>(this IList<T> source, T item)
+            => source.Insert(source.Count, item);
 
-        public static void InsertAfter<T>(this IList<T> source, T existingItem, T item)
-        {
+        public static void InsertAfter<T>(this IList<T> source, T existingItem, T item) {
             var index = source.IndexOf(existingItem);
-            if (index < 0)
-            {
+            if (index < 0) {
                 source.AddFirst(item);
                 return;
             }
@@ -37,11 +32,9 @@ namespace X.Core.Extensions
             source.Insert(index + 1, item);
         }
 
-        public static void InsertAfter<T>(this IList<T> source, Predicate<T> selector, T item)
-        {
+        public static void InsertAfter<T>(this IList<T> source, Predicate<T> selector, T item) {
             var index = source.FindIndex(selector);
-            if (index < 0)
-            {
+            if (index < 0) {
                 source.AddFirst(item);
                 return;
             }
@@ -49,11 +42,9 @@ namespace X.Core.Extensions
             source.Insert(index + 1, item);
         }
 
-        public static void InsertBefore<T>(this IList<T> source, T existingItem, T item)
-        {
+        public static void InsertBefore<T>(this IList<T> source, T existingItem, T item) {
             var index = source.IndexOf(existingItem);
-            if (index < 0)
-            {
+            if (index < 0) {
                 source.AddLast(item);
                 return;
             }
@@ -61,11 +52,9 @@ namespace X.Core.Extensions
             source.Insert(index, item);
         }
 
-        public static void InsertBefore<T>(this IList<T> source, Predicate<T> selector, T item)
-        {
+        public static void InsertBefore<T>(this IList<T> source, Predicate<T> selector, T item) {
             var index = source.FindIndex(selector);
-            if (index < 0)
-            {
+            if (index < 0) {
                 source.AddLast(item);
                 return;
             }
@@ -73,61 +62,58 @@ namespace X.Core.Extensions
             source.Insert(index, item);
         }
 
-        public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, T item)
-        {
+        public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, T item) {
             for (var i = 0; i < source.Count; i++)
                 if (selector(source[i]))
                     source[i] = item;
         }
 
-        public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, Func<T, T> itemFactory)
-        {
-            for (var i = 0; i < source.Count; i++)
-            {
+        public static void ReplaceWhile<T>(
+            this IList<T> source,
+            Predicate<T> selector,
+            Func<T, T> itemFactory
+        ) {
+            for (var i = 0; i < source.Count; i++) {
                 var item                      = source[i];
                 if (selector(item)) source[i] = itemFactory(item);
             }
         }
 
-        public static void ReplaceFirst<T>(this IList<T> source, Predicate<T> selector, T item)
-        {
+        public static void ReplaceFirst<T>(this IList<T> source, Predicate<T> selector, T item) {
             for (var i = 0; i < source.Count; i++)
-            {
-                if (selector(source[i]))
-                {
+                if (selector(source[i])) {
                     source[i] = item;
                     return;
                 }
-            }
         }
 
-        public static void ReplaceFirst<T>(this IList<T> source, Predicate<T> selector, Func<T, T> itemFactory)
-        {
-            for (var i = 0; i < source.Count; i++)
-            {
+        public static void ReplaceFirst<T>(
+            this IList<T> source,
+            Predicate<T> selector,
+            Func<T, T> itemFactory
+        ) {
+            for (var i = 0; i < source.Count; i++) {
                 var item = source[i];
-                if (selector(item))
-                {
+                if (selector(item)) {
                     source[i] = itemFactory(item);
                     return;
                 }
             }
         }
 
-        public static void ReplaceFirst<T>(this IList<T> source, T item, T replaceWith)
-        {
+        public static void ReplaceFirst<T>(this IList<T> source, T item, T replaceWith) {
             for (var i = 0; i < source.Count; i++)
-            {
-                if (Comparer<T>.Default.Compare(source[i], item) == 0)
-                {
+                if (Comparer<T>.Default.Compare(source[i], item) == 0) {
                     source[i] = replaceWith;
                     return;
                 }
-            }
         }
 
-        public static void MoveItem<T>(this List<T> source, Predicate<T> selector, int targetIndex)
-        {
+        public static void MoveItem<T>(
+            this List<T> source,
+            Predicate<T> selector,
+            int targetIndex
+        ) {
             var len = source.Count - 1;
             if (!targetIndex.ExclusiveBetween(0, len))
                 throw new IndexOutOfRangeException($"targetIndex should be between 0 and {len}");
@@ -140,14 +126,12 @@ namespace X.Core.Extensions
             source.Insert(targetIndex, item);
         }
 
-        public static T GetOrAdd<T>(this IList<T> source, Func<T, bool> selector, Func<T> factory)
-        {
+        public static T GetOrAdd<T>(this IList<T> source, Func<T, bool> selector, Func<T> factory) {
             Guard.Against.Null(source, nameof(source));
 
             var item = source.FirstOrDefault(selector);
 
-            if (item is null)
-            {
+            if (item is null) {
                 item = factory();
                 source.Add(item);
             }

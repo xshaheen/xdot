@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace X.Core
-{
-    public class Result
-    {
+namespace X.Core {
+    public class Result {
         private Result() { }
 
         /// <summary>
@@ -26,14 +24,15 @@ namespace X.Core
 
         #region Helpers
 
-        public static Result Success() => new Result { Succeeded = true };
+        public static Result Success() => new() { Succeeded = true };
 
-        public static Result Failure() => new Result { Succeeded = false };
+        public static Result Failure() => new() { Succeeded = false };
 
         public static Result Failure(IEnumerable<string> errors)
-            => new Result { Succeeded = false, Errors = errors is string[] e ? e : errors.ToArray() };
+            => new() { Succeeded = false, Errors = errors is string[] e ? e : errors.ToArray() };
 
-        public static Result Failure(params string[] message) => new Result { Succeeded = false, Errors = message };
+        public static Result Failure(params string[] message)
+            => new() { Succeeded = false, Errors = message };
 
         #endregion Helpers
     }

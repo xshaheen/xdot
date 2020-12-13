@@ -4,13 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using Ardalis.GuardClauses;
 
-namespace X.Core.Extensions
-{
+namespace X.Core.Extensions {
     /// <summary>
     /// Some useful extension methods for <see cref="IQueryable{T}"/>.
     /// </summary>
-    public static class QueryableExtensions
-    {
+    public static class QueryableExtensions {
         /// <summary>
         /// Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
         /// </summary>
@@ -21,8 +19,8 @@ namespace X.Core.Extensions
         public static IQueryable<T> WhereIf<T>(
             this IQueryable<T> query,
             bool condition,
-            Expression<Func<T, bool>> predicate)
-        {
+            Expression<Func<T, bool>> predicate
+        ) {
             Guard.Against.Null(query, nameof(query));
 
             return condition ? query.Where(predicate) : query;
@@ -38,9 +36,9 @@ namespace X.Core.Extensions
         public static TQueryable WhereIf<T, TQueryable>(
             [NotNull] this TQueryable query,
             bool condition,
-            Expression<Func<T, bool>> predicate)
-            where TQueryable : IQueryable<T>
-        {
+            Expression<Func<T, bool>> predicate
+        )
+            where TQueryable : IQueryable<T> {
             Guard.Against.Null(query, nameof(query));
 
             return condition ? (TQueryable) query.Where(predicate) : query;
@@ -56,8 +54,8 @@ namespace X.Core.Extensions
         public static IQueryable<T> WhereIf<T>(
             [NotNull] this IQueryable<T> query,
             bool condition,
-            Expression<Func<T, int, bool>> predicate)
-        {
+            Expression<Func<T, int, bool>> predicate
+        ) {
             Guard.Against.Null(query, nameof(query));
 
             return condition ? query.Where(predicate) : query;
@@ -73,8 +71,8 @@ namespace X.Core.Extensions
         public static TQueryable WhereIf<T, TQueryable>(
             [NotNull] this TQueryable query,
             bool condition,
-            Expression<Func<T, int, bool>> predicate) where TQueryable : IQueryable<T>
-        {
+            Expression<Func<T, int, bool>> predicate
+        ) where TQueryable : IQueryable<T> {
             Guard.Against.Null(query, nameof(query));
 
             return condition ? (TQueryable) query.Where(predicate) : query;

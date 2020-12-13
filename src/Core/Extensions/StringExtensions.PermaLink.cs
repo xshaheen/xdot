@@ -5,10 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Ardalis.GuardClauses;
 
-namespace X.Core.Extensions
-{
-    public static partial class StringExtensions
-    {
+namespace X.Core.Extensions {
+    public static partial class StringExtensions {
         /// <summary>
         /// Convert the string to SEO optimized and valid url.
         /// </summary>
@@ -21,20 +19,16 @@ namespace X.Core.Extensions
         /// <param name="input">The string to be converted.</param>
         /// <param name="key">A unique identifier to append at the end to make uri unique.</param>
         /// <returns></returns>
-        public static string PermaLink(this string input, string key) => $"{ExcludeNonAlpha(input)}-{key.Truncate(10)}";
+        public static string PermaLink(this string input, string key)
+            => $"{ExcludeNonAlpha(input)}-{key.Truncate(10)}";
 
-        private static string ExcludeNonAlpha(string input)
-        {
+        private static string ExcludeNonAlpha(string input) {
             Guard.Against.NullOrEmpty(input, nameof(input));
 
             var result = input.Trim()
                 .Replace(
-                    new[]
-                    {
-                        ("&", " And "),
-                        ("#", " Sharp "),
-                        ("+", " Plus "),
-                        ("%", " Percent "),
+                    new[] {
+                        ("&", " And "), ("#", " Sharp "), ("+", " Plus "), ("%", " Percent "),
                         ("$", " Dollar "),
                     })
                 .NoAccent()
@@ -46,8 +40,7 @@ namespace X.Core.Extensions
             return new Regex(@" +").Replace(temp, "-");
         }
 
-        private static IEnumerable<char> NoAccent(this string input)
-        {
+        private static IEnumerable<char> NoAccent(this string input) {
             var cs =
                 from ch in input.Normalize(NormalizationForm.FormD)
                 let category = CharUnicodeInfo.GetUnicodeCategory(ch)
@@ -60,34 +53,27 @@ namespace X.Core.Extensions
         private static IEnumerable<char> NoSymbols(this IEnumerable<char> input)
             => input.Select(c => (char.IsPunctuation(c) || char.IsSymbol(c)) && c != '.' ? ' ' : c);
 
-        private static IEnumerable<char> FirstUpper(this IEnumerable<char> str)
-        {
+        private static IEnumerable<char> FirstUpper(this IEnumerable<char> str) {
             var newWord = true;
 
-            foreach (var c in str)
-            {
-                if (char.IsDigit(c))
-                {
+            foreach (var c in str) {
+                if (char.IsDigit(c)) {
                     yield return c;
                     continue;
                 }
 
-                if (!char.IsLetter(c))
-                {
+                if (!char.IsLetter(c)) {
                     yield return c;
                     newWord = true;
                     continue;
                 }
 
-                if (newWord)
-                {
+                if (newWord) {
                     yield return char.ToUpper(c);
                     newWord = false;
                 }
                 else
-                {
                     yield return c;
-                }
             }
         }
     }

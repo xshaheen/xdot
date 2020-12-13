@@ -5,19 +5,16 @@ using X.Core.Extensions;
 using X.Core.Utils;
 using Xunit;
 
-namespace Core.Tests.Extensions
-{
-    public class StringExtensionsTests : IDisposable
-    {
+namespace Core.Tests.Extensions {
+    public class StringExtensionsTests : IDisposable {
         private readonly IDisposable _cultureScope;
 
-        public StringExtensionsTests() { _cultureScope = CultureHelper.Use("en-US"); }
+        public StringExtensionsTests() => _cultureScope = CultureHelper.Use("en-US");
 
-        public void Dispose() { _cultureScope.Dispose(); }
+        public void Dispose() => _cultureScope.Dispose();
 
         [Fact]
-        public void Right_Test()
-        {
+        public void Right_Test() {
             const string str = "This is a test string";
 
             str.Right(3).Should().Be("ing");
@@ -26,8 +23,7 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void Left_Test()
-        {
+        public void Left_Test() {
             const string str = "This is a test string";
 
             str.Left(3).Should().Be("Thi");
@@ -36,27 +32,24 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void NormalizeLineEndings_Test()
-        {
+        public void NormalizeLineEndings_Test() {
             const string str = "This\r\n is a\r test \n string";
 
             var normalized = str.NormalizeLineEndings();
-            var lines = normalized.SplitToLines();
+            var lines      = normalized.SplitToLines();
 
             lines.Length.Should().Be(4);
         }
 
         [Fact]
-        public void OneSpace()
-        {
+        public void OneSpace() {
             "   ".OneSpace().Should().Be(" ");
             "\n\n\n".OneSpace().Should().Be(" ");
             "This\r\n is a\r test \n string".OneSpace().Should().Be("This is a test string");
         }
 
         [Fact]
-        public void EnsureEndsWith_Test()
-        {
+        public void EnsureEndsWith_Test() {
             // Expected use-cases
             "Test".EnsureEndsWith('!').Should().Be("Test!");
             "Test!".EnsureEndsWith('!').Should().Be("Test!");
@@ -69,17 +62,14 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void EnsureEndsWith_CultureSpecific_Test()
-        {
+        public void EnsureEndsWith_CultureSpecific_Test() {
             using (CultureHelper.Use("tr-TR"))
-            {
-                "Kırmızı".EnsureEndsWith('I', StringComparison.CurrentCultureIgnoreCase).Should().Be("Kırmızı");
-            }
+                "Kırmızı".EnsureEndsWith('I', StringComparison.CurrentCultureIgnoreCase).Should()
+                    .Be("Kırmızı");
         }
 
         [Fact]
-        public void EnsureStartsWith_Test()
-        {
+        public void EnsureStartsWith_Test() {
             // Expected use-cases
             "Test".EnsureStartsWith('~').Should().Be("~Test");
             "~Test".EnsureStartsWith('~').Should().Be("~Test");
@@ -89,8 +79,7 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void NthIndexOf_Test()
-        {
+        public void NthIndexOf_Test() {
             const string str = "This is a test string";
 
             str.NthIndexOf('i', 0).Should().Be(-1);
@@ -101,9 +90,8 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void Truncate_Test()
-        {
-            const string str = "This is a test string";
+        public void Truncate_Test() {
+            const string  str       = "This is a test string";
             const string? nullValue = null;
 
             str.Truncate(7).Should().Be("This is");
@@ -114,9 +102,8 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void TruncateWithPostfix_Test()
-        {
-            const string str = "This is a test string";
+        public void TruncateWithPostfix_Test() {
+            const string  str       = "This is a test string";
             const string? nullValue = null;
 
             str.TruncateWithPostfix(3).Should().Be("...");
@@ -135,8 +122,7 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void RemovePostfix_Tests()
-        {
+        public void RemovePostfix_Tests() {
             // null case
             (null as string).RemovePrefix("Test").Should().BeNull();
 
@@ -149,35 +135,35 @@ namespace Core.Tests.Extensions
             "MyTestAppService".RemovePostfix("Service", "AppService").Should().Be("MyTestApp");
 
             // Ignore case
-            "TestString".RemovePostfix(StringComparison.OrdinalIgnoreCase, "string").Should().Be("Test");
+            "TestString".RemovePostfix(StringComparison.OrdinalIgnoreCase, "string").Should()
+                .Be("Test");
 
             // Unmatched case
             "MyTestAppService".RemovePostfix("Unmatched").Should().Be("MyTestAppService");
         }
 
         [Fact]
-        public void RemovePrefix_Tests()
-        {
+        public void RemovePrefix_Tests() {
             "Home.Index".RemovePrefix("NotMatchedPostfix").Should().Be("Home.Index");
             "Home.About".RemovePrefix("Home.").Should().Be("About");
 
             //Ignore case
-            "Https://abp.io".RemovePrefix(StringComparison.OrdinalIgnoreCase, "https://").Should().Be("abp.io");
+            "Https://abp.io".RemovePrefix(StringComparison.OrdinalIgnoreCase, "https://").Should()
+                .Be("abp.io");
         }
 
         [Fact]
-        public void ReplaceFirst_Tests()
-        {
+        public void ReplaceFirst_Tests() {
             "Test string".ReplaceFirst("s", "X").Should().Be("TeXt string");
             "Test test test".ReplaceFirst("test", "XX").Should().Be("Test XX test");
-            "Test test test".ReplaceFirst("test", "XX", StringComparison.OrdinalIgnoreCase).Should().Be("XX test test");
+            "Test test test".ReplaceFirst("test", "XX", StringComparison.OrdinalIgnoreCase).Should()
+                .Be("XX test test");
         }
 
         [Theory]
         [InlineData("")]
         [InlineData("MyStringİ")]
-        public void GetBytes_Test(string str)
-        {
+        public void GetBytes_Test(string str) {
             var bytes = str.GetBytes();
             bytes.Should().NotBeNull();
             bytes.Length.Should().BeGreaterOrEqualTo(str.Length);
@@ -187,8 +173,7 @@ namespace Core.Tests.Extensions
         [Theory]
         [InlineData("")]
         [InlineData("MyString")]
-        public void GetBytes_With_Encoding_Test(string str)
-        {
+        public void GetBytes_With_Encoding_Test(string str) {
             var bytes = str.GetBytes(Encoding.ASCII);
             bytes.Should().NotBeNull();
             bytes.Length.Should().BeGreaterOrEqualTo(str.Length);
@@ -196,8 +181,7 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void ToEnum_Test()
-        {
+        public void ToEnum_Test() {
             "MyValue1".ToEnum<MyEnum>().Should().Be(MyEnum.MyValue1);
             "MyValue2".ToEnum<MyEnum>().Should().Be(MyEnum.MyValue2);
         }

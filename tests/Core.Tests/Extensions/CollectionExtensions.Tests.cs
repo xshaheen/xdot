@@ -3,13 +3,10 @@ using FluentAssertions;
 using X.Core.Extensions;
 using Xunit;
 
-namespace Core.Tests.Extensions
-{
-    public class CollectionExtensionsTests
-    {
+namespace Core.Tests.Extensions {
+    public class CollectionExtensionsTests {
         [Fact]
-        public void AddIfNotContains_With_Predicate()
-        {
+        public void AddIfNotContains_With_Predicate() {
             var collection = new List<int> { 4, 5, 6 };
 
             collection.AddIfNotContains(x => x == 5, () => 5);

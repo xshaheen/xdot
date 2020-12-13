@@ -1,10 +1,8 @@
-namespace X.Core.Utils
-{
+namespace X.Core.Utils {
     /// <summary>
     /// Arabic letters & classification
     /// </summary>
-    public class Ar
-    {
+    public class Ar {
         /// <summary>
         /// https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
         /// <para>
@@ -37,7 +35,8 @@ namespace X.Core.Utils
         /// See: https://www.unicode.org/charts/PDF/U08A0.pdf
         /// </para>
         /// </summary>
-        public static string ArabicRange = @"[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\u08A0–\u08FF]";
+        public static string ArabicRange =
+            @"[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\u08A0–\u08FF]";
 
         /// <summary>Arabic Comma '،'</summary>
         public static char Comma = '\u060C';

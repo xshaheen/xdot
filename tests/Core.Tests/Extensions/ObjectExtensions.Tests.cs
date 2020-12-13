@@ -3,13 +3,10 @@ using FluentAssertions;
 using X.Core.Extensions;
 using Xunit;
 
-namespace Core.Tests.Extensions
-{
-    public class ObjectExtensionsTests
-    {
+namespace Core.Tests.Extensions {
+    public class ObjectExtensionsTests {
         [Fact]
-        public void As_Test()
-        {
+        public void As_Test() {
             var o1 = (object) new ObjectExtensionsTests();
             ObjectExtensions.As<ObjectExtensionsTests>(o1).Should().NotBe(null);
 
@@ -18,8 +15,7 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void To_Tests()
-        {
+        public void To_Tests() {
             "42".To<int>().Should().Be(42);
             "42".To<int>().Should().Be(42);
 
@@ -43,8 +39,7 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void IsIn_Test()
-        {
+        public void IsIn_Test() {
             5.IsIn(1, 3, 5, 7).Should().Be(true);
             6.IsIn(1, 3, 5, 7).Should().Be(false);
 
@@ -59,8 +54,7 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void If_Tests()
-        {
+        public void If_Tests() {
             var value = 0;
 
             value = value.If(true, v => v + 1);

@@ -3,13 +3,10 @@ using FluentAssertions;
 using X.Core.Extensions;
 using Xunit;
 
-namespace Core.Tests.Extensions
-{
-    public class ComparableExtensionsTests
-    {
+namespace Core.Tests.Extensions {
+    public class ComparableExtensionsTests {
         [Fact]
-        public void InclusiveBetween_Test()
-        {
+        public void InclusiveBetween_Test() {
             // Number
             const int number = 5;
             number.InclusiveBetween(1, 10).Should().Be(true);
@@ -32,8 +29,7 @@ namespace Core.Tests.Extensions
         }
 
         [Fact]
-        public void ExclusiveBetween_Test()
-        {
+        public void ExclusiveBetween_Test() {
             // Number
             const int number = 5;
             number.ExclusiveBetween(1, 10).Should().Be(true);

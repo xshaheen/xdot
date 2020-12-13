@@ -3,13 +3,12 @@ using X.Core.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Core.Tests.Extensions
-{
-    public class StringExtensionsRemoveDiacriticsTests
-    {
+namespace Core.Tests.Extensions {
+    public class StringExtensionsRemoveDiacriticsTests {
         private readonly ITestOutputHelper _output;
 
-        public StringExtensionsRemoveDiacriticsTests(ITestOutputHelper testOutputHelper) { _output = testOutputHelper; }
+        public StringExtensionsRemoveDiacriticsTests(ITestOutputHelper testOutputHelper)
+            => _output = testOutputHelper;
 
         [Theory]
         [InlineData(null, null)]
@@ -17,9 +16,7 @@ namespace Core.Tests.Extensions
         [InlineData(" ", " ")]
         [InlineData("  ", "  ")]
         public void RemoveAccent_Returns_WhiteSpaces_With_No_Changes(string value, string expected)
-        {
-            Test(value, expected);
-        }
+            => Test(value, expected);
 
         [Theory]
         [InlineData("ﺞ", "ج")]
@@ -27,10 +24,10 @@ namespace Core.Tests.Extensions
         [InlineData("ﺑ", "ب")]
         [InlineData("ﻬ", "ه")]
         public void RemoveAccent_Converts_Arabic_Context_Characters_To_Regular_Characters(
-            string value, string expected)
-        {
-            Test(value, expected);
-        }
+            string value,
+            string expected
+        )
+            => Test(value, expected);
 
         [Theory]
         [InlineData("ى", "ي")] // Alef maqsurah => ya'
@@ -42,10 +39,11 @@ namespace Core.Tests.Extensions
         // [InlineData("ڮ", "ك")] // Arabic Letter Kaf With Three Dots Below
         // [InlineData("ڪ", "ك")] // Arabic Letter Swash Kaf
         // [InlineData("ڥ", "ف")] // Arabic Letter Swash Kaf
-        public void ArabicNormalization_Work_With_Arabic_Repeated_Characters(string value, string expected)
-        {
-            Test(value, expected);
-        }
+        public void ArabicNormalization_Work_With_Arabic_Repeated_Characters(
+            string value,
+            string expected
+        )
+            => Test(value, expected);
 
         [Theory]
         [InlineData("ء", "ء")]
@@ -58,17 +56,18 @@ namespace Core.Tests.Extensions
         [InlineData("بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", "بسم الله الرحمن الرحيم")]
         [InlineData("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بسم اللـه الرحمـن الرحيم")]
         [InlineData("۞", "بسم اللـه الرحمـن الرحيم")]
-        public void RemoveAccent_Work_With_Arabic_Characters(string value, string expected) { Test(value, expected); }
+        public void RemoveAccent_Work_With_Arabic_Characters(string value, string expected)
+            => Test(value, expected);
 
         [Theory]
         [InlineData("m", "m")]
         [InlineData("123", "123")]
         [InlineData(" Mahmoud 17 ", " Mahmoud 17 ")]
         [InlineData(" crème brûlée", " creme brulee")]
-        public void RemoveAccent_Work_With_Latin_Characters(string value, string expected) { Test(value, expected); }
+        public void RemoveAccent_Work_With_Latin_Characters(string value, string expected)
+            => Test(value, expected);
 
-        private void Test(string value, string expected)
-        {
+        private void Test(string value, string expected) {
             // act
             var result = value.RemoveAccent();
 

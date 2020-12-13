@@ -4,13 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Ardalis.GuardClauses;
 
-namespace X.Core.Extensions
-{
+namespace X.Core.Extensions {
     /// <summary>
     /// Extension methods for Collections.
     /// </summary>
-    public static class CollectionExtensions
-    {
+    public static class CollectionExtensions {
         /// <summary>
         /// Checks whatever given collection object is null or has no item.
         /// </summary>
@@ -24,8 +22,7 @@ namespace X.Core.Extensions
         /// <param name="item">Item to check and add</param>
         /// <typeparam name="T">Type of the items in the collection</typeparam>
         /// <returns>Returns True if added, returns False if not.</returns>
-        public static bool AddIfNotContains<T>(this ICollection<T> source, T item)
-        {
+        public static bool AddIfNotContains<T>(this ICollection<T> source, T item) {
             Guard.Against.Null(source, nameof(source));
 
             if (source.Contains(item)) return false;
@@ -41,14 +38,15 @@ namespace X.Core.Extensions
         /// <param name="items">Item to check and add</param>
         /// <typeparam name="T">Type of the items in the collection</typeparam>
         /// <returns>Returns the added items.</returns>
-        public static IEnumerable<T> AddIfNotContains<T>(this ICollection<T> source, IEnumerable<T> items)
-        {
+        public static IEnumerable<T> AddIfNotContains<T>(
+            this ICollection<T> source,
+            IEnumerable<T> items
+        ) {
             Guard.Against.Null(source, nameof(source));
 
             var addedItems = new List<T>();
 
-            foreach (var item in items)
-            {
+            foreach (var item in items) {
                 if (source.Contains(item)) continue;
 
                 source.Add(item);
@@ -67,10 +65,13 @@ namespace X.Core.Extensions
         /// <param name="itemFactory">A factory that returns the item</param>
         /// <typeparam name="T">Type of the items in the collection</typeparam>
         /// <returns>Returns True if added, returns False if not.</returns>
-        public static bool AddIfNotContains<T>(this ICollection<T> source, Func<T, bool> predicate, Func<T> itemFactory)
-        {
-            Guard.Against.Null(source,      nameof(source));
-            Guard.Against.Null(predicate,   nameof(predicate));
+        public static bool AddIfNotContains<T>(
+            this ICollection<T> source,
+            Func<T, bool> predicate,
+            Func<T> itemFactory
+        ) {
+            Guard.Against.Null(source, nameof(source));
+            Guard.Against.Null(predicate, nameof(predicate));
             Guard.Against.Null(itemFactory, nameof(itemFactory));
 
             if (source.Any(predicate)) return false;
@@ -86,8 +87,7 @@ namespace X.Core.Extensions
         /// <param name="source">The collection</param>
         /// <param name="predicate">The condition to remove the items</param>
         /// <returns>List of removed items</returns>
-        public static IList<T> RemoveAll<T>(this ICollection<T> source, Func<T, bool> predicate)
-        {
+        public static IList<T> RemoveAll<T>(this ICollection<T> source, Func<T, bool> predicate) {
             var items = source.Where(predicate).ToList();
 
             foreach (var item in items) source.Remove(item);

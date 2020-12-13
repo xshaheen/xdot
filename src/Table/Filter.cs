@@ -1,12 +1,8 @@
 using System.Collections.Generic;
-using X.Table;
 
-namespace X.Table
-{
-    public sealed class Filter
-    {
-        public Filter(string property, string comparison, string value)
-        {
+namespace X.Table {
+    public sealed class Filter {
+        public Filter(string property, string comparison, string value) {
             Property   = property;
             Comparison = comparison;
             Value      = value;
@@ -19,5 +15,6 @@ namespace X.Table
         public string Value { get; init; }
     }
 
-    public sealed class Filters : List<Filter> { }
+    public sealed class Filters : List<Filter> {
+    }
 }

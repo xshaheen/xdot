@@ -3,14 +3,11 @@ using System.Globalization;
 using Ardalis.GuardClauses;
 using X.Core.Extensions;
 
-namespace X.Core.Utils
-{
-    public static class CultureHelper
-    {
+namespace X.Core.Utils {
+    public static class CultureHelper {
         public static bool IsRtl => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
 
-        public static IDisposable Use(string culture, string? uiCulture = null)
-        {
+        public static IDisposable Use(string culture, string? uiCulture = null) {
             Guard.Against.Null(culture, nameof(culture));
 
             return Use(
@@ -21,8 +18,7 @@ namespace X.Core.Utils
             );
         }
 
-        public static IDisposable Use(CultureInfo culture, CultureInfo? uiCulture = null)
-        {
+        public static IDisposable Use(CultureInfo culture, CultureInfo? uiCulture = null) {
             Guard.Against.Null(culture, nameof(culture));
 
             var currentCulture   = CultureInfo.CurrentCulture;
@@ -32,24 +28,20 @@ namespace X.Core.Utils
             CultureInfo.CurrentUICulture = uiCulture ?? culture;
 
             return new DisposeAction(
-                () =>
-                {
+                () => {
                     CultureInfo.CurrentCulture   = currentCulture;
                     CultureInfo.CurrentUICulture = currentUiCulture;
                 });
         }
 
-        public static bool IsValidCultureCode(string? cultureCode)
-        {
+        public static bool IsValidCultureCode(string? cultureCode) {
             if (cultureCode.IsNullOrWhiteSpace()) return false;
 
-            try
-            {
+            try {
                 _ = CultureInfo.GetCultureInfo(cultureCode);
                 return true;
             }
-            catch (CultureNotFoundException)
-            {
+            catch (CultureNotFoundException) {
                 return false;
             }
         }

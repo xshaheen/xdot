@@ -2,12 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace X.Domain
-{
-    public abstract class Base<T> : IEquatable<Base<T>>
-    {
-        public bool Equals(Base<T>? other)
-        {
+namespace X.Domain {
+    public abstract class Base<T> : IEquatable<Base<T>> {
+        public bool Equals(Base<T>? other) {
             if (other is null) return false;
 
             if (ReferenceEquals(this, other)) return true;
@@ -17,13 +14,12 @@ namespace X.Domain
             return Equals().SequenceEqual(other.Equals());
         }
 
-        public static bool operator ==(Base<T>? left, Base<T>? right)
-        {
+        public static bool operator==(Base<T>? left, Base<T>? right) {
             if (left is null ^ right is null) return false;
             return left?.Equals(right) != false;
         }
 
-        public static bool operator !=(Base<T> left, Base<T> right) => !(left == right);
+        public static bool operator!=(Base<T> left, Base<T> right) => !(left == right);
 
         public sealed override bool Equals(object? obj) => Equals(obj as Base<T>);
 

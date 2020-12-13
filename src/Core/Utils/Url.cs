@@ -1,25 +1,21 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace X.Core.Utils
-{
-    public static class Url
-    {
+namespace X.Core.Utils {
+    public static class Url {
         /// <summary>
         /// Basically a Path.Combine for URLs. Ensures exactly one '/' separates each segment,
         /// and exactly on '&amp;' separates each query parameter.
         /// URL-encodes illegal characters but not reserved characters.
         /// </summary>
         /// <param name="parts">URL parts to combine.</param>
-        public static string? Combine(params string[]? parts)
-        {
+        public static string? Combine(params string[]? parts) {
             if (parts == null) return null;
 
             var  result  = "";
             bool inQuery = false, inFragment = false;
 
-            foreach (var part in parts)
-            {
+            foreach (var part in parts) {
                 if (string.IsNullOrEmpty(part)) continue;
 
                 if (result.EndsWith("?") || part.StartsWith("?"))
@@ -33,21 +29,16 @@ namespace X.Core.Utils
                 else
                     result = CombineEnsureSingleSeparator(result, part, '/');
 
-                if (part.Contains("#"))
-                {
+                if (part.Contains("#")) {
                     inQuery    = false;
                     inFragment = true;
                 }
-                else if (!inFragment && part.Contains("?"))
-                {
-                    inQuery = true;
-                }
+                else if (!inFragment && part.Contains("?")) inQuery = true;
             }
 
             return EncodeIllegalCharacters(result);
 
-            static string CombineEnsureSingleSeparator(string a, string b, char separator)
-            {
+            static string CombineEnsureSingleSeparator(string a, string b, char separator) {
                 if (string.IsNullOrEmpty(a)) return b;
                 if (string.IsNullOrEmpty(b)) return a;
                 return a.TrimEnd(separator) + separator + b.TrimStart(separator);
@@ -55,14 +46,18 @@ namespace X.Core.Utils
         }
 
         /// <summary>
-        /// URL-encodes characters in a string that are neither reserved nor unreserved. Avoids encoding reserved characters
-        /// such as '/' and '?'. Avoids encoding '%' if it begins a %-hex-hex sequence (i.e. avoids double-encoding).
+        /// URL-encodes characters in a string that are neither reserved nor unreserved. Avoids encoding
+        /// reserved characters
+        /// such as '/' and '?'. Avoids encoding '%' if it begins a %-hex-hex sequence (i.e. avoids
+        /// double-encoding).
         /// </summary>
         /// <param name="s">The string to encode.</param>
-        /// <param name="encodeSpaceAsPlus">If true, spaces will be encoded as + signs. Otherwise, they'll be encoded as %20.</param>
+        /// <param name="encodeSpaceAsPlus">
+        /// If true, spaces will be encoded as + signs. Otherwise, they'll be
+        /// encoded as %20.
+        /// </param>
         /// <returns>The encoded URL.</returns>
-        public static string EncodeIllegalCharacters(string s, bool encodeSpaceAsPlus = false)
-        {
+        public static string EncodeIllegalCharacters(string s, bool encodeSpaceAsPlus = false) {
             if (string.IsNullOrEmpty(s)) return s;
 
             if (encodeSpaceAsPlus) s = s.Replace(" ", "+");
@@ -77,10 +72,11 @@ namespace X.Core.Utils
             return Regex.Replace(
                 s,
                 "(.*?)((%[0-9A-Fa-f]{2})|$)",
-                c =>
-                {
-                    var a = c.Groups[1].Value; // group 1 is a sequence with no %-encoding - encode illegal characters
-                    var b = c.Groups[2].Value; // group 2 is a valid 3-character %-encoded sequence - leave it alone!
+                c => {
+                    var a = c.Groups[1]
+                        .Value; // group 1 is a sequence with no %-encoding - encode illegal characters
+                    var b = c.Groups[2]
+                        .Value; // group 2 is a valid 3-character %-encoded sequence - leave it alone!
                     return Uri.EscapeUriString(a) + b;
                 });
         }

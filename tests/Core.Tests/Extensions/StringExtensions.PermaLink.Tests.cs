@@ -2,10 +2,8 @@ using FluentAssertions;
 using X.Core.Extensions;
 using Xunit;
 
-namespace Core.Tests.Extensions
-{
-    public class StringExtensionsPermaLinkTests
-    {
+namespace Core.Tests.Extensions {
+    public class StringExtensionsPermaLinkTests {
         // URL: scheme:[//host[:port]]path[?query1=a&query2=a+b][#fragment]
         // Separate: -, ., _, ~
         // Reserved: ?, /, #, :, +, &, =
@@ -76,8 +74,7 @@ namespace Core.Tests.Extensions
             "crème brûlée",
             "Creme-Brulee-F13D1B0F57"
         )]
-        public void URLs_Generated_Correctly(string id, string name, string expected)
-        {
+        public void URLs_Generated_Correctly(string id, string name, string expected) {
             // - act
 
             var perma = name.PermaLink(id);

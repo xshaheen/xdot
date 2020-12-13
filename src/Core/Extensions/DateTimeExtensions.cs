@@ -1,9 +1,7 @@
 using System;
 
-namespace X.Core.Extensions
-{
-    public static class DateTimeExtensions
-    {
+namespace X.Core.Extensions {
+    public static class DateTimeExtensions {
         public static DateTime ClearTime(this DateTime dateTime)
             => dateTime.Subtract(
                 new TimeSpan(
