@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <LangVersion>9.0</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 

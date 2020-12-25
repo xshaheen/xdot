@@ -14,7 +14,7 @@ namespace X.Core.Extensions {
         /// Get all claims of type <paramref name="claimType"/>
         /// </summary>
         public static IList<Claim>? Claims(this ClaimsPrincipal? claimsPrincipal, string claimType)
-            => claimsPrincipal?.FindAll(claimType)?.ToList();
+            => claimsPrincipal?.FindAll(claimType).ToList();
 
         /// <summary>
         /// Get user roles collection.
