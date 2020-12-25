@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 
 namespace X.Domain {
-    public abstract class Entity<TId> : Base<Entity<TId>> {
+    public interface IEntity<TId> {
+        TId Id { get; }
+    }
+
+    public abstract class Entity<TId> : Base<Entity<TId>>, IEntity<TId> {
         public TId Id { get; protected init; } = default!;
 
         protected sealed override IEnumerable<object?> Equals() { yield return Id; }
@@ -55,7 +59,7 @@ namespace X.Domain {
         public void SetCreatedAtBy(DateTime at, string by) => (CreatedAt, CreatedBy) = (at, by);
     }
 
-    public abstract record AuditableRecordEntity<TId> : IAuditable {
+    public abstract record AuditableRecordEntity<TId> : IAuditable, IEntity<TId> {
         public TId Id { get; protected init; } = default!;
 
         public DateTime CreatedAt { get; protected set; }
