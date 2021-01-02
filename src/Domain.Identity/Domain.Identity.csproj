@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  
+
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
 
@@ -9,7 +9,7 @@
     <PackageId>Xdot.Domain.Identity</PackageId>
     <Description>Domain utilities.</Description>
     <PackageTags>xdot, domain, utilities</PackageTags>
-    <MinVerTagPrefix>domain.identity-</MinVerTagPrefix>
+    <MinVerTagPrefix>domain-</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>
