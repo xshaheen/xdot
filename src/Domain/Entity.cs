@@ -19,7 +19,7 @@ namespace X.Domain {
     }
 
     public interface IAuditable<out TUser> : IAuditable {
-        TUser LastModifiedBy { get; }
+        TUser? LastModifiedBy { get; }
     }
 
     public interface ICreatorAudit {
@@ -28,17 +28,5 @@ namespace X.Domain {
 
     public interface ICreatorAudit<out TUser> : ICreatorAudit {
         TUser CreatedBy { get; }
-    }
-
-    public abstract class AuditableEntity<TId, TUser>
-        : IEntity<TId>, IAuditable<TUser>, ICreatorAudit<TUser> {
-        public DateTime CreatedAt { get; protected set; }
-
-        public DateTime? LastModifiedAt { get; protected set; }
-        public string? LastModifiedById { get; protected set; } = default!;
-        public TUser LastModifiedBy { get; protected init; } = default!;
-        public string CreatedById { get; protected set; } = default!;
-        public TUser CreatedBy { get; protected init; } = default!;
-        public TId Id { get; protected set; } = default!;
     }
 }
