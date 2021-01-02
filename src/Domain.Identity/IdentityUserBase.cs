@@ -4,8 +4,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 
 namespace X.Domain.Identity {
-    public abstract class IdentityUserBase<TModifier>
-        : IdentityUser, IEquatable<IdentityUserBase<TModifier>>, IAuditable<TModifier> {
+    public abstract class IdentityUserBase<TModifier> : IdentityUser, IEntity<string>,
+        IEquatable<IdentityUserBase<TModifier>>, IAuditable<TModifier> {
         public DateTime LastSeen { get; set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime? LastModifiedAt { get; protected set; }
