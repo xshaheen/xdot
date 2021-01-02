@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace X.Domain {
-    public interface IEntity<TId> {
+    public interface IEntity<out TId> {
         TId Id { get; }
     }
 
@@ -14,62 +14,31 @@ namespace X.Domain {
 
     public interface IAuditable {
         DateTime CreatedAt { get; }
-        string? CreatedBy { get; }
         DateTime? LastModifiedAt { get; }
-        string? LastModifiedBy { get; }
-
-        void UpdateLasModifiedAtBy(DateTime at, string by);
-
-        void SetCreatedAtBy(DateTime at, string by);
+        string? LastModifiedById { get; }
     }
 
-    public abstract record AuditableRecord : IAuditable {
-        public DateTime CreatedAt { get; protected set; }
-        public string? CreatedBy { get; protected set; }
-        public DateTime? LastModifiedAt { get; protected set; }
-        public string? LastModifiedBy { get; protected set; }
-
-        public void UpdateLasModifiedAtBy(DateTime at, string by)
-            => (LastModifiedAt, LastModifiedBy) = (at, by);
-
-        public void SetCreatedAtBy(DateTime at, string by) => (CreatedAt, CreatedBy) = (at, by);
+    public interface IAuditable<out TUser> : IAuditable {
+        TUser LastModifiedBy { get; }
     }
 
-    public abstract class Auditable : IAuditable {
-        public DateTime CreatedAt { get; protected set; }
-        public string? CreatedBy { get; protected set; }
-        public DateTime? LastModifiedAt { get; protected set; }
-        public string? LastModifiedBy { get; protected set; }
-
-        public void UpdateLasModifiedAtBy(DateTime at, string by)
-            => (LastModifiedAt, LastModifiedBy) = (at, by);
-
-        public void SetCreatedAtBy(DateTime at, string by) => (CreatedAt, CreatedBy) = (at, by);
+    public interface ICreatorAudit {
+        string CreatedById { get; }
     }
 
-    public abstract class AuditableEntity<TId> : Entity<TId>, IAuditable {
-        public DateTime CreatedAt { get; protected set; }
-        public string? CreatedBy { get; protected set; }
-        public DateTime? LastModifiedAt { get; protected set; }
-        public string? LastModifiedBy { get; protected set; }
-
-        public void UpdateLasModifiedAtBy(DateTime at, string by)
-            => (LastModifiedAt, LastModifiedBy) = (at, by);
-
-        public void SetCreatedAtBy(DateTime at, string by) => (CreatedAt, CreatedBy) = (at, by);
+    public interface ICreatorAudit<out TUser> : ICreatorAudit {
+        TUser CreatedBy { get; }
     }
 
-    public abstract record AuditableRecordEntity<TId> : IAuditable, IEntity<TId> {
-        public TId Id { get; protected init; } = default!;
-
+    public abstract class AuditableEntity<TId, TUser>
+        : IEntity<TId>, IAuditable<TUser>, ICreatorAudit<TUser> {
         public DateTime CreatedAt { get; protected set; }
-        public string? CreatedBy { get; protected set; }
+
         public DateTime? LastModifiedAt { get; protected set; }
-        public string? LastModifiedBy { get; protected set; }
-
-        public void UpdateLasModifiedAtBy(DateTime at, string by)
-            => (LastModifiedAt, LastModifiedBy) = (at, by);
-
-        public void SetCreatedAtBy(DateTime at, string by) => (CreatedAt, CreatedBy) = (at, by);
+        public string? LastModifiedById { get; protected set; } = default!;
+        public TUser LastModifiedBy { get; protected init; } = default!;
+        public string CreatedById { get; protected set; } = default!;
+        public TUser CreatedBy { get; protected init; } = default!;
+        public TId Id { get; protected set; } = default!;
     }
 }
