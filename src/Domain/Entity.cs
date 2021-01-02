@@ -13,9 +13,12 @@ namespace X.Domain {
     }
 
     public interface IAuditable {
-        DateTime CreatedAt { get; }
-        DateTime? LastModifiedAt { get; }
-        string? LastModifiedById { get; }
+        DateTime CreatedAt { get; init; }
+        DateTime? LastModifiedAt { get; set; }
+        string? LastModifiedById { get; set; }
+
+        void SetLastModification(DateTime at, string by)
+            => (LastModifiedAt, LastModifiedById) = (at, by);
     }
 
     public interface IAuditable<out TUser> : IAuditable {
@@ -23,7 +26,7 @@ namespace X.Domain {
     }
 
     public interface ICreatorAudit {
-        string CreatedById { get; }
+        string CreatedById { get; set; }
     }
 
     public interface ICreatorAudit<out TUser> : ICreatorAudit {
