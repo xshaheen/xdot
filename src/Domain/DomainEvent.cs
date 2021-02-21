@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace X.Domain {
     public interface IHasDomainEvent {
-        List<DomainEvent> DomainEvents { get; }
+        IReadOnlyCollection<DomainEvent> DomainEvents { get; }
     }
 
     public abstract class DomainEvent {
