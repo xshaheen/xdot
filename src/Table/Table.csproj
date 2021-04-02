@@ -9,11 +9,9 @@
     <PackageId>Xdot.Table</PackageId>
     <Description>IQueryable extension methods and models to perform common table queries like filteration, sorting, and pagination.</Description>
     <PackageTags>xdot,Table,Grid,Order,Filter,Page,Paging,Pagination,IQueryable</PackageTags>
-    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
   </ItemGroup>
 

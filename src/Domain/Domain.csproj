@@ -9,7 +9,6 @@
     <PackageId>Xdot.Domain</PackageId>
     <Description>Domain utilities.</Description>
     <PackageTags>xdot, domain, utilities</PackageTags>
-    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
 </Project>

@@ -9,7 +9,6 @@
     <PackageId>Xdot.Core</PackageId>
     <Description>Core helper extensions and utilities.</Description>
     <PackageTags>xdot, core extensions, extensions, core utility, utility</PackageTags>
-    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>
