@@ -14,7 +14,9 @@ namespace X.Core.Utils {
         /// </summary>
         /// <param name="filePath">Path of the file</param>
         public static bool DeleteIfExists(string filePath) {
-            if (!File.Exists(filePath)) return false;
+            if (!File.Exists(filePath)) {
+                return false;
+            }
 
             File.Delete(filePath);
             return true;
@@ -102,7 +104,9 @@ namespace X.Core.Utils {
             using (var reader = new StreamReader(stream, encoding)) {
                 string? line;
 
-                while ((line = await reader.ReadLineAsync()) != null) lines.Add(line);
+                while ((line = await reader.ReadLineAsync()) != null) {
+                    lines.Add(line);
+                }
             }
 
             return lines.ToArray();
@@ -113,7 +117,8 @@ namespace X.Core.Utils {
         /// </summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
-        public static async Task<string?> ReadFileWithoutBomAsync(string path)
-            => StringHelper.ConvertFromBytesWithoutBom(await ReadAllBytesAsync(path));
+        public static async Task<string?> ReadFileWithoutBomAsync(string path) {
+            return StringHelper.ConvertFromBytesWithoutBom(await ReadAllBytesAsync(path));
+        }
     }
 }

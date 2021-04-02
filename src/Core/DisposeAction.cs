@@ -1,11 +1,13 @@
 using System;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
 namespace X.Core {
     /// <summary>
     /// This class can be used to provide an action when
     /// Dispose method is called.
     /// </summary>
+    [PublicAPI]
     public class DisposeAction : IDisposable {
         private readonly Action _action;
 
@@ -15,7 +17,9 @@ namespace X.Core {
         /// <param name="action">Action to be executed when this object is disposed.</param>
         public DisposeAction(Action action) => _action = Guard.Against.Null(action, nameof(action));
 
-        public void Dispose() => _action();
+        public void Dispose() {
+            _action();
+        }
     }
 
     public sealed class NullDisposable : IDisposable {

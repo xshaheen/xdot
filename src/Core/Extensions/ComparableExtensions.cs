@@ -1,6 +1,6 @@
-using System;
+// ReSharper disable once CheckNamespace
 
-namespace X.Core.Extensions {
+namespace System {
     /// <summary>
     /// Extension methods for <see cref="IComparable{T}"/>.
     /// </summary>
@@ -13,8 +13,9 @@ namespace X.Core.Extensions {
         /// <param name="minValue">Minimum (exclusive) value</param>
         /// <param name="maxValue">Maximum (exclusive) value</param>
         public static bool ExclusiveBetween<T>(this T value, T minValue, T maxValue)
-            where T : IComparable<T>
-            => value.CompareTo(minValue) > 0 && value.CompareTo(maxValue) < 0;
+            where T : IComparable<T> {
+            return value.CompareTo(minValue) > 0 && value.CompareTo(maxValue) < 0;
+        }
 
         /// <summary>
         /// Checks whether the value is in a range between the two specified
@@ -24,7 +25,8 @@ namespace X.Core.Extensions {
         /// <param name="minValue">Minimum (inclusive) value</param>
         /// <param name="maxValue">Maximum (inclusive) value</param>
         public static bool InclusiveBetween<T>(this T value, T minValue, T maxValue)
-            where T : IComparable<T>
-            => value.CompareTo(minValue) >= 0 && value.CompareTo(maxValue) <= 0;
+            where T : IComparable<T> {
+            return value.CompareTo(minValue) >= 0 && value.CompareTo(maxValue) <= 0;
+        }
     }
 }

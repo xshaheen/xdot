@@ -35,16 +35,16 @@ namespace X.Core.Utils {
         /// See: https://www.unicode.org/charts/PDF/U08A0.pdf
         /// </para>
         /// </summary>
-        public static string ArabicRange =
+        public const string ArabicRange =
             @"[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\u08A0–\u08FF]";
 
         /// <summary>Arabic Comma '،'</summary>
-        public static char Comma = '\u060C';
+        public const char Comma = '\u060C';
 
         /// <summary>Arabic Semicolon '؛'</summary>
-        public static char Semicolon = '\u061B';
+        public const char Semicolon = '\u061B';
 
         /// <summary>Arabic Tatweel 'ـ'</summary>
-        public static char Tatweel = '\u0640';
+        public const char Tatweel = '\u0640';
     }
 }

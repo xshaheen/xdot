@@ -21,10 +21,12 @@ namespace X.Core.Utils {
         )
             where TAttribute : Attribute
         //Get attribute on the member
-            => memberInfo.IsDefined(typeof(TAttribute), inherit)
+        {
+            return memberInfo.IsDefined(typeof(TAttribute), inherit)
                 ? memberInfo.GetCustomAttributes(typeof(TAttribute), inherit).Cast<TAttribute>()
                     .First()
                 : defaultValue;
+        }
 
         /// <summary>
         /// Tries to gets an of attribute defined for a class member and it's declaring type including
@@ -40,16 +42,17 @@ namespace X.Core.Utils {
             TAttribute? defaultValue = default,
             bool inherit = true
         )
-            where TAttribute : class
-            => memberInfo.GetCustomAttributes(inherit)
-                    .OfType<TAttribute>()
-                    .FirstOrDefault()
-                ?? memberInfo.DeclaringType?
-                    .GetTypeInfo()
-                    .GetCustomAttributes(inherit)
-                    .OfType<TAttribute>()
-                    .FirstOrDefault()
-                ?? defaultValue;
+            where TAttribute : class {
+            return memberInfo.GetCustomAttributes(inherit)
+                       .OfType<TAttribute>()
+                       .FirstOrDefault()
+                   ?? memberInfo.DeclaringType?
+                       .GetTypeInfo()
+                       .GetCustomAttributes(inherit)
+                       .OfType<TAttribute>()
+                       .FirstOrDefault()
+                   ?? defaultValue;
+        }
 
         /// <summary>
         /// Tries to gets attributes defined for a class member and it's declaring type including inherited

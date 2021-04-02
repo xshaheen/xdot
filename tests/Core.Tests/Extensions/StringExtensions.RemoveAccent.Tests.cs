@@ -15,8 +15,10 @@ namespace Core.Tests.Extensions {
         [InlineData("", "")]
         [InlineData(" ", " ")]
         [InlineData("  ", "  ")]
-        public void RemoveAccent_Returns_WhiteSpaces_With_No_Changes(string value, string expected)
-            => Test(value, expected);
+        public void
+            RemoveAccent_Returns_WhiteSpaces_With_No_Changes(string value, string expected) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("ﺞ", "ج")]
@@ -26,8 +28,9 @@ namespace Core.Tests.Extensions {
         public void RemoveAccent_Converts_Arabic_Context_Characters_To_Regular_Characters(
             string value,
             string expected
-        )
-            => Test(value, expected);
+        ) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("ى", "ي")] // Alef maqsurah => ya'
@@ -42,8 +45,9 @@ namespace Core.Tests.Extensions {
         public void ArabicNormalization_Work_With_Arabic_Repeated_Characters(
             string value,
             string expected
-        )
-            => Test(value, expected);
+        ) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("ء", "ء")]
@@ -56,16 +60,18 @@ namespace Core.Tests.Extensions {
         [InlineData("بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", "بسم الله الرحمن الرحيم")]
         [InlineData("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بسم اللـه الرحمـن الرحيم")]
         [InlineData("۞", "بسم اللـه الرحمـن الرحيم")]
-        public void RemoveAccent_Work_With_Arabic_Characters(string value, string expected)
-            => Test(value, expected);
+        public void RemoveAccent_Work_With_Arabic_Characters(string value, string expected) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("m", "m")]
         [InlineData("123", "123")]
         [InlineData(" Mahmoud 17 ", " Mahmoud 17 ")]
         [InlineData(" crème brûlée", " creme brulee")]
-        public void RemoveAccent_Work_With_Latin_Characters(string value, string expected)
-            => Test(value, expected);
+        public void RemoveAccent_Work_With_Latin_Characters(string value, string expected) {
+            Test(value, expected);
+        }
 
         private void Test(string value, string expected) {
             // act

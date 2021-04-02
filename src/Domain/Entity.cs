@@ -12,24 +12,26 @@ namespace X.Domain {
         protected sealed override IEnumerable<object?> Equals() { yield return Id; }
     }
 
-    public interface IAuditable {
+    public interface IAuditable<TId> where TId : IEquatable<TId> {
         DateTime CreatedAt { get; init; }
-        DateTime? LastModifiedAt { get; set; }
-        string? LastModifiedById { get; set; }
-
-        void SetLastModification(DateTime at, string by)
-            => (LastModifiedAt, LastModifiedById) = (at, by);
+        DateTime? LastModifiedAt { get; }
+        TId? LastModifiedById { get; }
+        void SetLastModified(TId by);
     }
 
-    public interface IAuditable<out TUser> : IAuditable {
+    public interface IAuditable<TId, out TUser> : IAuditable<TId>
+        where TId : IEquatable<TId>
+        where TUser : class {
         TUser? LastModifiedBy { get; }
     }
 
-    public interface ICreatorAudit {
-        string CreatedById { get; set; }
+    public interface ICreatorAudit<TId> where TId : IEquatable<TId> {
+        TId CreatedById { get; set; }
     }
 
-    public interface ICreatorAudit<out TUser> : ICreatorAudit {
+    public interface ICreatorAudit<TId, out TUser> : ICreatorAudit<TId>
+        where TId : IEquatable<TId>
+        where TUser : class {
         TUser CreatedBy { get; }
     }
 }

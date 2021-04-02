@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace X.Core {
-    public class Result {
+    [PublicAPI]
+    public class Result<TError> {
         private Result() { }
 
         /// <summary>
@@ -20,19 +23,28 @@ namespace X.Core {
         /// <summary>
         /// Collection of errors messages when fails. Will be null if operation succeeded.
         /// </summary>
-        public string[] Errors { get; protected set; } = { };
+        public TError[] Errors { get; protected set; } = Array.Empty<TError>();
 
         #region Helpers
 
-        public static Result Success() => new() { Succeeded = true };
+        public static Result<TError> Success() {
+            return new() { Succeeded = true };
+        }
 
-        public static Result Failure() => new() { Succeeded = false };
+        public static Result<TError> Failure() {
+            return new() { Succeeded = false };
+        }
 
-        public static Result Failure(IEnumerable<string> errors)
-            => new() { Succeeded = false, Errors = errors is string[] e ? e : errors.ToArray() };
+        public static Result<TError> Failure(IEnumerable<TError> errors) {
+            return new() {
+                Succeeded = false,
+                Errors    = errors is TError[] e ? e : errors.ToArray(),
+            };
+        }
 
-        public static Result Failure(params string[] message)
-            => new() { Succeeded = false, Errors = message };
+        public static Result<TError> Failure(params TError[] message) {
+            return new() { Succeeded = false, Errors = message };
+        }
 
         #endregion Helpers
     }

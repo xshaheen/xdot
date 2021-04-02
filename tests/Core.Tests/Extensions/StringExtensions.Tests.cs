@@ -11,7 +11,9 @@ namespace Core.Tests.Extensions {
 
         public StringExtensionsTests() => _cultureScope = CultureHelper.Use("en-US");
 
-        public void Dispose() => _cultureScope.Dispose();
+        public void Dispose() {
+            _cultureScope.Dispose();
+        }
 
         [Fact]
         public void Right_Test() {
@@ -36,7 +38,7 @@ namespace Core.Tests.Extensions {
             const string str = "This\r\n is a\r test \n string";
 
             var normalized = str.NormalizeLineEndings();
-            var lines      = normalized.SplitToLines();
+            var lines = normalized.SplitToLines();
 
             lines.Length.Should().Be(4);
         }
@@ -63,9 +65,10 @@ namespace Core.Tests.Extensions {
 
         [Fact]
         public void EnsureEndsWith_CultureSpecific_Test() {
-            using (CultureHelper.Use("tr-TR"))
+            using (CultureHelper.Use("tr-TR")) {
                 "Kırmızı".EnsureEndsWith('I', StringComparison.CurrentCultureIgnoreCase).Should()
                     .Be("Kırmızı");
+            }
         }
 
         [Fact]
@@ -91,7 +94,7 @@ namespace Core.Tests.Extensions {
 
         [Fact]
         public void Truncate_Test() {
-            const string  str       = "This is a test string";
+            const string str = "This is a test string";
             const string? nullValue = null;
 
             str.Truncate(7).Should().Be("This is");
@@ -103,7 +106,7 @@ namespace Core.Tests.Extensions {
 
         [Fact]
         public void TruncateWithPostfix_Test() {
-            const string  str       = "This is a test string";
+            const string str = "This is a test string";
             const string? nullValue = null;
 
             str.TruncateWithPostfix(3).Should().Be("...");

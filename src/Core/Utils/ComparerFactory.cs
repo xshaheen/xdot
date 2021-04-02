@@ -10,8 +10,9 @@ namespace X.Core.Utils {
         /// <param name="keyGetter"></param>
         /// <typeparam name="TKey">Type of the key.</typeparam>
         /// <returns>IEqualityComparer implementation.</returns>
-        public static IEqualityComparer<T> Create<TKey>(Func<T, TKey> keyGetter)
-            => new KeyBasedEqualityComparer<T, TKey>(keyGetter);
+        public static IEqualityComparer<T> Create<TKey>(Func<T, TKey> keyGetter) {
+            return new KeyBasedEqualityComparer<T, TKey>(keyGetter);
+        }
 
         /// <summary>
         /// Create an equability comparer implementation using comparision function
@@ -23,8 +24,9 @@ namespace X.Core.Utils {
         public static IEqualityComparer<T> Create(
             Func<T, T, bool> comparisonFunc,
             Func<T, int> getHashCode
-        )
-            => new ComparisonFuncComparer<T>(comparisonFunc, getHashCode);
+        ) {
+            return new ComparisonFuncComparer<T>(comparisonFunc, getHashCode);
+        }
     }
 
     internal class ComparisonFuncComparer<T> : IEqualityComparer<T> {
@@ -37,11 +39,13 @@ namespace X.Core.Utils {
         }
 
         public bool Equals(T? x, T? y) {
-            if (x == null && y == null)
+            if (x == null && y == null) {
                 return true;
+            }
 
-            if (x == null || y == null)
+            if (x == null || y == null) {
                 return false;
+            }
 
             return _comparisonFunc(x, y);
         }
@@ -58,11 +62,13 @@ namespace X.Core.Utils {
         public KeyBasedEqualityComparer(Func<T, TKey> keyGetter) => _keyGetter = keyGetter;
 
         public bool Equals(T? x, T? y) {
-            if (x is null && y is null)
+            if (x is null && y is null) {
                 return true;
+            }
 
-            if (x is null || y is null)
+            if (x is null || y is null) {
                 return false;
+            }
 
             return EqualityComparer<TKey>.Default.Equals(_keyGetter(x), _keyGetter(y));
         }

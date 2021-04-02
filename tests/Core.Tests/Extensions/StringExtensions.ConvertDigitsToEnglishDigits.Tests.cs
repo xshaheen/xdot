@@ -11,15 +11,18 @@ namespace Core.Tests.Extensions {
         public StringExtensionsConvertDigitsToEnglishDigitsTests()
             => _cultureScope = CultureHelper.Use("en-Us");
 
-        public void Dispose() => _cultureScope.Dispose();
+        public void Dispose() {
+            _cultureScope.Dispose();
+        }
 
         [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
         [InlineData(" \n\n\r\n ")]
-        public void ConvertDigitsToEnglishDigits_Returns_WhiteSpaces_With_No_Changes(string value)
-            => Test(value, value);
+        public void ConvertDigitsToEnglishDigits_Returns_WhiteSpaces_With_No_Changes(string value) {
+            Test(value, value);
+        }
 
         [Theory]
         [InlineData("٠", "0")]
@@ -29,8 +32,9 @@ namespace Core.Tests.Extensions {
         [InlineData("١٢٨", "128")]
         [InlineData("١.٢٨", "1.28")]
         [InlineData("١,٢٨", "1,28")]
-        public void ConvertDigitsToEnglishDigits_Numerals(string value, string expected)
-            => Test(value, expected);
+        public void ConvertDigitsToEnglishDigits_Numerals(string value, string expected) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("This is numeral ١٢٨", "This is numeral 128")]
@@ -39,8 +43,9 @@ namespace Core.Tests.Extensions {
         public void ConvertDigitsToEnglishDigits_Numeral_With_Other_Characters(
             string value,
             string expected
-        )
-            => Test(value, expected);
+        ) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("This is numeral ١٢٨", "This is numeral 128")]

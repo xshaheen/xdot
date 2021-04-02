@@ -11,7 +11,9 @@ namespace X.Core.Extensions {
         /// Convert the string to SEO optimized and valid url.
         /// </summary>
         /// <param name="input">The string to be converted.</param>
-        public static string PermaLink(this string input) => ExcludeNonAlpha(input);
+        public static string PermaLink(this string input) {
+            return ExcludeNonAlpha(input);
+        }
 
         /// <summary>
         /// Convert the string to SEO optimized and valid url.
@@ -19,18 +21,18 @@ namespace X.Core.Extensions {
         /// <param name="input">The string to be converted.</param>
         /// <param name="key">A unique identifier to append at the end to make uri unique.</param>
         /// <returns></returns>
-        public static string PermaLink(this string input, string key)
-            => $"{ExcludeNonAlpha(input)}-{key.Truncate(10)}";
+        public static string PermaLink(this string input, string key) {
+            return $"{ExcludeNonAlpha(input)}-{key.Truncate(10)}";
+        }
 
         private static string ExcludeNonAlpha(string input) {
             Guard.Against.NullOrEmpty(input, nameof(input));
 
             var result = input.Trim()
-                .Replace(
-                    new[] {
-                        ("&", " And "), ("#", " Sharp "), ("+", " Plus "), ("%", " Percent "),
-                        ("$", " Dollar "),
-                    })
+                .Replace(new[] {
+                    ("&", " And "), ("#", " Sharp "), ("+", " Plus "), ("%", " Percent "),
+                    ("$", " Dollar "),
+                })
                 .NoAccent()
                 .NoSymbols()
                 .FirstUpper();
@@ -47,11 +49,15 @@ namespace X.Core.Extensions {
                 where category != UnicodeCategory.NonSpacingMark
                 select ch;
 
-            foreach (var c in cs) yield return c;
+            foreach (var c in cs) {
+                yield return c;
+            }
         }
 
-        private static IEnumerable<char> NoSymbols(this IEnumerable<char> input)
-            => input.Select(c => (char.IsPunctuation(c) || char.IsSymbol(c)) && c != '.' ? ' ' : c);
+        private static IEnumerable<char> NoSymbols(this IEnumerable<char> input) {
+            return input.Select(c
+                => (char.IsPunctuation(c) || char.IsSymbol(c)) && c != '.' ? ' ' : c);
+        }
 
         private static IEnumerable<char> FirstUpper(this IEnumerable<char> str) {
             var newWord = true;
@@ -72,8 +78,9 @@ namespace X.Core.Extensions {
                     yield return char.ToUpper(c);
                     newWord = false;
                 }
-                else
+                else {
                     yield return c;
+                }
             }
         }
     }

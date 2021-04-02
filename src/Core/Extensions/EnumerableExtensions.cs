@@ -14,7 +14,9 @@ namespace X.Core.Extensions {
         /// <param name="source"></param>
         /// <param name="action"></param>
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action) {
-            foreach (var obj in source) action(obj);
+            foreach (var obj in source) {
+                action(obj);
+            }
         }
 
         /// <summary>
@@ -33,8 +35,9 @@ namespace X.Core.Extensions {
         /// members,
         /// the method returns System.String.Empty.
         /// </returns>
-        public static string JoinAsString(this IEnumerable<string> source, string separator)
-            => string.Join(separator, source);
+        public static string JoinAsString(this IEnumerable<string> source, string separator) {
+            return string.Join(separator, source);
+        }
 
         /// <summary>
         /// Concatenates the members of a collection, using the specified separator between each member.
@@ -51,8 +54,9 @@ namespace X.Core.Extensions {
         /// members,
         /// the method returns System.String.Empty.
         /// </returns>
-        public static string JoinAsString<T>(this IEnumerable<T> source, string separator)
-            => string.Join(separator, source);
+        public static string JoinAsString<T>(this IEnumerable<T> source, string separator) {
+            return string.Join(separator, source);
+        }
 
         /// <summary>
         /// Filters a <see cref="IEnumerable{T}"/> by given predicate if given condition is true.
@@ -65,8 +69,9 @@ namespace X.Core.Extensions {
             this IEnumerable<T> source,
             bool condition,
             Func<T, bool> predicate
-        )
-            => condition ? source.Where(predicate) : source;
+        ) {
+            return condition ? source.Where(predicate) : source;
+        }
 
         /// <summary>
         /// Filters a <see cref="IEnumerable{T}"/> by given predicate if given condition is true.
@@ -79,8 +84,9 @@ namespace X.Core.Extensions {
             this IEnumerable<T> source,
             bool condition,
             Func<T, int, bool> predicate
-        )
-            => condition ? source.Where(predicate) : source;
+        ) {
+            return condition ? source.Where(predicate) : source;
+        }
 
         public static bool HasDuplicates<T, TProp>(
             this IEnumerable<T> list,
@@ -88,11 +94,7 @@ namespace X.Core.Extensions {
         ) {
             var d = new HashSet<TProp>();
 
-            foreach (var t in list)
-                if (!d.Add(selector(t)))
-                    return true;
-
-            return false;
+            return list.Any(t => !d.Add(selector(t)));
         }
     }
 }

@@ -21,7 +21,7 @@ namespace X.Core.Utils {
         public static IDisposable Use(CultureInfo culture, CultureInfo? uiCulture = null) {
             Guard.Against.Null(culture, nameof(culture));
 
-            var currentCulture   = CultureInfo.CurrentCulture;
+            var currentCulture = CultureInfo.CurrentCulture;
             var currentUiCulture = CultureInfo.CurrentUICulture;
 
             CultureInfo.CurrentCulture   = culture;
@@ -35,7 +35,9 @@ namespace X.Core.Utils {
         }
 
         public static bool IsValidCultureCode(string? cultureCode) {
-            if (cultureCode.IsNullOrWhiteSpace()) return false;
+            if (cultureCode.IsNullOrWhiteSpace()) {
+                return false;
+            }
 
             try {
                 _ = CultureInfo.GetCultureInfo(cultureCode);
@@ -46,9 +48,10 @@ namespace X.Core.Utils {
             }
         }
 
-        public static string GetBaseCultureName(string cultureName)
-            => cultureName.Contains("-")
+        public static string GetBaseCultureName(string cultureName) {
+            return cultureName.Contains("-")
                 ? cultureName.Left(cultureName.IndexOf("-", StringComparison.Ordinal))
                 : cultureName;
+        }
     }
 }

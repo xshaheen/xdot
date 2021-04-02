@@ -1,4 +1,7 @@
+using JetBrains.Annotations;
+
 namespace X.Table {
+    [PublicAPI]
     public sealed class Paging {
         private readonly int _maxSize;
         private          int _size;

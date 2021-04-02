@@ -25,7 +25,9 @@ namespace X.Core.Utils {
         /// If minValue equals maxValue, minValue is returned.
         /// </returns>
         public static int GetRandom(int minValue, int maxValue) {
-            lock (Rnd) return Rnd.Next(minValue, maxValue);
+            lock (Rnd) {
+                return Rnd.Next(minValue, maxValue);
+            }
         }
 
         /// <summary>
@@ -41,7 +43,9 @@ namespace X.Core.Utils {
         /// However, if maxValue equals zero, maxValue is returned.
         /// </returns>
         public static int GetRandom(int maxValue) {
-            lock (Rnd) return Rnd.Next(maxValue);
+            lock (Rnd) {
+                return Rnd.Next(maxValue);
+            }
         }
 
         /// <summary>
@@ -51,7 +55,9 @@ namespace X.Core.Utils {
         /// A 32-bit signed integer greater than or equal to zero and less than <see cref="int.MaxValue"/>.
         /// </returns>
         public static int GetRandom() {
-            lock (Rnd) return Rnd.Next();
+            lock (Rnd) {
+                return Rnd.Next();
+            }
         }
 
         /// <summary>

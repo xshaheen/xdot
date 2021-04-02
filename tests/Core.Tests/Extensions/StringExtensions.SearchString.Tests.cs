@@ -16,8 +16,9 @@ namespace Core.Tests.Extensions {
         [InlineData(" ")]
         [InlineData("    ")]
         [InlineData(" \n\n\r\n ")]
-        public void SearchString_Returns_WhiteSpaces_With_No_Changes(string value)
-            => Test(value, string.Empty);
+        public void SearchString_Returns_WhiteSpaces_With_No_Changes(string value) {
+            Test(value, string.Empty);
+        }
 
         [Theory]
         [InlineData("٠", "0")]
@@ -29,8 +30,9 @@ namespace Core.Tests.Extensions {
         public void SearchString_Change_Arabic_Numeral_To_Arabic_Latin_Numeral(
             string value,
             string expected
-        )
-            => Test(value, expected);
+        ) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("ﺞ", "ج")]
@@ -39,8 +41,9 @@ namespace Core.Tests.Extensions {
         public void SearchString_Converts_Arabic_Context_Characters_To_Regular_Characters(
             string value,
             string expected
-        )
-            => Test(value, expected);
+        ) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("ى", "ي")] // Alef maqsurah => ya'
@@ -52,8 +55,12 @@ namespace Core.Tests.Extensions {
         // [InlineData("ڮ", "ك")] // Arabic Letter Kaf With Three Dots Below
         // [InlineData("ڪ", "ك")] // Arabic Letter Swash Kaf
         // [InlineData("ڥ", "ف")] // Arabic Letter Swash Kaf
-        public void SearchString_Work_With_Arabic_Repeated_Characters(string value, string expected)
-            => Test(value, expected);
+        public void SearchString_Work_With_Arabic_Repeated_Characters(
+            string value,
+            string expected
+        ) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("ة", "ه")]
@@ -61,8 +68,9 @@ namespace Core.Tests.Extensions {
         public void SearchString_Work_With_Arabic_Popular_Equivalent_Characters(
             string value,
             string expected
-        )
-            => Test(value, expected);
+        ) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("،", "")]  // ARABIC COMMA
@@ -74,8 +82,9 @@ namespace Core.Tests.Extensions {
         [InlineData("؁", "")]  // ARABIC SIGN MISRA
         [InlineData("؂", "")]  // ARABIC SIGN MISRA
         [InlineData("؃", "")]  // ARABIC SIGN MISRA
-        public void SearchString_Remove_Punctuation_And_Ornaments(string value, string expected)
-            => Test(value, expected);
+        public void SearchString_Remove_Punctuation_And_Ornaments(string value, string expected) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("ء", "ء")]
@@ -94,15 +103,17 @@ namespace Core.Tests.Extensions {
         [InlineData("بسم الله الرحمن الرحيم", "بسماللهالرحمنالرحيم")]
         [InlineData("بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", "بسماللهالرحمنالرحيم")]
         [InlineData("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بسماللهالرحمنالرحيم")]
-        public void SearchString_Work_With_Arabic_Characters(string value, string expected)
-            => Test(value, expected);
+        public void SearchString_Work_With_Arabic_Characters(string value, string expected) {
+            Test(value, expected);
+        }
 
         [Theory]
         [InlineData("m", "m")]
         [InlineData(" Mahmoud ", "mahmoud")]
         [InlineData("crème brûlée", "cremebrulee")]
-        public void SearchString_Work_With_Latin_Characters(string value, string expected)
-            => Test(value, expected);
+        public void SearchString_Work_With_Latin_Characters(string value, string expected) {
+            Test(value, expected);
+        }
 
         private void Test(string value, string expected) {
             // act

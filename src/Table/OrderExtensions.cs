@@ -2,16 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 
 namespace X.Table {
     public sealed record Order(bool Ascending, string Property);
 
-    public sealed class Orders : List<Order> {
-    }
+    [PublicAPI]
+    public sealed class Orders : List<Order> { }
 
+    [PublicAPI]
     public static class OrderExtensions {
         public static IOrderedQueryable<T> Order<T>(this IQueryable<T> source, Orders? orders) {
-            if (orders == null || orders.Count == 0) return source.OrderBy(x => 0);
+            if (orders == null || orders.Count == 0) {
+                return source.OrderBy(x => 0);
+            }
 
             var (asc, property) = orders[0];
 
@@ -19,10 +23,11 @@ namespace X.Table {
                 ? source.OrderBy(property)
                 : source.OrderByDescending(property);
 
-            for (var index = 1; index < orders.Count; ++index)
+            for (var index = 1; index < orders.Count; ++index) {
                 query = orders[index].Ascending
                     ? source.ThenBy(orders[index].Property)
                     : source.ThenByDescending(orders[index].Property);
+            }
 
             return query;
         }
@@ -42,8 +47,9 @@ namespace X.Table {
             this IQueryable<T> source,
             string propertyName,
             IComparer<object>? comparer = null
-        )
-            => CallOrderedQueryable(source, nameof(Queryable.OrderBy), propertyName, comparer);
+        ) {
+            return CallOrderedQueryable(source, nameof(Queryable.OrderBy), propertyName, comparer);
+        }
 
         /// <summary>
         /// Sorts the elements of a sequence in descending order.
@@ -60,11 +66,12 @@ namespace X.Table {
             this IQueryable<T> source,
             string propertyName,
             IComparer<object>? comparer = null
-        )
-            => CallOrderedQueryable(source,
+        ) {
+            return CallOrderedQueryable(source,
                 nameof(Queryable.OrderByDescending),
                 propertyName,
                 comparer);
+        }
 
         /// <summary>
         /// Performs a subsequent ordering of the elements in a sequence in ascending order.
@@ -81,8 +88,9 @@ namespace X.Table {
             this IQueryable<T> source,
             string propertyName,
             IComparer<object>? comparer = null
-        )
-            => CallOrderedQueryable(source, nameof(Queryable.ThenBy), propertyName, comparer);
+        ) {
+            return CallOrderedQueryable(source, nameof(Queryable.ThenBy), propertyName, comparer);
+        }
 
         /// <summary>
         /// Performs a subsequent ordering of the elements in a sequence in descending order.
@@ -99,11 +107,12 @@ namespace X.Table {
             this IQueryable<T> source,
             string propertyName,
             IComparer<object>? comparer = null
-        )
-            => CallOrderedQueryable(source,
+        ) {
+            return CallOrderedQueryable(source,
                 nameof(Queryable.ThenByDescending),
                 propertyName,
                 comparer);
+        }
 
         /// <summary>
         /// Builds the Queryable functions using a TSource property name.
@@ -127,7 +136,7 @@ namespace X.Table {
                     $"'{propertyName}' is invalid sorting property.");
             }
 
-            return comparer != null
+            return comparer is not null
                 ? (IOrderedQueryable<T>) source.Provider.CreateQuery(
                     Expression.Call(
                         typeof(Queryable),

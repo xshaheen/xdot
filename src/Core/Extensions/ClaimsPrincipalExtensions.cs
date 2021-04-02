@@ -7,14 +7,19 @@ namespace X.Core.Extensions {
         /// <summary>
         /// Get the <paramref name="claimType"/> claim.
         /// </summary>
-        public static Claim? Claim(this ClaimsPrincipal? principal, string claimType)
-            => principal?.FindFirst(claimType);
+        public static Claim? Claim(this ClaimsPrincipal? principal, string claimType) {
+            return principal?.FindFirst(claimType);
+        }
 
         /// <summary>
         /// Get all claims of type <paramref name="claimType"/>
         /// </summary>
-        public static IList<Claim>? Claims(this ClaimsPrincipal? claimsPrincipal, string claimType)
-            => claimsPrincipal?.FindAll(claimType).ToList();
+        public static IList<Claim>? Claims(
+            this ClaimsPrincipal? claimsPrincipal,
+            string claimType
+        ) {
+            return claimsPrincipal?.FindAll(claimType).ToList();
+        }
 
         /// <summary>
         /// Get user roles collection.
@@ -22,8 +27,9 @@ namespace X.Core.Extensions {
         public static IList<string>? Roles(
             this ClaimsPrincipal? principal,
             string claimType = ClaimTypes.Role
-        )
-            => principal?.Claims.Where(c => c.Type == claimType).Select(c => c.Value).ToList();
+        ) {
+            return principal?.Claims.Where(c => c.Type == claimType).Select(c => c.Value).ToList();
+        }
 
         /// <summary>
         /// Get user roles as Enum collection of type <typeparamref name="T"/>.
@@ -31,9 +37,9 @@ namespace X.Core.Extensions {
         public static List<T>? Roles<T>(
             this ClaimsPrincipal? principal,
             string claimType = ClaimTypes.Role
-        )
-            where T : struct
-            => principal?.Claims.Where(c => c.Type == claimType)
+        ) where T : struct {
+            return principal?.Claims.Where(c => c.Type == claimType)
                 .Select(c => c.Value.ToEnum<T>()).ToList();
+        }
     }
 }

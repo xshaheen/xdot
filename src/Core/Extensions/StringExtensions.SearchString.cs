@@ -13,7 +13,9 @@ namespace X.Core.Extensions {
 
         public SearchString(string str) => _str = str;
 
-        public static implicit operator string(SearchString s) => s._str;
+        public static implicit operator string(SearchString s) {
+            return s._str;
+        }
     }
 
     /// <summary>
@@ -26,15 +28,17 @@ namespace X.Core.Extensions {
         /// <para>* Convert any digit to english equivalent.</para>
         /// </summary>
         public static SearchString SearchString(this string? input) {
-            if (string.IsNullOrWhiteSpace(input)) return new SearchString("");
+            if (string.IsNullOrWhiteSpace(input)) {
+                return new SearchString("");
+            }
 
             var withoutAccentAndSymbols =
                 from ch in input[..].Trim().OneSpace().ToLower().Normalize(NormalizationForm.FormD)
                 let category = CharUnicodeInfo.GetUnicodeCategory(ch)
                 where
-                    category == UnicodeCategory.LowercaseLetter ||
-                    category == UnicodeCategory.OtherLetter ||
-                    category == UnicodeCategory.DecimalDigitNumber
+                    category == UnicodeCategory.LowercaseLetter
+                    || category == UnicodeCategory.OtherLetter
+                    || category == UnicodeCategory.DecimalDigitNumber
                 select ch;
 
             var str = withoutAccentAndSymbols.ConvertDigitsToEnglishDigits();
@@ -65,7 +69,9 @@ namespace X.Core.Extensions {
             var sb = new StringBuilder();
 
             foreach (var cur in (string) input) {
-                if (removes.Any(r => r == cur)) continue;
+                if (removes.Any(r => r == cur)) {
+                    continue;
+                }
 
                 var toReplace = replaces.Keys.Any(k => k == cur);
 

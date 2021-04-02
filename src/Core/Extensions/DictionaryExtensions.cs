@@ -41,9 +41,9 @@ namespace X.Core.Extensions {
         public static TValue GetOrDefault<TKey, TValue>(
             this Dictionary<TKey, TValue> dictionary,
             TKey key
-        )
-            where TKey : notnull
-            => dictionary.TryGetValue(key, out var obj) ? obj : default;
+        ) where TKey : notnull {
+            return dictionary.TryGetValue(key, out var obj) ? obj : default;
+        }
 
         /// <summary>
         /// Gets a value from the dictionary with given key. Returns default value if can not find.
@@ -56,9 +56,9 @@ namespace X.Core.Extensions {
         public static TValue GetOrDefault<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary,
             TKey key
-        )
-            where TKey : notnull
-            => dictionary.TryGetValue(key, out var obj) ? obj : default;
+        ) where TKey : notnull {
+            return dictionary.TryGetValue(key, out var obj) ? obj : default;
+        }
 
         /// <summary>
         /// Gets a value from the dictionary with given key. Returns default value if can not find.
@@ -71,9 +71,9 @@ namespace X.Core.Extensions {
         public static TValue GetOrDefault<TKey, TValue>(
             this IReadOnlyDictionary<TKey, TValue> dictionary,
             TKey key
-        )
-            where TKey : notnull
-            => dictionary.TryGetValue(key, out var obj) ? obj : default;
+        ) where TKey : notnull {
+            return dictionary.TryGetValue(key, out var obj) ? obj : default;
+        }
 
         /// <summary>
         /// Gets a value from the dictionary with given key. Returns default value if can not find.
@@ -86,9 +86,9 @@ namespace X.Core.Extensions {
         public static TValue GetOrDefault<TKey, TValue>(
             this ConcurrentDictionary<TKey, TValue> dictionary,
             TKey key
-        )
-            where TKey : notnull
-            => dictionary.TryGetValue(key, out var obj) ? obj : default;
+        ) where TKey : notnull {
+            return dictionary.TryGetValue(key, out var obj) ? obj : default;
+        }
 
         /// <summary>
         /// Gets a value from the dictionary with given key. Returns default value if can not find.
@@ -104,7 +104,9 @@ namespace X.Core.Extensions {
             TKey key,
             Func<TKey, TValue> factory
         ) where TKey : notnull {
-            if (dictionary.TryGetValue(key, out var obj)) return obj;
+            if (dictionary.TryGetValue(key, out var obj)) {
+                return obj;
+            }
 
             return dictionary[key] = factory(key);
         }
@@ -122,8 +124,9 @@ namespace X.Core.Extensions {
             this IDictionary<TKey, TValue> dictionary,
             TKey key,
             Func<TValue> factory
-        ) where TKey : notnull
-            => dictionary.GetOrAdd(key, k => factory());
+        ) where TKey : notnull {
+            return dictionary.GetOrAdd(key, k => factory());
+        }
     }
 }
 #nullable restore

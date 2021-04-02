@@ -6,21 +6,28 @@ using Ardalis.GuardClauses;
 namespace X.Core.Extensions {
     public static class ListExtensions {
         public static void InsertRange<T>(this IList<T> source, int index, IEnumerable<T> items) {
-            foreach (var item in items) source.Insert(index++, item);
+            foreach (var item in items) {
+                source.Insert(index++, item);
+            }
         }
 
         public static int FindIndex<T>(this IList<T> source, Predicate<T> selector) {
-            for (var i = 0; i < source.Count; ++i)
-                if (selector(source[i]))
+            for (var i = 0; i < source.Count; ++i) {
+                if (selector(source[i])) {
                     return i;
+                }
+            }
 
             return -1;
         }
 
-        public static void AddFirst<T>(this IList<T> source, T item) => source.Insert(0, item);
+        public static void AddFirst<T>(this IList<T> source, T item) {
+            source.Insert(0, item);
+        }
 
-        public static void AddLast<T>(this IList<T> source, T item)
-            => source.Insert(source.Count, item);
+        public static void AddLast<T>(this IList<T> source, T item) {
+            source.Insert(source.Count, item);
+        }
 
         public static void InsertAfter<T>(this IList<T> source, T existingItem, T item) {
             var index = source.IndexOf(existingItem);
@@ -63,9 +70,11 @@ namespace X.Core.Extensions {
         }
 
         public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, T item) {
-            for (var i = 0; i < source.Count; i++)
-                if (selector(source[i]))
+            for (var i = 0; i < source.Count; i++) {
+                if (selector(source[i])) {
                     source[i] = item;
+                }
+            }
         }
 
         public static void ReplaceWhile<T>(
@@ -74,17 +83,21 @@ namespace X.Core.Extensions {
             Func<T, T> itemFactory
         ) {
             for (var i = 0; i < source.Count; i++) {
-                var item                      = source[i];
-                if (selector(item)) source[i] = itemFactory(item);
+                var item = source[i];
+
+                if (selector(item)) {
+                    source[i] = itemFactory(item);
+                }
             }
         }
 
         public static void ReplaceFirst<T>(this IList<T> source, Predicate<T> selector, T item) {
-            for (var i = 0; i < source.Count; i++)
+            for (var i = 0; i < source.Count; i++) {
                 if (selector(source[i])) {
                     source[i] = item;
                     return;
                 }
+            }
         }
 
         public static void ReplaceFirst<T>(
@@ -102,11 +115,12 @@ namespace X.Core.Extensions {
         }
 
         public static void ReplaceFirst<T>(this IList<T> source, T item, T replaceWith) {
-            for (var i = 0; i < source.Count; i++)
+            for (var i = 0; i < source.Count; i++) {
                 if (Comparer<T>.Default.Compare(source[i], item) == 0) {
                     source[i] = replaceWith;
                     return;
                 }
+            }
         }
 
         public static void MoveItem<T>(
@@ -115,11 +129,14 @@ namespace X.Core.Extensions {
             int targetIndex
         ) {
             var len = source.Count - 1;
-            if (!targetIndex.ExclusiveBetween(0, len))
+            if (!targetIndex.ExclusiveBetween(0, len)) {
                 throw new IndexOutOfRangeException($"targetIndex should be between 0 and {len}");
+            }
 
             var currentIndex = source.FindIndex(0, selector);
-            if (currentIndex == targetIndex) return;
+            if (currentIndex == targetIndex) {
+                return;
+            }
 
             var item = source[currentIndex];
             source.RemoveAt(currentIndex);
@@ -131,10 +148,12 @@ namespace X.Core.Extensions {
 
             var item = source.FirstOrDefault(selector);
 
-            if (item is null) {
-                item = factory();
-                source.Add(item);
+            if (item is not null) {
+                return item;
             }
+
+            item = factory();
+            source.Add(item);
 
             return item;
         }

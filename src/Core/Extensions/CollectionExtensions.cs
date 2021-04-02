@@ -12,8 +12,9 @@ namespace X.Core.Extensions {
         /// <summary>
         /// Checks whatever given collection object is null or has no item.
         /// </summary>
-        public static bool IsNullOrEmpty<T>([NotNullWhen(false)] this ICollection<T>? source)
-            => source is null || source.Count <= 0;
+        public static bool IsNullOrEmpty<T>([NotNullWhen(false)] this ICollection<T>? source) {
+            return source is null || source.Count <= 0;
+        }
 
         /// <summary>
         /// Adds an item to the collection if it's not already in the collection.
@@ -25,7 +26,9 @@ namespace X.Core.Extensions {
         public static bool AddIfNotContains<T>(this ICollection<T> source, T item) {
             Guard.Against.Null(source, nameof(source));
 
-            if (source.Contains(item)) return false;
+            if (source.Contains(item)) {
+                return false;
+            }
 
             source.Add(item);
             return true;
@@ -47,7 +50,9 @@ namespace X.Core.Extensions {
             var addedItems = new List<T>();
 
             foreach (var item in items) {
-                if (source.Contains(item)) continue;
+                if (source.Contains(item)) {
+                    continue;
+                }
 
                 source.Add(item);
                 addedItems.Add(item);
@@ -74,7 +79,9 @@ namespace X.Core.Extensions {
             Guard.Against.Null(predicate, nameof(predicate));
             Guard.Against.Null(itemFactory, nameof(itemFactory));
 
-            if (source.Any(predicate)) return false;
+            if (source.Any(predicate)) {
+                return false;
+            }
 
             source.Add(itemFactory());
             return true;
@@ -90,7 +97,9 @@ namespace X.Core.Extensions {
         public static IList<T> RemoveAll<T>(this ICollection<T> source, Func<T, bool> predicate) {
             var items = source.Where(predicate).ToList();
 
-            foreach (var item in items) source.Remove(item);
+            foreach (var item in items) {
+                source.Remove(item);
+            }
 
             return items;
         }

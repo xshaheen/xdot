@@ -6,40 +6,48 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
 namespace X.Core.Extensions {
+    [PublicAPI]
     public static partial class StringExtensions {
         /// <summary>
         /// Returns null if the string is null or empty or white spaces
         /// otherwise return a trim-ed string.
         /// </summary>
-        public static string? NullableTrim(this string? input)
-            => input.IsNullOrWhiteSpace() ? null : input.Trim();
+        public static string? NullableTrim(this string? input) {
+            return input.IsNullOrWhiteSpace() ? null : input.Trim();
+        }
 
         /// <summary>
         /// Indicates whether this string is null or an System.String.Empty string.
         /// </summary>
-        public static bool IsNullOrEmpty([NotNullWhen(false)] this string? str)
-            => string.IsNullOrEmpty(str);
+        public static bool IsNullOrEmpty([NotNullWhen(false)] this string? str) {
+            return string.IsNullOrEmpty(str);
+        }
 
         /// <summary>
         /// indicates whether this string is null, empty, or consists only of white-space characters.
         /// </summary>
-        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? str)
-            => string.IsNullOrWhiteSpace(str);
+        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? str) {
+            return string.IsNullOrWhiteSpace(str);
+        }
 
         /// <summary>
         /// Converts line endings in the string to <see cref="Environment.NewLine"/>.
         /// </summary>
-        public static string NormalizeLineEndings(this string str)
-            => str.Replace("\r\n", "\n")
+        public static string NormalizeLineEndings(this string str) {
+            return str.Replace("\r\n", "\n")
                 .Replace("\r", "\n")
                 .Replace("\n", Environment.NewLine);
+        }
 
         /// <summary>
         /// Replace any white space characters [\r\n\t\f\v ] with one white space.
         /// </summary>
-        public static string OneSpace(this string input) => Regex.Replace(input, @"\s+", " ");
+        public static string OneSpace(this string input) {
+            return Regex.Replace(input, @"\s+", " ");
+        }
 
         /// <summary>
         /// Adds a char to beginning of given string if it does not starts with the char.
@@ -51,7 +59,9 @@ namespace X.Core.Extensions {
         ) {
             Guard.Against.Null(str, nameof(str));
 
-            if (str.StartsWith(c.ToString(), comparisonType)) return str;
+            if (str.StartsWith(c.ToString(), comparisonType)) {
+                return str;
+            }
 
             return c + str;
         }
@@ -65,20 +75,26 @@ namespace X.Core.Extensions {
             StringComparison comparisonType = StringComparison.Ordinal
         ) {
             Guard.Against.Null(str, nameof(str));
-            if (str.EndsWith(c.ToString(), comparisonType)) return str;
+            if (str.EndsWith(c.ToString(), comparisonType)) {
+                return str;
+            }
+
             return str + c;
         }
 
         /// <summary>
         /// Uses string.Split method to split given string by <see cref="Environment.NewLine"/>.
         /// </summary>
-        public static string[] SplitToLines(this string str) => str.Split(Environment.NewLine);
+        public static string[] SplitToLines(this string str) {
+            return str.Split(Environment.NewLine);
+        }
 
         /// <summary>
         /// Uses string.Split method to split given string by <see cref="Environment.NewLine"/>.
         /// </summary>
-        public static string[] SplitToLines(this string str, StringSplitOptions options)
-            => str.Split(Environment.NewLine, options);
+        public static string[] SplitToLines(this string str, StringSplitOptions options) {
+            return str.Split(Environment.NewLine, options);
+        }
 
         /// <summary>
         /// Converts string to enum value.
@@ -87,8 +103,9 @@ namespace X.Core.Extensions {
         /// <param name="value">String value to convert</param>
         /// <param name="ignoreCase">Ignore case</param>
         /// <returns>Returns enum object</returns>
-        public static T ToEnum<T>(this string value, bool ignoreCase = true) where T : struct
-            => (T) Enum.Parse(typeof(T), Guard.Against.Null(value, nameof(value)), ignoreCase);
+        public static T ToEnum<T>(this string value, bool ignoreCase = true) where T : struct {
+            return (T) Enum.Parse(typeof(T), Guard.Against.Null(value, nameof(value)), ignoreCase);
+        }
 
         /// <summary>
         /// Gets a substring of a string from beginning of the string.
@@ -98,9 +115,10 @@ namespace X.Core.Extensions {
         public static string Left(this string str, int len) {
             Guard.Against.Null(str, nameof(str));
 
-            if (str.Length < len)
+            if (str.Length < len) {
                 throw new ArgumentException(
                     "len argument can not be bigger than given string's length!");
+            }
 
             return str.Substring(0, len);
         }
@@ -113,9 +131,10 @@ namespace X.Core.Extensions {
         public static string Right(this string str, int len) {
             Guard.Against.Null(str, nameof(str));
 
-            if (str.Length < len)
+            if (str.Length < len) {
                 throw new ArgumentException(
                     "len argument can not be bigger than given string's length!");
+            }
 
             return str.Substring(str.Length - len, len);
         }
@@ -145,8 +164,9 @@ namespace X.Core.Extensions {
         /// <param name="str">The string.</param>
         /// <param name="postFixes">one or more postfix.</param>
         /// <returns>Modified string or the same string if it has not any of given postfixes</returns>
-        public static string? RemovePostfix(this string? str, params string[]? postFixes)
-            => str.RemovePostfix(StringComparison.Ordinal, postFixes);
+        public static string? RemovePostfix(this string? str, params string[]? postFixes) {
+            return str.RemovePostfix(StringComparison.Ordinal, postFixes);
+        }
 
         /// <summary>
         /// Removes first occurrence of the given postfixes from end of the given string.
@@ -160,12 +180,19 @@ namespace X.Core.Extensions {
             StringComparison comparisonType,
             params string[]? postfixes
         ) {
-            if (str.IsNullOrEmpty()) return null;
-            if (postfixes.IsNullOrEmpty()) return str;
+            if (str.IsNullOrEmpty()) {
+                return null;
+            }
 
-            foreach (var postFix in postfixes)
-                if (str.EndsWith(postFix, comparisonType))
+            if (postfixes.IsNullOrEmpty()) {
+                return str;
+            }
+
+            foreach (var postFix in postfixes) {
+                if (str.EndsWith(postFix, comparisonType)) {
                     return str.Left(str.Length - postFix.Length);
+                }
+            }
 
             return str;
         }
@@ -176,8 +203,9 @@ namespace X.Core.Extensions {
         /// <param name="str">The string.</param>
         /// <param name="prefixes">one or more prefix.</param>
         /// <returns>Modified string or the same string if it has not any of given prefixes</returns>
-        public static string? RemovePrefix(this string? str, params string[]? prefixes)
-            => str.RemovePrefix(StringComparison.Ordinal, prefixes);
+        public static string? RemovePrefix(this string? str, params string[]? prefixes) {
+            return str.RemovePrefix(StringComparison.Ordinal, prefixes);
+        }
 
         /// <summary>
         /// Removes first occurrence of the given prefixes from beginning of the given string.
@@ -191,12 +219,19 @@ namespace X.Core.Extensions {
             StringComparison comparisonType,
             params string[]? prefixes
         ) {
-            if (str.IsNullOrEmpty()) return null;
-            if (prefixes.IsNullOrEmpty()) return str;
+            if (str.IsNullOrEmpty()) {
+                return null;
+            }
 
-            foreach (var preFix in prefixes)
-                if (str.StartsWith(preFix, comparisonType))
+            if (prefixes.IsNullOrEmpty()) {
+                return str;
+            }
+
+            foreach (var preFix in prefixes) {
+                if (str.StartsWith(preFix, comparisonType)) {
                     return str.Right(str.Length - preFix.Length);
+                }
+            }
 
             return str;
         }
@@ -206,8 +241,13 @@ namespace X.Core.Extensions {
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
         public static string? Truncate(this string? str, int maxLength) {
-            if (str is null) return null;
-            if (str.Length <= maxLength) return str;
+            if (str is null) {
+                return null;
+            }
+
+            if (str.Length <= maxLength) {
+                return str;
+            }
 
             return str.Left(maxLength);
         }
@@ -216,8 +256,14 @@ namespace X.Core.Extensions {
         /// Gets a substring of a string from Ending of the string if it exceeds maximum length.
         /// </summary>
         public static string? TruncateFromBeginning(this string? str, int maxLength) {
-            if (str is null) return null;
-            if (str.Length <= maxLength) return str;
+            if (str is null) {
+                return null;
+            }
+
+            if (str.Length <= maxLength) {
+                return str;
+            }
+
             return str.Right(maxLength);
         }
 
@@ -231,17 +277,31 @@ namespace X.Core.Extensions {
             int maxLength,
             string postfix = "..."
         ) {
-            if (str == null) return null;
-            if (str == string.Empty || maxLength == 0) return string.Empty;
-            if (str.Length <= maxLength) return str;
-            if (maxLength <= postfix.Length) return postfix.Left(maxLength);
+            if (str == null) {
+                return null;
+            }
+
+            if (str == string.Empty || maxLength == 0) {
+                return string.Empty;
+            }
+
+            if (str.Length <= maxLength) {
+                return str;
+            }
+
+            if (maxLength <= postfix.Length) {
+                return postfix.Left(maxLength);
+            }
+
             return str.Left(maxLength - postfix.Length) + postfix;
         }
 
         /// <summary>
         /// Converts given string to a byte array using <see cref="Encoding.UTF8"/> encoding.
         /// </summary>
-        public static byte[] GetBytes(this string str) => str.GetBytes(Encoding.UTF8);
+        public static byte[] GetBytes(this string str) {
+            return str.GetBytes(Encoding.UTF8);
+        }
 
         /// <summary>
         /// Converts given string to a byte array using the given <paramref name="encoding"/>
@@ -264,8 +324,13 @@ namespace X.Core.Extensions {
 
             var count = 0;
             for (var i = 0; i < str.Length; i++) {
-                if (str[i] != c) continue;
-                if (++count == n) return i;
+                if (str[i] != c) {
+                    continue;
+                }
+
+                if (++count == n) {
+                    return i;
+                }
             }
 
             return -1;
@@ -281,8 +346,9 @@ namespace X.Core.Extensions {
         ) {
             var output = str[..];
 
-            foreach (var (oldValue, newValue) in replaces)
+            foreach (var (oldValue, newValue) in replaces) {
                 output = output.Replace(oldValue, newValue);
+            }
 
             return output;
         }
@@ -297,8 +363,9 @@ namespace X.Core.Extensions {
         ) {
             var output = str[..];
 
-            foreach (var (oldValue, newValue) in replaces)
+            foreach (var (oldValue, newValue) in replaces) {
                 output = output.Replace(oldValue, newValue);
+            }
 
             return output;
         }
@@ -311,15 +378,20 @@ namespace X.Core.Extensions {
         /// <para>"This ١٢٨" to "This 128"</para>
         /// </summary>
         public static string ConvertDigitsToEnglishDigits(this string input) {
-            if (string.IsNullOrWhiteSpace(input)) return input;
+            if (string.IsNullOrWhiteSpace(input)) {
+                return input;
+            }
 
             var sb = new StringBuilder();
 
-            foreach (var c in input)
-                if (char.IsDigit(c))
+            foreach (var c in input) {
+                if (char.IsDigit(c)) {
                     sb.Append(char.GetNumericValue(c).ToString(CultureInfo.InvariantCulture));
-                else
+                }
+                else {
                     sb.Append(c);
+                }
+            }
 
             return sb.ToString();
         }
@@ -333,11 +405,14 @@ namespace X.Core.Extensions {
         /// </summary>
         public static string ConvertDigitsToEnglishDigits(this IEnumerable<char> input) {
             var sb = new StringBuilder();
-            foreach (var c in input)
-                if (char.IsDigit(c))
+            foreach (var c in input) {
+                if (char.IsDigit(c)) {
                     sb.Append(char.GetNumericValue(c).ToString(CultureInfo.InvariantCulture));
-                else
+                }
+                else {
                     sb.Append(c);
+                }
+            }
 
             return sb.ToString();
         }
@@ -354,7 +429,9 @@ namespace X.Core.Extensions {
         /// <para>* Return a new string from the remaining chars.</para>
         /// </remarks>
         public static string RemoveAccent(this string input) {
-            if (string.IsNullOrWhiteSpace(input)) return input;
+            if (string.IsNullOrWhiteSpace(input)) {
+                return input;
+            }
 
             var cs =
                 from ch in input.Normalize(NormalizationForm.FormD)
@@ -364,7 +441,9 @@ namespace X.Core.Extensions {
 
             var sb = new StringBuilder();
 
-            foreach (var c in cs) sb.Append(c);
+            foreach (var c in cs) {
+                sb.Append(c);
+            }
 
             return sb.ToString().Normalize(NormalizationForm.FormC);
         }
@@ -385,11 +464,13 @@ namespace X.Core.Extensions {
         public static int StringDifference(this string s1, string s2) {
             var len1 = s1.Length;
             var len2 = s2.Length;
-            var len  = len1 < len2 ? len1 : len2;
+            var len = len1 < len2 ? len1 : len2;
 
-            for (var i = 0; i < len; i++)
-                if (s1[i] != s2[i])
+            for (var i = 0; i < len; i++) {
+                if (s1[i] != s2[i]) {
                     return i;
+                }
+            }
 
             return len;
         }
