@@ -8,7 +8,7 @@
     <AssemblyName>Xdot</AssemblyName>
     <PackageId>Xdot</PackageId>
     <PackageTags>xdot</PackageTags>
-    <MinVerTagPrefix>xdot-</MinVerTagPrefix>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
 </Project>

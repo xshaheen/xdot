@@ -9,7 +9,7 @@
     <PackageId>Xdot.Table</PackageId>
     <Description>IQueryable extension methods and models to perform common table queries like filteration, sorting, and pagination.</Description>
     <PackageTags>xdot,Table,Grid,Order,Filter,Page,Paging,Pagination,IQueryable</PackageTags>
-    <MinVerTagPrefix>table-</MinVerTagPrefix>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>
