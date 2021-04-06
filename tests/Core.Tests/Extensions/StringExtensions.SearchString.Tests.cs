@@ -7,8 +7,9 @@ namespace Core.Tests.Extensions {
     public class StringExtensionsSearchStringTests {
         private readonly ITestOutputHelper _output;
 
-        public StringExtensionsSearchStringTests(ITestOutputHelper testOutputHelper)
-            => _output = testOutputHelper;
+        public StringExtensionsSearchStringTests(ITestOutputHelper testOutputHelper) {
+            _output = testOutputHelper;
+        }
 
         [Theory]
         [InlineData(null)]
@@ -17,7 +18,7 @@ namespace Core.Tests.Extensions {
         [InlineData("    ")]
         [InlineData(" \n\n\r\n ")]
         public void SearchString_Returns_WhiteSpaces_With_No_Changes(string value) {
-            Test(value, string.Empty);
+            _Test(value, string.Empty);
         }
 
         [Theory]
@@ -31,7 +32,7 @@ namespace Core.Tests.Extensions {
             string value,
             string expected
         ) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -42,7 +43,7 @@ namespace Core.Tests.Extensions {
             string value,
             string expected
         ) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -59,7 +60,7 @@ namespace Core.Tests.Extensions {
             string value,
             string expected
         ) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -69,7 +70,7 @@ namespace Core.Tests.Extensions {
             string value,
             string expected
         ) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -83,7 +84,7 @@ namespace Core.Tests.Extensions {
         [InlineData("؂", "")]  // ARABIC SIGN MISRA
         [InlineData("؃", "")]  // ARABIC SIGN MISRA
         public void SearchString_Remove_Punctuation_And_Ornaments(string value, string expected) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -104,7 +105,7 @@ namespace Core.Tests.Extensions {
         [InlineData("بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", "بسماللهالرحمنالرحيم")]
         [InlineData("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بسماللهالرحمنالرحيم")]
         public void SearchString_Work_With_Arabic_Characters(string value, string expected) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -112,10 +113,10 @@ namespace Core.Tests.Extensions {
         [InlineData(" Mahmoud ", "mahmoud")]
         [InlineData("crème brûlée", "cremebrulee")]
         public void SearchString_Work_With_Latin_Characters(string value, string expected) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
-        private void Test(string value, string expected) {
+        private void _Test(string value, string expected) {
             // act
             var result = value.SearchString().SupportAr();
 

@@ -5,9 +5,9 @@ namespace X.Table {
     [PublicAPI]
     public sealed class Filter {
         public Filter(string property, string comparison, string value) {
-            Property   = property;
+            Property = property;
             Comparison = comparison;
-            Value      = value;
+            Value = value;
         }
 
         public string Property { get; init; }

@@ -8,11 +8,13 @@ namespace Core.Tests.Extensions {
     public class StringExtensionsConvertDigitsToEnglishDigitsTests : IDisposable {
         private readonly IDisposable _cultureScope;
 
-        public StringExtensionsConvertDigitsToEnglishDigitsTests()
-            => _cultureScope = CultureHelper.Use("en-Us");
+        public StringExtensionsConvertDigitsToEnglishDigitsTests() {
+            _cultureScope = CultureHelper.Use("en-Us");
+        }
 
         public void Dispose() {
             _cultureScope.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         [Theory]
@@ -21,7 +23,7 @@ namespace Core.Tests.Extensions {
         [InlineData("  ")]
         [InlineData(" \n\n\r\n ")]
         public void ConvertDigitsToEnglishDigits_Returns_WhiteSpaces_With_No_Changes(string value) {
-            Test(value, value);
+            _Test(value, value);
         }
 
         [Theory]
@@ -33,7 +35,7 @@ namespace Core.Tests.Extensions {
         [InlineData("١.٢٨", "1.28")]
         [InlineData("١,٢٨", "1,28")]
         public void ConvertDigitsToEnglishDigits_Numerals(string value, string expected) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -44,7 +46,7 @@ namespace Core.Tests.Extensions {
             string value,
             string expected
         ) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -61,7 +63,7 @@ namespace Core.Tests.Extensions {
             }
         }
 
-        private static void Test(string value, string expected) {
+        private static void _Test(string value, string expected) {
             // act
 
             var result = value.ConvertDigitsToEnglishDigits();

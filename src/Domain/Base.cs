@@ -13,7 +13,7 @@ namespace X.Domain {
                 return true;
             }
 
-            return GetType() == other.GetType() && Equals().SequenceEqual(other.Equals());
+            return GetType() == other.GetType() && _Equals().SequenceEqual(other._Equals());
         }
 
         public static bool operator ==(Base<T>? left, Base<T>? right) {
@@ -24,19 +24,17 @@ namespace X.Domain {
             return left?.Equals(right) != false;
         }
 
-        public static bool operator !=(Base<T> left, Base<T> right) {
-            return !(left == right);
-        }
+        public static bool operator !=(Base<T> left, Base<T> right) => !(left == right);
 
         public sealed override bool Equals(object? obj) {
             return Equals(obj as Base<T>);
         }
 
         public override int GetHashCode() {
-            return Equals().Select(x => x != null ? x.GetHashCode() : 0)
+            return _Equals().Select(x => x != null ? x.GetHashCode() : 0)
                 .Aggregate((x, y) => x ^ y);
         }
 
-        protected abstract IEnumerable<object?> Equals();
+        protected abstract IEnumerable<object?> _Equals();
     }
 }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
+using System;
 
 namespace X.Core.Utils {
     /// <summary>
@@ -35,7 +36,7 @@ namespace X.Core.Utils {
 
             var lastDotIndex = fileNameWithExtension.LastIndexOf('.');
 
-            return lastDotIndex < 0 ? null : fileNameWithExtension.Substring(lastDotIndex + 1);
+            return lastDotIndex < 0 ? null : fileNameWithExtension[(lastDotIndex + 1)..];
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace X.Core.Utils {
             await using var stream = File.Open(path, FileMode.Open);
 
             var result = new byte[stream.Length];
-            await stream.ReadAsync(result, 0, (int) stream.Length);
+            await stream.ReadAsync(result.AsMemory(0, (int) stream.Length));
             return result;
         }
 

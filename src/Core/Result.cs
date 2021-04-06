@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 namespace X.Core {
     [PublicAPI]
     public class Result<TError> {
-        private Result() { }
+        protected Result() { }
 
         /// <summary>
         /// Flag indicating whether if the operation succeeded or not.
@@ -24,28 +24,27 @@ namespace X.Core {
         /// Collection of errors messages when fails. Will be null if operation succeeded.
         /// </summary>
         public TError[] Errors { get; protected set; } = Array.Empty<TError>();
+    }
 
-        #region Helpers
-
-        public static Result<TError> Success() {
+    [PublicAPI]
+    public class Result : Result<ErrorDescriptor> {
+        public static Result Success() {
             return new() { Succeeded = true };
         }
 
-        public static Result<TError> Failure() {
+        public static Result Failure() {
             return new() { Succeeded = false };
         }
 
-        public static Result<TError> Failure(IEnumerable<TError> errors) {
+        public static Result Failure(IEnumerable<ErrorDescriptor> errors) {
             return new() {
                 Succeeded = false,
-                Errors    = errors is TError[] e ? e : errors.ToArray(),
+                Errors = errors is ErrorDescriptor[] e ? e : errors.ToArray(),
             };
         }
 
-        public static Result<TError> Failure(params TError[] message) {
+        public static Result Failure(params ErrorDescriptor[] message) {
             return new() { Succeeded = false, Errors = message };
         }
-
-        #endregion Helpers
     }
 }

@@ -1,8 +1,7 @@
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace X.Core.Extensions {
+namespace System.IO {
     public static class StreamExtensions {
         public static byte[] GetAllBytes(this Stream stream) {
             using var memoryStream = new MemoryStream();

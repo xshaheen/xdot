@@ -12,7 +12,7 @@ namespace X.Core.Extensions {
         /// </summary>
         /// <param name="input">The string to be converted.</param>
         public static string PermaLink(this string input) {
-            return ExcludeNonAlpha(input);
+            return _ExcludeNonAlpha(input);
         }
 
         /// <summary>
@@ -22,27 +22,30 @@ namespace X.Core.Extensions {
         /// <param name="key">A unique identifier to append at the end to make uri unique.</param>
         /// <returns></returns>
         public static string PermaLink(this string input, string key) {
-            return $"{ExcludeNonAlpha(input)}-{key.Truncate(10)}";
+            return $"{_ExcludeNonAlpha(input)}-{key.Truncate(10)}";
         }
 
-        private static string ExcludeNonAlpha(string input) {
+        private static string _ExcludeNonAlpha(string input) {
             Guard.Against.NullOrEmpty(input, nameof(input));
 
             var result = input.Trim()
                 .Replace(new[] {
-                    ("&", " And "), ("#", " Sharp "), ("+", " Plus "), ("%", " Percent "),
+                    ("&", " And "),
+                    ("#", " Sharp "),
+                    ("+", " Plus "),
+                    ("%", " Percent "),
                     ("$", " Dollar "),
                 })
-                .NoAccent()
-                .NoSymbols()
-                .FirstUpper();
+                ._NoAccent()
+                ._NoSymbols()
+                ._FirstUpper();
 
             var temp = new Regex(@" +").Replace(string.Concat(result), " ").Trim();
 
             return new Regex(@" +").Replace(temp, "-");
         }
 
-        private static IEnumerable<char> NoAccent(this string input) {
+        private static IEnumerable<char> _NoAccent(this string input) {
             var cs =
                 from ch in input.Normalize(NormalizationForm.FormD)
                 let category = CharUnicodeInfo.GetUnicodeCategory(ch)
@@ -54,12 +57,12 @@ namespace X.Core.Extensions {
             }
         }
 
-        private static IEnumerable<char> NoSymbols(this IEnumerable<char> input) {
+        private static IEnumerable<char> _NoSymbols(this IEnumerable<char> input) {
             return input.Select(c
                 => (char.IsPunctuation(c) || char.IsSymbol(c)) && c != '.' ? ' ' : c);
         }
 
-        private static IEnumerable<char> FirstUpper(this IEnumerable<char> str) {
+        private static IEnumerable<char> _FirstUpper(this IEnumerable<char> str) {
             var newWord = true;
 
             foreach (var c in str) {
@@ -75,7 +78,7 @@ namespace X.Core.Extensions {
                 }
 
                 if (newWord) {
-                    yield return char.ToUpper(c);
+                    yield return char.ToUpperInvariant(c);
                     newWord = false;
                 }
                 else {

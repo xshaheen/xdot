@@ -6,28 +6,27 @@ namespace X.Domain {
         TId Id { get; }
     }
 
+    public interface IEntity : IEntity<string> { }
+
     public abstract class Entity<TId> : Base<Entity<TId>>, IEntity<TId> {
         public TId Id { get; protected init; } = default!;
 
-        protected sealed override IEnumerable<object?> Equals() { yield return Id; }
+        protected sealed override IEnumerable<object?> _Equals() { yield return Id; }
     }
 
-    public interface IAuditable<TId> where TId : IEquatable<TId> {
-        DateTime CreatedAt { get; init; }
-        DateTime? LastModifiedAt { get; }
-        TId? LastModifiedById { get; }
-        void SetLastModified(TId by);
+    public abstract class Entity : Base<Entity>, IEntity<string> {
+        public string Id { get; protected init; } = default!;
+
+        protected sealed override IEnumerable<object?> _Equals() { yield return Id; }
     }
 
-    public interface IAuditable<TId, out TUser> : IAuditable<TId>
-        where TId : IEquatable<TId>
-        where TUser : class {
-        TUser? LastModifiedBy { get; }
-    }
+
 
     public interface ICreatorAudit<TId> where TId : IEquatable<TId> {
         TId CreatedById { get; set; }
     }
+
+    public interface ICreatorAudit : ICreatorAudit<string> { }
 
     public interface ICreatorAudit<TId, out TUser> : ICreatorAudit<TId>
         where TId : IEquatable<TId>

@@ -9,10 +9,13 @@ namespace Core.Tests.Extensions {
     public class StringExtensionsTests : IDisposable {
         private readonly IDisposable _cultureScope;
 
-        public StringExtensionsTests() => _cultureScope = CultureHelper.Use("en-US");
+        public StringExtensionsTests() {
+            _cultureScope = CultureHelper.Use("en-US");
+        }
 
         public void Dispose() {
             _cultureScope.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         [Fact]

@@ -8,18 +8,6 @@ namespace X.Core.Extensions {
     /// </summary>
     public static class EnumerableExtensions {
         /// <summary>
-        /// Performs the specified action on each element of the <see cref="IEnumerable{T}"/>.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="action"></param>
-        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action) {
-            foreach (var obj in source) {
-                action(obj);
-            }
-        }
-
-        /// <summary>
         /// Concatenates the members of a constructed <see cref="IEnumerable{T}"/> collection of type
         /// System.String, using the
         /// specified separator between each member.

@@ -155,7 +155,7 @@ namespace X.Core.Extensions {
 
             return pos < 0
                 ? str
-                : str.Substring(0, pos) + replace + str.Substring(pos + search.Length);
+                : str.Substring(0, pos) + replace + str[(pos + search.Length)..];
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace X.Core.Extensions {
         }
 
         /// <summary>
-        /// Replace a new string applying on it <see cref="String.Replace(string, string)"/>
+        /// Replace a new string applying on it <see cref="string.Replace(string, string)"/>
         /// using <paramref name="replaces"/>.
         /// </summary>
         public static string Replace(
@@ -354,7 +354,7 @@ namespace X.Core.Extensions {
         }
 
         /// <summary>
-        /// Replace a new string applying on it <see cref="String.Replace(char, char)"/>
+        /// Replace a new string applying on it <see cref="string.Replace(char, char)"/>
         /// using <paramref name="replaces"/>.
         /// </summary>
         public static string Replace(

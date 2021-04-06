@@ -7,8 +7,9 @@ namespace Core.Tests.Extensions {
     public class StringExtensionsRemoveDiacriticsTests {
         private readonly ITestOutputHelper _output;
 
-        public StringExtensionsRemoveDiacriticsTests(ITestOutputHelper testOutputHelper)
-            => _output = testOutputHelper;
+        public StringExtensionsRemoveDiacriticsTests(ITestOutputHelper testOutputHelper) {
+            _output = testOutputHelper;
+        }
 
         [Theory]
         [InlineData(null, null)]
@@ -17,7 +18,7 @@ namespace Core.Tests.Extensions {
         [InlineData("  ", "  ")]
         public void
             RemoveAccent_Returns_WhiteSpaces_With_No_Changes(string value, string expected) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -29,7 +30,7 @@ namespace Core.Tests.Extensions {
             string value,
             string expected
         ) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -46,7 +47,7 @@ namespace Core.Tests.Extensions {
             string value,
             string expected
         ) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -61,7 +62,7 @@ namespace Core.Tests.Extensions {
         [InlineData("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بسم اللـه الرحمـن الرحيم")]
         [InlineData("۞", "بسم اللـه الرحمـن الرحيم")]
         public void RemoveAccent_Work_With_Arabic_Characters(string value, string expected) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
         [Theory]
@@ -70,10 +71,10 @@ namespace Core.Tests.Extensions {
         [InlineData(" Mahmoud 17 ", " Mahmoud 17 ")]
         [InlineData(" crème brûlée", " creme brulee")]
         public void RemoveAccent_Work_With_Latin_Characters(string value, string expected) {
-            Test(value, expected);
+            _Test(value, expected);
         }
 
-        private void Test(string value, string expected) {
+        private void _Test(string value, string expected) {
             // act
             var result = value.RemoveAccent();
 

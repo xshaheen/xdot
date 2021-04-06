@@ -7,8 +7,8 @@ namespace X.Table {
         private          int _size;
 
         public Paging(int index = 0, int size = 25, int maxSize = 25) {
-            Index    = index;
-            Size     = size;
+            Index = index;
+            Size = size;
             _maxSize = maxSize;
         }
 

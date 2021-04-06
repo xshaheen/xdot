@@ -15,10 +15,13 @@ namespace X.Core {
         /// Creates a new <see cref="DisposeAction"/> object.
         /// </summary>
         /// <param name="action">Action to be executed when this object is disposed.</param>
-        public DisposeAction(Action action) => _action = Guard.Against.Null(action, nameof(action));
+        public DisposeAction(Action action) {
+            _action = Guard.Against.Null(action, nameof(action));
+        }
 
         public void Dispose() {
             _action();
+            GC.SuppressFinalize(this);
         }
     }
 

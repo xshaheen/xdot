@@ -11,11 +11,11 @@ namespace X.Core.Extensions {
     public class SearchString {
         private readonly string _str;
 
-        public SearchString(string str) => _str = str;
-
-        public static implicit operator string(SearchString s) {
-            return s._str;
+        public SearchString(string str) {
+            _str = str;
         }
+
+        public static implicit operator string(SearchString s) => s._str;
     }
 
     /// <summary>
@@ -33,12 +33,12 @@ namespace X.Core.Extensions {
             }
 
             var withoutAccentAndSymbols =
-                from ch in input[..].Trim().OneSpace().ToLower().Normalize(NormalizationForm.FormD)
+                from ch in input[..].Trim().OneSpace().ToLowerInvariant().Normalize(NormalizationForm.FormD)
                 let category = CharUnicodeInfo.GetUnicodeCategory(ch)
-                where
-                    category == UnicodeCategory.LowercaseLetter
-                    || category == UnicodeCategory.OtherLetter
-                    || category == UnicodeCategory.DecimalDigitNumber
+                where category
+                    is UnicodeCategory.LowercaseLetter
+                    or UnicodeCategory.OtherLetter
+                    or UnicodeCategory.DecimalDigitNumber
                 select ch;
 
             var str = withoutAccentAndSymbols.ConvertDigitsToEnglishDigits();

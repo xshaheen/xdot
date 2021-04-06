@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Ardalis.GuardClauses;
 
 namespace X.Core.Utils {
-    public static class ComparerFactory<T> {
+    public static class ComparerFactory {
         /// <summary>
         /// Create a key based equability comparer implementation.
         /// </summary>
         /// <param name="keyGetter"></param>
         /// <typeparam name="TKey">Type of the key.</typeparam>
         /// <returns>IEqualityComparer implementation.</returns>
-        public static IEqualityComparer<T> Create<TKey>(Func<T, TKey> keyGetter) {
+        public static IEqualityComparer<T> Create<T, TKey>(Func<T, TKey> keyGetter) {
             return new KeyBasedEqualityComparer<T, TKey>(keyGetter);
         }
 
@@ -21,7 +21,7 @@ namespace X.Core.Utils {
         /// <param name="comparisonFunc"></param>
         /// <param name="getHashCode"></param>
         /// <returns></returns>
-        public static IEqualityComparer<T> Create(
+        public static IEqualityComparer<T> Create<T>(
             Func<T, T, bool> comparisonFunc,
             Func<T, int> getHashCode
         ) {
@@ -35,7 +35,7 @@ namespace X.Core.Utils {
 
         public ComparisonFuncComparer(Func<T, T, bool> func, Func<T, int> hashFunc) {
             _comparisonFunc = func;
-            _hashFunc       = hashFunc;
+            _hashFunc = hashFunc;
         }
 
         public bool Equals(T? x, T? y) {
@@ -59,7 +59,9 @@ namespace X.Core.Utils {
     internal class KeyBasedEqualityComparer<T, TKey> : IEqualityComparer<T> {
         private readonly Func<T, TKey> _keyGetter;
 
-        public KeyBasedEqualityComparer(Func<T, TKey> keyGetter) => _keyGetter = keyGetter;
+        public KeyBasedEqualityComparer(Func<T, TKey> keyGetter) {
+            _keyGetter = keyGetter;
+        }
 
         public bool Equals(T? x, T? y) {
             if (x is null && y is null) {

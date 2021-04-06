@@ -6,9 +6,9 @@ namespace X.Table {
     [PublicAPI]
     public class Page<T> {
         public Page(List<T> items, int index, int size, int totalItems) {
-            Items      = items;
-            Index      = index;
-            Size       = size;
+            Items = items;
+            Index = index;
+            Size = size;
             TotalItems = totalItems;
         }
 

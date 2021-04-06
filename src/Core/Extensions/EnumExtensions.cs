@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Reflection;
 
 namespace X.Core.Extensions {
     public static class EnumExtensions {
@@ -9,19 +8,19 @@ namespace X.Core.Extensions {
                 return string.Empty;
             }
 
-            var attribute = value.GetAttribute<DescriptionAttribute>();
+            var attribute = value._GetAttribute<DescriptionAttribute>();
 
             return attribute == null ? value.ToString() : attribute.Description;
         }
 
-        private static T? GetAttribute<T>(this Enum? value) where T : Attribute {
+        private static T? _GetAttribute<T>(this Enum? value) where T : Attribute {
             if (value == null) {
                 return null;
             }
 
-            MemberInfo[] member = value.GetType().GetMember(value.ToString());
+            var member = value.GetType().GetMember(value.ToString());
 
-            object[] attributes = member[0].GetCustomAttributes(typeof(T), false);
+            var attributes = member[0].GetCustomAttributes(typeof(T), false);
 
             return (T) attributes[0];
         }

@@ -24,14 +24,13 @@ namespace X.Core.Utils {
             var currentCulture = CultureInfo.CurrentCulture;
             var currentUiCulture = CultureInfo.CurrentUICulture;
 
-            CultureInfo.CurrentCulture   = culture;
+            CultureInfo.CurrentCulture = culture;
             CultureInfo.CurrentUICulture = uiCulture ?? culture;
 
-            return new DisposeAction(
-                () => {
-                    CultureInfo.CurrentCulture   = currentCulture;
-                    CultureInfo.CurrentUICulture = currentUiCulture;
-                });
+            return new DisposeAction(() => {
+                CultureInfo.CurrentCulture = currentCulture;
+                CultureInfo.CurrentUICulture = currentUiCulture;
+            });
         }
 
         public static bool IsValidCultureCode(string? cultureCode) {

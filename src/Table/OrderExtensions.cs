@@ -19,7 +19,7 @@ namespace X.Table {
 
             var (asc, property) = orders[0];
 
-            IOrderedQueryable<T> query = asc
+            var query = asc
                 ? source.OrderBy(property)
                 : source.OrderByDescending(property);
 
@@ -48,7 +48,7 @@ namespace X.Table {
             string propertyName,
             IComparer<object>? comparer = null
         ) {
-            return CallOrderedQueryable(source, nameof(Queryable.OrderBy), propertyName, comparer);
+            return _CallOrderedQueryable(source, nameof(Queryable.OrderBy), propertyName, comparer);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace X.Table {
             string propertyName,
             IComparer<object>? comparer = null
         ) {
-            return CallOrderedQueryable(source,
+            return _CallOrderedQueryable(source,
                 nameof(Queryable.OrderByDescending),
                 propertyName,
                 comparer);
@@ -89,7 +89,7 @@ namespace X.Table {
             string propertyName,
             IComparer<object>? comparer = null
         ) {
-            return CallOrderedQueryable(source, nameof(Queryable.ThenBy), propertyName, comparer);
+            return _CallOrderedQueryable(source, nameof(Queryable.ThenBy), propertyName, comparer);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace X.Table {
             string propertyName,
             IComparer<object>? comparer = null
         ) {
-            return CallOrderedQueryable(source,
+            return _CallOrderedQueryable(source,
                 nameof(Queryable.ThenByDescending),
                 propertyName,
                 comparer);
@@ -117,13 +117,13 @@ namespace X.Table {
         /// <summary>
         /// Builds the Queryable functions using a TSource property name.
         /// </summary>
-        private static IOrderedQueryable<T> CallOrderedQueryable<T>(
+        private static IOrderedQueryable<T> _CallOrderedQueryable<T>(
             this IQueryable<T> source,
             string methodName,
             string propertyName,
             IComparer<object>? comparer = null
         ) {
-            ParameterExpression parameterExpression = Expression.Parameter(typeof(T), "x");
+            var parameterExpression = Expression.Parameter(typeof(T), "x");
 
             Expression body;
 
