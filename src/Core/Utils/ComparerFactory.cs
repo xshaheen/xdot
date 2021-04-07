@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
 namespace X.Core.Utils {
+    [PublicAPI]
     public static class ComparerFactory {
         /// <summary>
         /// Create a key based equability comparer implementation.

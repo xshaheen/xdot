@@ -1,6 +1,8 @@
 using System.Text;
+using JetBrains.Annotations;
 
 namespace X.Core.Utils {
+    [PublicAPI]
     public class StringHelper {
         /// <summary>
         /// Converts a byte[] to string without BOM (byte order mark).

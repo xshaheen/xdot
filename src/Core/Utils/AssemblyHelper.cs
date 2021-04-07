@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using JetBrains.Annotations;
 
 namespace X.Core.Utils {
-    internal static class AssemblyHelper {
+    [PublicAPI]
+    public static class AssemblyHelper {
         public static List<Assembly> LoadAssemblies(string folderPath, SearchOption searchOption) {
             return GetAssemblyFiles(folderPath, searchOption)
                 .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath)

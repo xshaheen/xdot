@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
 namespace X.Core.Utils {
     /// <summary>
     /// A shortcut to use <see cref="Random"/> class.
     /// Also provides some useful methods.
     /// </summary>
+    [PublicAPI]
     public static class RandomHelper {
         private static readonly Random Rnd = new();
 

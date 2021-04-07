@@ -2,7 +2,7 @@ namespace X.Core.Utils {
     /// <summary>
     /// Arabic letters & classification
     /// </summary>
-    public class Ar {
+    public static class Ar {
         /// <summary>
         /// https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
         /// <para>

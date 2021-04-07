@@ -4,11 +4,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using System;
+using JetBrains.Annotations;
 
 namespace X.Core.Utils {
     /// <summary>
     /// A helper class for File operations.
     /// </summary>
+    [PublicAPI]
     public static class FileHelper {
         /// <summary>
         /// Checks and deletes given file if it does exists.

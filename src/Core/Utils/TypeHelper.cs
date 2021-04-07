@@ -1,7 +1,9 @@
 using System;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace X.Core.Utils {
+    [PublicAPI]
     public static class TypeHelper {
         public static bool IsFunc(object? obj) {
             if (obj is null) {

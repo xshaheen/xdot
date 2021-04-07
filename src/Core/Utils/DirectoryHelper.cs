@@ -1,10 +1,12 @@
 using System.IO;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
 namespace X.Core.Utils {
     /// <summary>
     /// A helper class for Directory operations.
     /// </summary>
+    [PublicAPI]
     public static class DirectoryHelper {
         public static void CreateIfNotExists(string directory) {
             if (!Directory.Exists(directory)) {

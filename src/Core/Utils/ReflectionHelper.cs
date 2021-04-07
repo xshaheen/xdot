@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace X.Core.Utils {
+    [PublicAPI]
     public static class ReflectionHelper {
         /// <summary>
         /// Tries to gets an of attribute defined for a class member and it's declaring type including

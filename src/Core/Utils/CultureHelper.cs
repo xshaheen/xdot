@@ -1,9 +1,11 @@
 using System;
 using System.Globalization;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 using X.Core.Extensions;
 
 namespace X.Core.Utils {
+    [PublicAPI]
     public static class CultureHelper {
         public static bool IsRtl => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
 
