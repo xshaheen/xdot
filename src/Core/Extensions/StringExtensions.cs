@@ -436,7 +436,7 @@ namespace X.Core.Extensions {
             var cs =
                 from ch in input.Normalize(NormalizationForm.FormD)
                 let category = CharUnicodeInfo.GetUnicodeCategory(ch)
-                where category != UnicodeCategory.NonSpacingMark
+                where category is not UnicodeCategory.NonSpacingMark
                 select ch;
 
             var sb = new StringBuilder();

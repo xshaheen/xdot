@@ -44,6 +44,7 @@ trim_trailing_whitespace = false
 dotnet_analyzer_diagnostic.severity = warning
 # Expression value is never used csharp(IDE0058)
 dotnet_diagnostic.IDE0058.severity = silent
+dotnet_diagnostic.IDE0055.severity = silent
 
 # .NET Languages Style Rules
 # https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/language-rules#net-style-rules
@@ -94,7 +95,7 @@ csharp_style_var_elsewhere = true:warning
 # Expression-bodied members
 csharp_style_expression_bodied_methods = false:warning
 csharp_style_expression_bodied_constructors = false:warning
-csharp_style_expression_bodied_operators = false:warning
+csharp_style_expression_bodied_operators = true:warning
 csharp_style_expression_bodied_properties = true:warning
 csharp_style_expression_bodied_indexers = true:warning
 csharp_style_expression_bodied_accessors = true:warning
@@ -290,19 +291,19 @@ dotnet_naming_rule.parameters_rule.severity = warning
 
 # All private, protected, protected_internal fields must be _camelCase
 # Custom
-dotnet_naming_symbols.private_protected_fields_group.applicable_accessibilities = private, protected, protected_internal
-dotnet_naming_symbols.private_protected_fields_group.applicable_kinds = field
-dotnet_naming_rule.private_protected_fields_group_must_be_camel_case_rule.symbols = private_protected_fields_group
-dotnet_naming_rule.private_protected_fields_group_must_be_camel_case_rule.style = _camel_case_style
-dotnet_naming_rule.private_protected_fields_group_must_be_camel_case_rule.severity = warning
+dotnet_naming_symbols.private_fields_group.applicable_accessibilities = private
+dotnet_naming_symbols.private_fields_group.applicable_kinds = field
+dotnet_naming_rule.private_fields_group_must_be_camel_case_rule.symbols = private_fields_group
+dotnet_naming_rule.private_fields_group_must_be_camel_case_rule.style = _camel_case_style
+dotnet_naming_rule.private_fields_group_must_be_camel_case_rule.severity = warning
 
-# All private, protected, protected_internal fields must be _PascalCase
+# All private methods must be _PascalCase
 # Custom
-dotnet_naming_symbols.private_protected_methods_group.applicable_accessibilities = private, protected, protected_internal
-dotnet_naming_symbols.private_protected_methods_group.applicable_kinds = method
-dotnet_naming_rule.private_protected_methods_group_must_be_camel_case_rule.symbols = private_protected_methods_group
-dotnet_naming_rule.private_protected_methods_group_must_be_camel_case_rule.style = _pascal_case_style
-dotnet_naming_rule.private_protected_methods_group_must_be_camel_case_rule.severity = warning
+dotnet_naming_symbols.private_methods_group.applicable_accessibilities = private
+dotnet_naming_symbols.private_methods_group.applicable_kinds = method
+dotnet_naming_rule.private_methods_group_must_be_camel_case_rule.symbols = private_methods_group
+dotnet_naming_rule.private_methods_group_must_be_camel_case_rule.style = _pascal_case_style
+dotnet_naming_rule.private_methods_group_must_be_camel_case_rule.severity = warning
 
 #### ReSharper  ####
 
