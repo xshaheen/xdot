@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
-namespace X.Core.Extensions {
+// ReSharper disable once CheckNamespace
+namespace System.Collections.Generic {
+    [PublicAPI]
     public static class ListExtensions {
         public static void InsertRange<T>(this IList<T> source, int index, IEnumerable<T> items) {
             foreach (var item in items) {
@@ -130,7 +131,7 @@ namespace X.Core.Extensions {
         ) {
             var len = source.Count - 1;
             if (!targetIndex.ExclusiveBetween(0, len)) {
-                throw new IndexOutOfRangeException($"targetIndex should be between 0 and {len}");
+                throw new ArgumentException($"targetIndex should be between 0 and {len}");
             }
 
             var currentIndex = source.FindIndex(0, selector);

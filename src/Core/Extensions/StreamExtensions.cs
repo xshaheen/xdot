@@ -1,7 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
+// ReSharper disable once CheckNamespace
 namespace System.IO {
+    [PublicAPI]
     public static class StreamExtensions {
         public static byte[] GetAllBytes(this Stream stream) {
             using var memoryStream = new MemoryStream();

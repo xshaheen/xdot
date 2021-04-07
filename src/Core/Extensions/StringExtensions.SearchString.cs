@@ -15,7 +15,9 @@ namespace X.Core.Extensions {
             _str = str;
         }
 
-        public static implicit operator string(SearchString s) => s._str;
+        public static implicit operator string(SearchString s) {
+            return s._str;
+        }
     }
 
     /// <summary>

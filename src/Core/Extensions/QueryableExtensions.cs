@@ -1,13 +1,10 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Linq.Expressions;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
-namespace X.Core.Extensions {
-    /// <summary>
-    /// Some useful extension methods for <see cref="IQueryable{T}"/>.
-    /// </summary>
+// ReSharper disable once CheckNamespace
+namespace System.Linq {
+    [PublicAPI]
     public static class QueryableExtensions {
         /// <summary>
         /// Filters a <see cref="IQueryable{T}"/> by given predicate if given condition is true.
@@ -34,7 +31,7 @@ namespace X.Core.Extensions {
         /// <param name="predicate">Predicate to filter the query</param>
         /// <returns>Filtered or not filtered query based on <paramref name="condition"/></returns>
         public static TQueryable WhereIf<T, TQueryable>(
-            [NotNull] this TQueryable query,
+            [Diagnostics.CodeAnalysis.NotNull] this TQueryable query,
             bool condition,
             Expression<Func<T, bool>> predicate
         )
@@ -52,7 +49,7 @@ namespace X.Core.Extensions {
         /// <param name="predicate">Predicate to filter the query</param>
         /// <returns>Filtered or not filtered query based on <paramref name="condition"/></returns>
         public static IQueryable<T> WhereIf<T>(
-            [NotNull] this IQueryable<T> query,
+            [Diagnostics.CodeAnalysis.NotNull] this IQueryable<T> query,
             bool condition,
             Expression<Func<T, int, bool>> predicate
         ) {
@@ -69,7 +66,7 @@ namespace X.Core.Extensions {
         /// <param name="predicate">Predicate to filter the query</param>
         /// <returns>Filtered or not filtered query based on <paramref name="condition"/></returns>
         public static TQueryable WhereIf<T, TQueryable>(
-            [NotNull] this TQueryable query,
+            [Diagnostics.CodeAnalysis.NotNull] this TQueryable query,
             bool condition,
             Expression<Func<T, int, bool>> predicate
         ) where TQueryable : IQueryable<T> {

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using FluentAssertions;
-using X.Core.Extensions;
 using Xunit;
 
 namespace Core.Tests.Extensions {

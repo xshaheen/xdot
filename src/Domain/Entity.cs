@@ -11,13 +11,13 @@ namespace X.Domain {
     public abstract class Entity<TId> : Base<Entity<TId>>, IEntity<TId> {
         public TId Id { get; protected init; } = default!;
 
-        protected sealed override IEnumerable<object?> _Equals() { yield return Id; }
+        protected sealed override IEnumerable<object?> Equals() { yield return Id; }
     }
 
     public abstract class Entity : Base<Entity>, IEntity<string> {
         public string Id { get; protected init; } = default!;
 
-        protected sealed override IEnumerable<object?> _Equals() { yield return Id; }
+        protected sealed override IEnumerable<object?> Equals() { yield return Id; }
     }
 
 

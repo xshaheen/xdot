@@ -9,6 +9,7 @@ namespace X.Core.Utils {
         /// </summary>
         /// <param name="keyGetter"></param>
         /// <typeparam name="TKey">Type of the key.</typeparam>
+        /// <typeparam name="T">Type</typeparam>
         /// <returns>IEqualityComparer implementation.</returns>
         public static IEqualityComparer<T> Create<T, TKey>(Func<T, TKey> keyGetter) {
             return new KeyBasedEqualityComparer<T, TKey>(keyGetter);

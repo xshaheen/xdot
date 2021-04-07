@@ -5,8 +5,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using JetBrains.Annotations;
 
 namespace X.Core.Extensions {
+    [PublicAPI]
     public static class ObjectExtensions {
         /// <summary>
         /// Converts the value of a specified object into a JSON string and return

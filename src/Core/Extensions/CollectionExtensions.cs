@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
-namespace X.Core.Extensions {
-    /// <summary>
-    /// Extension methods for Collections.
-    /// </summary>
+// ReSharper disable once CheckNamespace
+namespace System.Collections.Generic {
+    [PublicAPI]
     public static class CollectionExtensions {
         /// <summary>
         /// Checks whatever given collection object is null or has no item.

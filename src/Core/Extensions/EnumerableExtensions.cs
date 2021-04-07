@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
-namespace X.Core.Extensions {
-    /// <summary>
-    /// Extension methods for <see cref="IEnumerable{T}"/>.
-    /// </summary>
+// ReSharper disable once CheckNamespace
+namespace System.Collections.Generic {
+    [PublicAPI]
     public static class EnumerableExtensions {
         /// <summary>
         /// Concatenates the members of a constructed <see cref="IEnumerable{T}"/> collection of type

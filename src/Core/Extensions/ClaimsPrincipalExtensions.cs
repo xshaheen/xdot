@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
+using JetBrains.Annotations;
+using X.Core.Extensions;
 
-namespace X.Core.Extensions {
+// ReSharper disable once CheckNamespace
+namespace System.Security.Claims {
+    [PublicAPI]
     public static class ClaimsPrincipalExtensions {
         /// <summary>
         /// Get the <paramref name="claimType"/> claim.

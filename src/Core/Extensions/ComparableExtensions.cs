@@ -1,9 +1,8 @@
-// ReSharper disable once CheckNamespace
+using JetBrains.Annotations;
 
+// ReSharper disable once CheckNamespace
 namespace System {
-    /// <summary>
-    /// Extension methods for <see cref="IComparable{T}"/>.
-    /// </summary>
+    [PublicAPI]
     public static class ComparableExtensions {
         /// <summary>
         /// Checks whether the value is in a range between the two specified

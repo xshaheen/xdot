@@ -94,7 +94,7 @@ csharp_style_var_elsewhere = true:warning
 # Expression-bodied members
 csharp_style_expression_bodied_methods = false:warning
 csharp_style_expression_bodied_constructors = false:warning
-csharp_style_expression_bodied_operators = true:warning
+csharp_style_expression_bodied_operators = false:warning
 csharp_style_expression_bodied_properties = true:warning
 csharp_style_expression_bodied_indexers = true:warning
 csharp_style_expression_bodied_accessors = true:warning

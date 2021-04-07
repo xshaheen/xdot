@@ -1,7 +1,9 @@
-using System;
 using System.ComponentModel;
+using JetBrains.Annotations;
 
-namespace X.Core.Extensions {
+// ReSharper disable once CheckNamespace
+namespace System {
+    [PublicAPI]
     public static class EnumExtensions {
         public static string Description(this Enum? value) {
             if (value == null) {

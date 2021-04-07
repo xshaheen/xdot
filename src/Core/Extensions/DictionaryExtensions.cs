@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
-#nullable disable
-namespace X.Core.Extensions {
-    /// <summary>
-    /// Extension methods for Dictionary.
-    /// </summary>
+// ReSharper disable once CheckNamespace
+namespace System.Collections.Generic {
+    [PublicAPI]
     public static class DictionaryExtensions {
         /// <summary>
         /// This method is used to try to get a value in a dictionary if it does exists.
@@ -19,7 +17,7 @@ namespace X.Core.Extensions {
         internal static bool TryGetValue<T>(
             this IDictionary<string, object> dictionary,
             string key,
-            out T value
+            [NotNullWhen(true)] out T? value
         ) {
             if (dictionary.TryGetValue(key, out var valueObj) && valueObj is T obj) {
                 value = obj;
@@ -38,7 +36,7 @@ namespace X.Core.Extensions {
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(
+        public static TValue? GetOrDefault<TKey, TValue>(
             this Dictionary<TKey, TValue> dictionary,
             TKey key
         ) where TKey : notnull {
@@ -53,7 +51,7 @@ namespace X.Core.Extensions {
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(
+        public static TValue? GetOrDefault<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary,
             TKey key
         ) where TKey : notnull {
@@ -68,7 +66,7 @@ namespace X.Core.Extensions {
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(
+        public static TValue? GetOrDefault<TKey, TValue>(
             this IReadOnlyDictionary<TKey, TValue> dictionary,
             TKey key
         ) where TKey : notnull {
@@ -83,7 +81,7 @@ namespace X.Core.Extensions {
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(
+        public static TValue? GetOrDefault<TKey, TValue>(
             this ConcurrentDictionary<TKey, TValue> dictionary,
             TKey key
         ) where TKey : notnull {
@@ -125,8 +123,7 @@ namespace X.Core.Extensions {
             TKey key,
             Func<TValue> factory
         ) where TKey : notnull {
-            return dictionary.GetOrAdd(key, k => factory());
+            return dictionary.GetOrAdd(key, _ => factory());
         }
     }
 }
-#nullable restore

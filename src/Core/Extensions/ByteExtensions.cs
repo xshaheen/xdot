@@ -3,8 +3,10 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
+using JetBrains.Annotations;
 
 namespace X.Core.Extensions {
+    [PublicAPI]
     public static class ByteExtensions {
         public static byte[] Compress(this byte[]? bytes) {
             if (bytes is null) {

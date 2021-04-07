@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using X.Core.Extensions;
 using Xunit;
 
 namespace Core.Tests.Extensions {
