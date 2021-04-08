@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using X.Core.Extensions;
 
 namespace X.Core.Utils {
     [PublicAPI]
     public class XmlHelper {
-        /// <summary>XML Encode</summary>
+        /// <summary>Remove hidden characters then XML Encode</summary>
         public static async Task<string?> XmlEncodeAsync(
             string? str,
             XmlWriterSettings? settings = null
@@ -19,14 +19,7 @@ namespace X.Core.Utils {
                 return null;
             }
 
-            str = Regex.Replace(
-                str,
-                @"[^\u0009\u000A\u000D\u0020-\uD7FF\uE000-\uFFFD]",
-                string.Empty,
-                RegexOptions.Compiled
-            );
-
-            return await XmlEncodeAsIsAsync(str, settings);
+            return await XmlEncodeAsIsAsync(str.RemoveHiddenChars(), settings);
         }
 
         /// <summary>XML Encode as is</summary>

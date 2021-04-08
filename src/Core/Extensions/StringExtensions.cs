@@ -474,5 +474,39 @@ namespace X.Core.Extensions {
 
             return len;
         }
+
+        /// <summary>
+        /// Strips any single quotes or double quotes from the beginning and end of a string.
+        /// </summary>
+        public static string StripQuotes(this string s) {
+            return Regex.Replace(s, "^\\s*['\"]+|['\"]+\\s*$", "");
+        }
+
+        /// <summary>
+        /// True if the given string is a valid IPv4 address.
+        /// </summary>
+        public static bool IsIp4(this string s) {
+            // based on https://stackoverflow.com/a/29942932/62600
+            if (string.IsNullOrEmpty(s)) {
+                return false;
+            }
+
+            var parts = s.Split('.');
+            return parts.Length == 4 && parts.All(x => byte.TryParse(x, out _));
+        }
+
+        /// <summary>
+        /// Remove control characters from string
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static string RemoveHiddenChars(this string val) {
+            return Regex.Replace(
+                val,
+                @"[^\u0009\u000A\u000D\u0020-\uD7FF\uE000-\uFFFD]",
+                string.Empty,
+                RegexOptions.Compiled
+            );
+        }
     }
 }

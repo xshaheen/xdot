@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace X.Core.Extensions {
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static byte[] Bytes(this object obj) {
+        public static byte[] ToBytes(this object obj) {
             return Encoding.Default.GetBytes(obj.ToJson());
         }
 
@@ -27,7 +28,7 @@ namespace X.Core.Extensions {
         /// <param name="obj"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static byte[] Bytes(this object obj, JsonSerializerOptions options) {
+        public static byte[] ToBytes(this object obj, JsonSerializerOptions options) {
             return Encoding.Default.GetBytes(obj.ToJson(options));
         }
 
@@ -137,6 +138,23 @@ namespace X.Core.Extensions {
             }
 
             return obj;
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object, using CultureInfo.InvariantCulture where possible.
+        /// Dates are represented in IS0 8601.
+        /// </summary>
+        [return: NotNullIfNotNull("obj")]
+        public static string? ToInvariantString(this object? obj) {
+            // Taken from Flurl which inspired by: http://stackoverflow.com/a/19570016/62600
+            return obj switch {
+                null               => null,
+                DateTime dt        => dt.ToString("o", CultureInfo.InvariantCulture),
+                DateTimeOffset dto => dto.ToString("o", CultureInfo.InvariantCulture),
+                IConvertible c     => c.ToString(CultureInfo.InvariantCulture),
+                IFormattable f     => f.ToString(null, CultureInfo.InvariantCulture),
+                _                  => obj.ToString(),
+            };
         }
     }
 }
