@@ -18,14 +18,21 @@ namespace X.Sitemap {
         /// <summary>
         /// Write sitemap file into the stream
         /// </summary>
-        public static async Task WriteAsync(this IEnumerable<SitemapUrl> sitemapUrls, Stream stream) {
-            await using var writer = new XmlTextWriter(stream, Encoding.UTF8) {
-                Formatting = Formatting.Indented,
+        public static async Task WriteAsync(
+            this IEnumerable<SitemapUrl> sitemapUrls,
+            Stream stream
+        ) {
+            var settings = new XmlWriterSettings {
+                Async        = true,
+                Indent       = true,
+                Encoding     = StringHelper.Utf8WithoutBom,
+                NewLineChars = "\n",
             };
 
-            writer.WriteStartDocument();
-            writer.WriteStartElement("urlset");
-            writer.WriteAttributeString("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
+            await using var writer = XmlWriter.Create(stream, settings);
+
+            await writer.WriteStartDocumentAsync();
+            writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
             // writer.WriteAttributeString("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
             // writer.WriteAttributeString("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
             // writer.WriteAttributeString("xsi:schemaLocation", "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd");
@@ -43,14 +50,16 @@ namespace X.Sitemap {
                 await _WriteAlternateUrlsAsync(writer, sitemapUrl);
             }
 
-            writer.WriteEndElement();
+            await writer.WriteEndElementAsync();
         }
 
         /// <summary>
         /// Generate sitemap and separate it if exceeded max urls in single file.
         /// <see cref="SitemapConstants.MaxSitemapUrls"/>
         /// </summary>
-        public static async Task<List<MemoryStream>> WriteAsync(this IEnumerable<SitemapUrl> sitemapUrls) {
+        public static async Task<List<MemoryStream>> WriteAsync(
+            this IEnumerable<SitemapUrl> sitemapUrls
+        ) {
             //split URLs into separate lists based on the max size
             var sitemaps = sitemapUrls
                 .Select((url, index) => new { Index = index, Value = url })
@@ -82,7 +91,10 @@ namespace X.Sitemap {
 
             writer.WriteStartElement("url");
 
-            var loc = await XmlHelper.XmlEncodeAsync(sitemapUrl.Location);
+            var loc = Uri.EscapeUriString(sitemapUrl.Location);
+
+            // loc = await XmlHelper.XmlEncodeAsync(loc);
+
             writer.WriteElementString("loc", loc);
 
             if (sitemapUrl.AlternateUrls is not null) {
@@ -91,7 +103,7 @@ namespace X.Sitemap {
 
             if (sitemapUrl.Priority is not null) {
                 writer.WriteElementString(
-                    "changefreq",
+                    "priority",
                     sitemapUrl.Priority.Value.ToString("N1")
                 );
             }

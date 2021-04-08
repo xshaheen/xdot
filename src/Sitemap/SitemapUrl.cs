@@ -7,11 +7,15 @@ namespace X.Sitemap {
     [PublicAPI]
     public record SitemapUrl {
         private readonly SitemapAlternateUrls? _alternateUrls;
+        private readonly string?               _location;
 
         /// <summary>
         /// The full URL of the page.
         /// </summary>
-        public string Location { get; init; } = default!;
+        public string Location {
+            get => _location!;
+            init => _location = value.ToLowerInvariant();
+        }
 
         /// <summary>
         /// Alternate localized URLs of the page
