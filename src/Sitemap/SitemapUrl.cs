@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
+using X.Core.Extensions;
 
 namespace X.Sitemap {
     /// <summary>Represents sitemap URL node.</summary>
@@ -14,7 +15,7 @@ namespace X.Sitemap {
         /// </summary>
         public string Location {
             get => _location!;
-            init => _location = value.ToLowerInvariant();
+            init => _location = value.ToLowerInvariant().RemoveHiddenChars();
         }
 
         /// <summary>

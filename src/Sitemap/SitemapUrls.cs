@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using JetBrains.Annotations;
@@ -22,20 +21,10 @@ namespace X.Sitemap {
             this IEnumerable<SitemapUrl> sitemapUrls,
             Stream stream
         ) {
-            var settings = new XmlWriterSettings {
-                Async        = true,
-                Indent       = true,
-                Encoding     = StringHelper.Utf8WithoutBom,
-                NewLineChars = "\n",
-            };
-
-            await using var writer = XmlWriter.Create(stream, settings);
+            await using var writer = XmlWriter.Create(stream, SitemapConstants.WriterSettings);
 
             await writer.WriteStartDocumentAsync();
             writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-            // writer.WriteAttributeString("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            // writer.WriteAttributeString("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
-            // writer.WriteAttributeString("xsi:schemaLocation", "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd");
 
             // write URLs to the sitemap
             foreach (var sitemapUrl in sitemapUrls) {
@@ -92,8 +81,6 @@ namespace X.Sitemap {
             writer.WriteStartElement("url");
 
             var loc = Uri.EscapeUriString(sitemapUrl.Location);
-
-            // loc = await XmlHelper.XmlEncodeAsync(loc);
 
             writer.WriteElementString("loc", loc);
 

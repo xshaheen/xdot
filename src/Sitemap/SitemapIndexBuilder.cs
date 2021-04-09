@@ -1,10 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using JetBrains.Annotations;
-using X.Core.Utils;
 
 namespace X.Sitemap {
     /// <summary>Sitemap index file builder</summary>
@@ -15,36 +14,31 @@ namespace X.Sitemap {
         /// Write sitemap index file into the stream
         /// </summary>
         public static async Task WriteAsync(
-            Stream stream,
-            List<SitemapReference> sitemapReferences
+            this List<SitemapReference> sitemapReferences,
+            Stream stream
         ) {
-            await using var writer = new XmlTextWriter(stream, Encoding.UTF8) {
-                Formatting = Formatting.Indented,
-            };
+            await using var writer = XmlWriter.Create(stream, SitemapConstants.WriterSettings);
 
-            writer.WriteStartDocument();
-            writer.WriteStartElement("sitemapindex");
-            writer.WriteAttributeString("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
-            // writer.WriteAttributeString("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            // writer.WriteAttributeString("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
-            // writer.WriteAttributeString("xsi:schemaLocation", "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd");
+            await writer.WriteStartDocumentAsync();
+            writer.WriteStartElement("sitemapindex", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
             // write sitemaps URL
             foreach (var sitemapRef in sitemapReferences) {
                 await _WriteSitemapRefNode(writer, sitemapRef);
             }
 
-            writer.WriteEndElement();
+            await writer.WriteEndElementAsync();
         }
 
         private static async Task _WriteSitemapRefNode(
-            XmlTextWriter writer,
+            XmlWriter writer,
             SitemapReference sitemapRef
         ) {
-            var location = await XmlHelper.XmlEncodeAsync(sitemapRef.Location);
-
             writer.WriteStartElement("sitemap");
-            writer.WriteElementString("loc", location);
+
+            var loc = Uri.EscapeUriString(sitemapRef.Location);
+
+            writer.WriteElementString("loc", loc);
 
             if (sitemapRef.LastModified.HasValue) {
                 writer.WriteElementString(
@@ -53,7 +47,7 @@ namespace X.Sitemap {
                 );
             }
 
-            writer.WriteEndElement();
+            await writer.WriteEndElementAsync();
         }
     }
 }

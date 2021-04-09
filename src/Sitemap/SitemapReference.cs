@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using X.Core.Extensions;
 
 namespace X.Sitemap {
     /// <summary>
@@ -7,11 +8,16 @@ namespace X.Sitemap {
     /// </summary>
     [PublicAPI]
     public record SitemapReference {
+        private readonly string? _location;
+
         /// <summary>
         /// Identifies the location of the Sitemap.
         /// This location can be a Sitemap, an Atom file, RSS file or a simple text file.
         /// </summary>
-        public string Location { get; init; } = default!;
+        public string Location {
+            get => _location!;
+            init => _location = value.ToLowerInvariant().RemoveHiddenChars();
+        }
 
         /// <summary>
         /// Identifies the time that the corresponding Sitemap file was modified.
