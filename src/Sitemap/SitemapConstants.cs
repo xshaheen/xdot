@@ -13,7 +13,7 @@ namespace X.Sitemap {
         /// </summary>
         public const int MaxSitemapUrls = 50_000;
 
-        internal static XmlWriterSettings WriterSettings = new() {
+        internal static readonly XmlWriterSettings WriterSettings = new() {
             Async        = true,
             Indent       = true,
             Encoding     = StringHelper.Utf8WithoutBom,

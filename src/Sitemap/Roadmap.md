@@ -10,4 +10,4 @@
   https://developers.google.com/search/docs/advanced/crawling/localized-versions
   For example default alternate: `<link rel="alternate" href="http://example.com/" hreflang="x-default" />`
 
-- Add validation for alternate urls and no duplication in Urls
+- Add validation for alternate urls and no duplication in Urls (define a hash set and when to write any url check if it exist on if yes throw exception else write it and add it to hash set)

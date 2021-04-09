@@ -1,13 +1,20 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
+using X.Core.Extensions;
 
 namespace X.Sitemap {
     /// <summary>Represents sitemap alternate URL node.</summary>
     [PublicAPI]
     public record SitemapAlternateUrl {
+        private readonly string? _location;
+
         /// <summary>
         /// Alternate url.
         /// </summary>
-        public string Location { get; init; } = default!;
+        public string Location {
+            get => _location!;
+            init => _location = Uri.EscapeUriString(value.ToLowerInvariant().RemoveHiddenChars());
+        }
 
         /// <summary>
         /// Language/region codes (in ISO 639-1 format) and optionally

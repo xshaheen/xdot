@@ -16,7 +16,7 @@ namespace X.Sitemap {
         /// </summary>
         public string Location {
             get => _location!;
-            init => _location = value.ToLowerInvariant().RemoveHiddenChars();
+            init => _location = Uri.EscapeUriString(value.ToLowerInvariant().RemoveHiddenChars());
         }
 
         /// <summary>

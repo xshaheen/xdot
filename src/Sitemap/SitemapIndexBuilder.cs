@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -36,9 +35,7 @@ namespace X.Sitemap {
         ) {
             writer.WriteStartElement("sitemap");
 
-            var loc = Uri.EscapeUriString(sitemapRef.Location);
-
-            writer.WriteElementString("loc", loc);
+            writer.WriteElementString("loc", sitemapRef.Location);
 
             if (sitemapRef.LastModified.HasValue) {
                 writer.WriteElementString(

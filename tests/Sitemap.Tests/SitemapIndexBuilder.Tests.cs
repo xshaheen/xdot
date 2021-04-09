@@ -8,8 +8,6 @@ using Xunit;
 
 namespace Sitemap.Tests {
     public class SitemapIndexBuilderTests : TestBase {
-        // Break up large sitemaps
-
         public static List<object[]> TestData => new() {
             // basic
             new object[] {
