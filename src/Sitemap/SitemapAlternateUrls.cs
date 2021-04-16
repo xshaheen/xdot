@@ -6,7 +6,7 @@ namespace X.Sitemap {
     [PublicAPI]
     public record SitemapAlternateUrls {
         /// <summary>
-        /// Language/region codes (in ISO 639-1 format) and optionally
+        /// Gets language/region codes (in ISO 639-1 format) and optionally
         /// a region (in ISO 3166-1 Alpha 2 format) of an alternate URL
         /// Example ar-eg
         /// </summary>
@@ -17,7 +17,7 @@ namespace X.Sitemap {
         public string DefaultLanguageCode { get; init; } = default!;
 
         /// <summary>
-        /// Alternate URLs.
+        /// Gets alternate URLs.
         /// </summary>
         public IEnumerable<SitemapAlternateUrl> Urls { get; init; }  = default!;
     }

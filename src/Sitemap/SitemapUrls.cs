@@ -116,7 +116,7 @@ namespace X.Sitemap {
             if (sitemapUrl.Priority is not null) {
                 writer.WriteElementString(
                     "priority",
-                    sitemapUrl.Priority.Value.ToString("N1")
+                    sitemapUrl.Priority.Value.ToString("N1", CultureInfo.InvariantCulture)
                 );
             }
 

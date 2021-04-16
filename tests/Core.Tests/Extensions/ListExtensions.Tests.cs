@@ -6,7 +6,7 @@ using Xunit;
 namespace Core.Tests.Extensions {
     public class ListExtensionsTests {
         [Fact]
-        public void InsertRange() {
+        public void InsertRange_tests() {
             var list = Enumerable.Range(1, 3).ToList();
             list.InsertRange(1, new[] { 7, 8, 9 });
 
@@ -19,7 +19,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void InsertAfter() {
+        public void InsertAfter_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.InsertAfter(2, 42);
@@ -41,7 +41,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void InsertAfter_With_Predicate() {
+        public void InsertAfter_with_predicate_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.InsertAfter(i => i == 2, 42);
@@ -63,7 +63,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void InsertAfter_With_Predicate_Should_Insert_To_First_If_Not_Found() {
+        public void InsertAfter_with_predicate__should_insert_to_first_if_not_found() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.InsertAfter(i => i == 999, 42);
@@ -76,7 +76,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void InsertBefore() {
+        public void InsertBefore_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.InsertBefore(2, 42);
@@ -98,7 +98,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void InsertBefore_With_Predicate() {
+        public void InsertBefore_with_predicate_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.InsertBefore(i => i == 2, 42);
@@ -120,7 +120,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void ReplaceWhile_WithValue() {
+        public void ReplaceWhile_with_value_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.ReplaceWhile(i => i >= 2, 42);
@@ -131,7 +131,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void ReplaceWhile_WithFactory() {
+        public void ReplaceWhile_with_factory_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.ReplaceWhile(i => i >= 2, i => i + 1);
@@ -142,7 +142,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void ReplaceFirst_WithValue() {
+        public void ReplaceFirst_with_value_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.ReplaceFirst(i => i >= 2, 42);
@@ -153,7 +153,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void ReplaceFirst_WithFactory() {
+        public void ReplaceFirst_with_factory_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.ReplaceFirst(i => i >= 2, i => i + 1);
@@ -164,7 +164,7 @@ namespace Core.Tests.Extensions {
         }
 
         [Fact]
-        public void ReplaceFirst_With_Item() {
+        public void ReplaceFirst_with_item_tests() {
             var list = Enumerable.Range(1, 3).ToList();
 
             list.ReplaceFirst(2, 42);

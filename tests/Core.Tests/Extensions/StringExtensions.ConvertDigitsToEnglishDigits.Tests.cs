@@ -22,7 +22,7 @@ namespace Core.Tests.Extensions {
         [InlineData("")]
         [InlineData("  ")]
         [InlineData(" \n\n\r\n ")]
-        public void ConvertDigitsToEnglishDigits_Returns_WhiteSpaces_With_No_Changes(string value) {
+        public void ConvertDigitsToEnglishDigits__should_returns_white_spaces_as_it_is_tests(string value) {
             _Test(value, value);
         }
 
@@ -34,7 +34,7 @@ namespace Core.Tests.Extensions {
         [InlineData("١٢٨", "128")]
         [InlineData("١.٢٨", "1.28")]
         [InlineData("١,٢٨", "1,28")]
-        public void ConvertDigitsToEnglishDigits_Numerals(string value, string expected) {
+        public void ConvertDigitsToEnglishDigits_numerals_tests(string value, string expected) {
             _Test(value, expected);
         }
 
@@ -42,7 +42,7 @@ namespace Core.Tests.Extensions {
         [InlineData("This is numeral ١٢٨", "This is numeral 128")]
         [InlineData("This is numeral ١.٢٨", "This is numeral 1.28")]
         [InlineData("This is numeral ١,٢٨", "This is numeral 1,28")]
-        public void ConvertDigitsToEnglishDigits_Numeral_With_Other_Characters(
+        public void ConvertDigitsToEnglishDigits_numeral_with_other_characters_tests(
             string value,
             string expected
         ) {
@@ -53,7 +53,7 @@ namespace Core.Tests.Extensions {
         [InlineData("This is numeral ١٢٨", "This is numeral 128")]
         [InlineData("This is numeral ١.٢٨", "This is numeral 1.28")]
         [InlineData("This is numeral ١,٢٨", "This is numeral 1,28")]
-        public void ConvertDigitsToEnglishDigits_Work_Independent_of_Current_Culture(
+        public void ConvertDigitsToEnglishDigits__should_work_independent_of_current_culture(
             string value,
             string expected
         ) {

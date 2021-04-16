@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace X.Sitemap {
             if (sitemapRef.LastModified.HasValue) {
                 writer.WriteElementString(
                     "lastmod",
-                    sitemapRef.LastModified.Value.ToString(SitemapConstants.SitemapDateFormat)
+                    sitemapRef.LastModified.Value.ToString(SitemapConstants.SitemapDateFormat, CultureInfo.InvariantCulture)
                 );
             }
 

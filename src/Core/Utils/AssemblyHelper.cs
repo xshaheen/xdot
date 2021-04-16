@@ -10,9 +10,13 @@ namespace X.Core.Utils {
     [PublicAPI]
     public static class AssemblyHelper {
         public static List<Assembly> LoadAssemblies(string folderPath, SearchOption searchOption) {
-            return GetAssemblyFiles(folderPath, searchOption)
-                .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath)
-                .ToList();
+            var list = new List<Assembly>();
+
+            foreach (var item in GetAssemblyFiles(folderPath, searchOption).ToArray()) {
+                list.Add(AssemblyLoadContext.Default.LoadFromAssemblyPath(item));
+            }
+
+            return list;
         }
 
         public static IEnumerable<string> GetAssemblyFiles(

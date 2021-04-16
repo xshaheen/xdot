@@ -15,6 +15,7 @@ namespace X.Core.Extensions {
         /// Returns null if the string is null or empty or white spaces
         /// otherwise return a trim-ed string.
         /// </summary>
+        [return: NotNullIfNotNull("input")]
         public static string? NullableTrim(this string? input) {
             return input.IsNullOrWhiteSpace() ? null : input.Trim();
         }
@@ -161,110 +162,108 @@ namespace X.Core.Extensions {
         /// <summary>
         /// Removes first occurrence of the given postfixes from end of the given string.
         /// </summary>
-        /// <param name="str">The string.</param>
+        /// <param name="input">The string.</param>
         /// <param name="postFixes">one or more postfix.</param>
         /// <returns>Modified string or the same string if it has not any of given postfixes</returns>
-        public static string? RemovePostfix(this string? str, params string[]? postFixes) {
-            return str.RemovePostfix(StringComparison.Ordinal, postFixes);
+        [return: NotNullIfNotNull("input")]
+        public static string? RemovePostfix(this string? input, params string[]? postFixes) {
+            return input.RemovePostfix(StringComparison.Ordinal, postFixes);
         }
 
         /// <summary>
         /// Removes first occurrence of the given postfixes from end of the given string.
         /// </summary>
-        /// <param name="str">The string.</param>
+        /// <param name="input">The string.</param>
         /// <param name="comparisonType">String comparison type</param>
         /// <param name="postfixes">one or more postfix.</param>
         /// <returns>Modified string or the same string if it has not any of given postfixes</returns>
+        [return: NotNullIfNotNull("input")]
         public static string? RemovePostfix(
-            this string? str,
+            this string? input,
             StringComparison comparisonType,
             params string[]? postfixes
         ) {
-            if (str.IsNullOrEmpty()) {
+            if (input.IsNullOrEmpty()) {
                 return null;
             }
 
             if (postfixes.IsNullOrEmpty()) {
-                return str;
+                return input;
             }
 
             foreach (var postFix in postfixes) {
-                if (str.EndsWith(postFix, comparisonType)) {
-                    return str.Left(str.Length - postFix.Length);
+                if (input.EndsWith(postFix, comparisonType)) {
+                    return input.Left(input.Length - postFix.Length);
                 }
             }
 
-            return str;
+            return input;
         }
 
         /// <summary>
         /// Removes first occurrence of the given prefixes from beginning of the given string.
         /// </summary>
-        /// <param name="str">The string.</param>
+        /// <param name="input">The string.</param>
         /// <param name="prefixes">one or more prefix.</param>
         /// <returns>Modified string or the same string if it has not any of given prefixes</returns>
-        public static string? RemovePrefix(this string? str, params string[]? prefixes) {
-            return str.RemovePrefix(StringComparison.Ordinal, prefixes);
+        [return: NotNullIfNotNull("input")]
+        public static string? RemovePrefix(this string? input, params string[]? prefixes) {
+            return input.RemovePrefix(StringComparison.Ordinal, prefixes);
         }
 
         /// <summary>
         /// Removes first occurrence of the given prefixes from beginning of the given string.
         /// </summary>
-        /// <param name="str">The string.</param>
+        /// <param name="input">The string.</param>
         /// <param name="comparisonType">String comparison type</param>
         /// <param name="prefixes">one or more prefix.</param>
         /// <returns>Modified string or the same string if it has not any of given prefixes</returns>
+        [return: NotNullIfNotNull("input")]
         public static string? RemovePrefix(
-            this string? str,
+            this string? input,
             StringComparison comparisonType,
             params string[]? prefixes
         ) {
-            if (str.IsNullOrEmpty()) {
+            if (input.IsNullOrEmpty()) {
                 return null;
             }
 
             if (prefixes.IsNullOrEmpty()) {
-                return str;
+                return input;
             }
 
             foreach (var preFix in prefixes) {
-                if (str.StartsWith(preFix, comparisonType)) {
-                    return str.Right(str.Length - preFix.Length);
+                if (input.StartsWith(preFix, comparisonType)) {
+                    return input.Right(input.Length - preFix.Length);
                 }
             }
 
-            return str;
+            return input;
         }
 
         /// <summary>
         /// Gets a substring of a string from beginning of the string if it exceeds maximum length.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
-        public static string? Truncate(this string? str, int maxLength) {
-            if (str is null) {
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="input"/> is null</exception>
+        [return: NotNullIfNotNull("input")]
+        public static string? Truncate(this string? input, int maxLength) {
+            if (input is null) {
                 return null;
             }
 
-            if (str.Length <= maxLength) {
-                return str;
-            }
-
-            return str.Left(maxLength);
+            return input.Length <= maxLength ? input : input.Left(maxLength);
         }
 
         /// <summary>
         /// Gets a substring of a string from Ending of the string if it exceeds maximum length.
         /// </summary>
-        public static string? TruncateFromBeginning(this string? str, int maxLength) {
-            if (str is null) {
+        [return: NotNullIfNotNull("input")]
+        public static string? TruncateFromBeginning(this string? input, int maxLength) {
+            if (input is null) {
                 return null;
             }
 
-            if (str.Length <= maxLength) {
-                return str;
-            }
-
-            return str.Right(maxLength);
+            return input.Length <= maxLength ? input : input.Right(maxLength);
         }
 
         /// <summary>
@@ -272,28 +271,29 @@ namespace X.Core.Extensions {
         /// It adds a "..." postfix to end of the string if it's truncated.
         /// Returning string can not be longer than maxLength.
         /// </summary>
+        [return: NotNullIfNotNull("input")]
         public static string? TruncateWithPostfix(
-            this string? str,
+            this string? input,
             int maxLength,
             string postfix = "..."
         ) {
-            if (str == null) {
+            if (input == null) {
                 return null;
             }
 
-            if (str == string.Empty || maxLength == 0) {
+            if (input == string.Empty || maxLength == 0) {
                 return string.Empty;
             }
 
-            if (str.Length <= maxLength) {
-                return str;
+            if (input.Length <= maxLength) {
+                return input;
             }
 
             if (maxLength <= postfix.Length) {
                 return postfix.Left(maxLength);
             }
 
-            return str.Left(maxLength - postfix.Length) + postfix;
+            return input.Left(maxLength - postfix.Length) + postfix;
         }
 
         /// <summary>

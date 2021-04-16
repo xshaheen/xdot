@@ -98,12 +98,15 @@ namespace X.Core.Utils {
 
             var lines = new List<string>();
 
-            await using (var stream = new FileStream(path,
+            await using (var stream = new FileStream(
+                path,
                 fileMode,
                 fileAccess,
                 fileShare,
                 bufferSize,
-                fileOptions))
+                fileOptions
+            ))
+
             using (var reader = new StreamReader(stream, encoding)) {
                 string? line;
 
@@ -121,7 +124,8 @@ namespace X.Core.Utils {
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
         public static async Task<string?> ReadFileWithoutBomAsync(string path) {
-            return StringHelper.ConvertFromBytesWithoutBom(await ReadAllBytesAsync(path));
+            var bytes = await ReadAllBytesAsync(path);
+            return StringHelper.ConvertFromBytesWithoutBom(bytes);
         }
     }
 }

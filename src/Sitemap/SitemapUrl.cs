@@ -46,12 +46,12 @@ namespace X.Sitemap {
         }
 
         /// <summary>
-        /// The full URL of the page.
+        /// Gets the full URL of the page.
         /// </summary>
         public string? Location { get; }
 
         /// <summary>
-        /// Alternate localized URLs of the page
+        /// Gets alternate localized URLs of the page
         /// </summary>
         public IEnumerable<SitemapAlternateUrl>? AlternateLocations { get; }
 

@@ -74,7 +74,7 @@ namespace Core.Tests.Extensions {
             "crème brûlée",
             "Creme-Brulee-F13D1B0F57"
         )]
-        public void URLs_Generated_Correctly(string id, string name, string expected) {
+        public void should_generate_urls_as_expected(string id, string name, string expected) {
             // - act
 
             var perma = name.PermaLink(id);

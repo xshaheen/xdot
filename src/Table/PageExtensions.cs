@@ -61,12 +61,14 @@ namespace X.Table {
             }
 
             var items = index < 0
-                ? await source.SkipLast(-(index + 1) * size)
-                    .TakeLast(size)
+                ? await source.SkipLast(-(index + 1) * size).TakeLast(size)
                     .ToListAsync(cancellationToken)
-                : await source.Skip(index * size).Take(size).ToListAsync(cancellationToken);
+                : await source.Skip(index * size).Take(size)
+                    .ToListAsync(cancellationToken);
 
-            return new Page<T>(items, index, size, await source.CountAsync(cancellationToken));
+            var total = await source.CountAsync(cancellationToken);
+
+            return new Page<T>(items, index, size, total);
         }
     }
 }
