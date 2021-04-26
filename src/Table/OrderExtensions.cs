@@ -131,9 +131,8 @@ namespace X.Table {
                 body = propertyName.Split('.')
                     .Aggregate<string, Expression>(parameterExpression, Expression.PropertyOrField);
             }
-            catch (Exception) {
-                throw new InvalidOrderPropertyException(
-                    $"'{propertyName}' is invalid sorting property.");
+            catch (Exception e) {
+                throw new InvalidOrderPropertyException($"'{propertyName}' is invalid sorting property.", e);
             }
 
             return comparer is not null
@@ -159,5 +158,8 @@ namespace X.Table {
 
     public class InvalidOrderPropertyException : Exception {
         public InvalidOrderPropertyException(string message) : base(message) { }
+
+        public InvalidOrderPropertyException(string message, Exception? innerException)
+            : base(message, innerException) { }
     }
 }

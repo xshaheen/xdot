@@ -20,27 +20,34 @@ namespace X.Sitemap {
             await using var writer = XmlWriter.Create(stream, SitemapConstants.WriterSettings);
 
             await writer.WriteStartDocumentAsync();
-            writer.WriteStartElement("sitemapindex", "http://www.sitemaps.org/schemas/sitemap/0.9");
+
+            await writer.WriteStartElementAsync(
+                null,
+                "sitemapindex",
+                "http://www.sitemaps.org/schemas/sitemap/0.9"
+            );
 
             // write sitemaps URL
             foreach (var sitemapRef in sitemapReferences) {
-                await _WriteSitemapRefNode(writer, sitemapRef);
+                await _WriteSitemapRefNodeAsync(writer, sitemapRef);
             }
 
             await writer.WriteEndElementAsync();
         }
 
-        private static async Task _WriteSitemapRefNode(
+        private static async Task _WriteSitemapRefNodeAsync(
             XmlWriter writer,
             SitemapReference sitemapRef
         ) {
-            writer.WriteStartElement("sitemap");
+            await writer.WriteStartElementAsync(null, "sitemap", null);
 
-            writer.WriteElementString("loc", sitemapRef.Location);
+            await writer.WriteElementStringAsync(null, "loc", null, sitemapRef.Location);
 
             if (sitemapRef.LastModified.HasValue) {
-                writer.WriteElementString(
+                await writer.WriteElementStringAsync(
+                    null,
                     "lastmod",
+                    null,
                     sitemapRef.LastModified.Value.ToString(SitemapConstants.SitemapDateFormat, CultureInfo.InvariantCulture)
                 );
             }

@@ -50,7 +50,7 @@ namespace X.Sitemap {
             await using var writer = XmlWriter.Create(stream, SitemapConstants.WriterSettings);
 
             await writer.WriteStartDocumentAsync();
-            writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+            await writer.WriteStartElementAsync(null, "urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
             if (sitemapUrls.Any(i => i.AlternateLocations is not null)) {
                 await writer.WriteAttributeStringAsync("xmlns",
@@ -75,8 +75,8 @@ namespace X.Sitemap {
             var hasAlternates = sitemapUrl.AlternateLocations is not null;
 
             if (!hasAlternates) {
-                writer.WriteStartElement("url");
-                writer.WriteElementString("loc", sitemapUrl.Location);
+                await writer.WriteStartElementAsync(null, "url", null);
+                await writer.WriteElementStringAsync(null, "loc", null, sitemapUrl.Location!);
                 _WriteOtherNodes(writer, sitemapUrl);
                 await writer.WriteEndElementAsync();
                 return;
@@ -85,8 +85,8 @@ namespace X.Sitemap {
             // write with alternates
 
             foreach (var baseLoc in sitemapUrl.AlternateLocations!) {
-                writer.WriteStartElement("url");
-                writer.WriteElementString("loc", baseLoc.Location);
+                await writer.WriteStartElementAsync(null, "url", null);
+                await writer.WriteElementStringAsync(null, "loc", null, baseLoc.Location);
                 await _WriteAlternateUrlsReferenceAsync(writer, sitemapUrl.AlternateLocations);
                 _WriteOtherNodes(writer, sitemapUrl);
                 await writer.WriteEndElementAsync();
@@ -104,9 +104,9 @@ namespace X.Sitemap {
                 }
 
                 await writer.WriteStartElementAsync("xhtml", "link", null);
-                writer.WriteAttributeString("rel", "alternate");
-                writer.WriteAttributeString("hreflang", alternate.LanguageCode);
-                writer.WriteAttributeString("href", alternate.Location);
+                await writer.WriteAttributeStringAsync(null, "rel", null, "alternate");
+                await writer.WriteAttributeStringAsync(null, "hreflang", null, alternate.LanguageCode);
+                await writer.WriteAttributeStringAsync(null, "href", null, alternate.Location);
 
                 await writer.WriteEndElementAsync();
             }

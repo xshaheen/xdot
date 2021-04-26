@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
+using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.EntityFrameworkCore {
+    [PublicAPI]
     public static class QueryableExtensions {
         /// <summary>
         /// Count number of entities per each year in the interval from <paramref name="start"/>
@@ -18,7 +21,7 @@ namespace Microsoft.EntityFrameworkCore {
         /// and assume that the two is at the same months.
         /// </remarks>
         /// </summary>
-        public static async Task<IEnumerable<EntityPerDate>> CountPerYear<T>(
+        public static async Task<IEnumerable<EntityPerDate>> CountPerYearAsync<T>(
             this IQueryable<T> queryable,
             Expression<Func<T, DateTime>> propSelector,
             DateTime start,
@@ -28,7 +31,9 @@ namespace Microsoft.EntityFrameworkCore {
             Guard.Against.Null(queryable, nameof(queryable));
 
             if (start > end) {
-                throw new ArgumentException("Start date must be less than the end date.");
+                throw new ArgumentException(
+                    $"Start date: '{start.ToString(CultureInfo.InvariantCulture)}' must be less than the end date '{end.ToString(CultureInfo.InvariantCulture)}'.",
+                    nameof(end));
             }
 
             var months = end.Year - start.Year;
@@ -38,11 +43,11 @@ namespace Microsoft.EntityFrameworkCore {
 
             if (months > 1) {
                 first = new DateTime(start.Year, 1, 1);
-                last = new DateTime(end.Year, 1, 1);
+                last  = new DateTime(end.Year, 1, 1);
             }
             else {
                 first = new DateTime(end.Year, 1, 1);
-                last = new DateTime(end.Year + 1, 1, 1);
+                last  = new DateTime(end.Year + 1, 1, 1);
             }
 
 
@@ -51,7 +56,8 @@ namespace Microsoft.EntityFrameworkCore {
             var typeParameterExpression = Expression.Parameter(typeof(T), "e");
             var selectedPropertyInfo = (PropertyInfo) ((MemberExpression) propSelector.Body).Member;
 
-            var propertyAccessor = Expression.Property(typeParameterExpression, selectedPropertyInfo);
+            var propertyAccessor =
+                Expression.Property(typeParameterExpression, selectedPropertyInfo);
 
             // -- start at
 
@@ -59,7 +65,8 @@ namespace Microsoft.EntityFrameworkCore {
                 propertyAccessor,
                 Expression.Constant(start.AddYears(-1), typeof(DateTime)));
 
-            var greaterThanStartPredicate = Expression.Lambda<Func<T, bool>>(greaterThanStartExp, typeParameterExpression);
+            var greaterThanStartPredicate =
+                Expression.Lambda<Func<T, bool>>(greaterThanStartExp, typeParameterExpression);
 
             // -- end at
 
@@ -67,7 +74,8 @@ namespace Microsoft.EntityFrameworkCore {
                 propertyAccessor,
                 Expression.Constant(last.AddYears(1)));
 
-            var lessThanEndPredicate = Expression.Lambda<Func<T, bool>>(lessThanEndExp, typeParameterExpression);
+            var lessThanEndPredicate =
+                Expression.Lambda<Func<T, bool>>(lessThanEndExp, typeParameterExpression);
 
             // Query
 
@@ -101,7 +109,7 @@ namespace Microsoft.EntityFrameworkCore {
         /// and assume that the two is at the same day.
         /// </remarks>
         /// </summary>
-        public static async Task<IEnumerable<EntityPerDate>> CountPerMonth<T>(
+        public static async Task<IEnumerable<EntityPerDate>> CountPerMonthAsync<T>(
             this IQueryable<T> queryable,
             Expression<Func<T, DateTime>> propSelector,
             DateTime start,
@@ -111,7 +119,9 @@ namespace Microsoft.EntityFrameworkCore {
             Guard.Against.Null(queryable, nameof(queryable));
 
             if (start > end) {
-                throw new ArgumentException("Start date must be less than the end date.");
+                throw new ArgumentException(
+                    $"Start date: '{start.ToString(CultureInfo.InvariantCulture)}' must be less than the end date '{end.ToString(CultureInfo.InvariantCulture)}'.",
+                    nameof(end));
             }
 
             // Assuming the day of the month is irrelevant (i.e. the diff between 2020.1.1 and 2019.12.31 is one month also)
@@ -151,7 +161,8 @@ namespace Microsoft.EntityFrameworkCore {
             var query = queryable
                 .Where(greaterThanStartPredicate)
                 .Where(lessThanEndPredicate)
-                .Select(Expression.Lambda<Func<T, DateTime>>(propertyAccessor, typeParameterExpression))
+                .Select(Expression.Lambda<Func<T, DateTime>>(propertyAccessor,
+                    typeParameterExpression))
                 .Select(date => new {
                     At    = date,
                     Month = new DateTime(date.Year, date.Month, 1),
@@ -177,7 +188,7 @@ namespace Microsoft.EntityFrameworkCore {
         /// and assume that the two is at the same time.
         /// </remarks>
         /// </summary>
-        public static async Task<IEnumerable<EntityPerDate>> CountPerDay<T>(
+        public static async Task<IEnumerable<EntityPerDate>> CountPerDayAsync<T>(
             this IQueryable<T> queryable,
             Expression<Func<T, DateTime>> propSelector,
             DateTime start,
@@ -242,7 +253,7 @@ namespace Microsoft.EntityFrameworkCore {
                 select new EntityPerDate(date, lookup[date].Count());
         }
 
-        public static async Task<IEnumerable<EntityPerDate>> SumPerDay<T>(
+        public static async Task<IEnumerable<EntityPerDate>> SumPerDayAsync<T>(
             this IQueryable<T> queryable,
             Expression<Func<T, DateTime>> propSelector,
             Expression<Func<T, int>> propToSumSelector,

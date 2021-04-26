@@ -21,7 +21,7 @@ namespace X.Core.Utils {
         /// Create an equability comparer implementation using comparision function
         /// and hash code generator function.
         /// </summary>
-        /// <param name="comparisonFunc"></param>
+        /// <param name="comparisonFunc">Equality comparision function.</param>
         /// <param name="getHashCode"></param>
         /// <returns></returns>
         public static IEqualityComparer<T> Create<T>(
@@ -50,12 +50,20 @@ namespace X.Core.Utils {
                 return false;
             }
 
+            if (ReferenceEquals(x, y)) {
+                return true;
+            }
+
+            if (x.GetType() != y.GetType()) {
+                return false;
+            }
+
             return _comparisonFunc(x, y);
         }
 
         public int GetHashCode(T obj) {
             Guard.Against.Null(obj, nameof(obj));
-            return _hashFunc(obj).GetHashCode();
+            return _hashFunc(obj);
         }
     }
 
@@ -67,11 +75,19 @@ namespace X.Core.Utils {
         }
 
         public bool Equals(T? x, T? y) {
-            if (x is null && y is null) {
+            if (x == null && y == null) {
                 return true;
             }
 
-            if (x is null || y is null) {
+            if (x == null || y == null) {
+                return false;
+            }
+
+            if (ReferenceEquals(x, y)) {
+                return true;
+            }
+
+            if (x.GetType() != y.GetType()) {
                 return false;
             }
 
