@@ -35,7 +35,8 @@ namespace X.Core.Extensions {
             }
 
             var withoutAccentAndSymbols =
-                from ch in input[..].Trim().OneSpace().ToLowerInvariant().Normalize(NormalizationForm.FormD)
+                from ch in input[..].Trim().OneSpace().ToLowerInvariant()
+                    .Normalize(NormalizationForm.FormD)
                 let category = CharUnicodeInfo.GetUnicodeCategory(ch)
                 where category
                     is UnicodeCategory.LowercaseLetter
@@ -43,30 +44,34 @@ namespace X.Core.Extensions {
                     or UnicodeCategory.DecimalDigitNumber
                 select ch;
 
-            var str = withoutAccentAndSymbols.ConvertDigitsToEnglishDigits();
+            var str = withoutAccentAndSymbols.ToInvariantDigits();
 
             return new SearchString(str);
         }
 
         /// <summary>
-        /// Opt in arabic normalization for search. Normalization is done in-place for efficiency.
+        /// Opt in arabic normalization for search.
         /// <para>Extra normalization is:</para>
         /// <para>* Replace teh marbuta to heh.</para>
         /// <para>* Replace alef maksura (dotless yeh) to yeh.</para>
         /// <para>* Removal of tatweel (stretching character)..</para>
         /// </summary>
         public static string SupportAr(this SearchString input) {
-            var removes = new[] { Ar.Tatweel };
+            var removes = new[] {
+                Ar.Tatweel,
+            };
 
-            var replaces = new Dictionary<char, char> { ['ة'] = 'ه', ['ى'] = 'ي' };
-
-            // ('ڪ', 'ك'),
-            // ('ڮ', 'ك'),
-            // ('ڥ', 'ف'),
-            // ('ۻ', 'ض'),
-            // ('۽', 'ء'),
-            // ('؀', '\0'), // Arabic Number Sign
-            // ('؁', '\0'), // Arabic Sign Sanah
+            var replaces = new Dictionary<char, char> {
+                ['ة'] = 'ه',
+                ['ﻬ'] = 'ه',
+                ['ى'] = 'ي',
+                ['ڥ'] = 'ف',
+                ['ڪ'] = 'ك',
+                ['ڮ'] = 'ك',
+                ['ۻ'] = 'ض',
+                ['ﺑ'] = 'ب',
+                ['ﺞ'] = 'ج',
+            };
 
             var sb = new StringBuilder();
 

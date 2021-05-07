@@ -35,8 +35,7 @@ namespace X.Core.Utils {
         /// See: https://www.unicode.org/charts/PDF/U08A0.pdf
         /// </para>
         /// </summary>
-        public const string ArabicRange =
-            @"[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\u08A0–\u08FF]";
+        public const string ArabicRange = @"[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\u08A0–\u08FF]";
 
         /// <summary>Arabic Comma '،'</summary>
         public const char Comma = '\u060C';
@@ -46,5 +45,23 @@ namespace X.Core.Utils {
 
         /// <summary>Arabic Tatweel 'ـ'</summary>
         public const char Tatweel = '\u0640';
+
+        /// <summary>Arabic Sign Sanah '؁'</summary>
+        public const char SanahSign = '\u0601';
+
+        /// <summary>Arabic Number Sanah '؀'</summary>
+        public const char NumberSign = '\u0640';
+
+        /// <summary>Star of Rub El Hizb Mark '۞'</summary>
+        public const char StarOfRubElHizb = '\u06DE';
+
+        /// <summary>End of Ayah Mark '۝'</summary>
+        public const char EndOfAyah = '\u06DD';
+
+        /// <summary>Triple Dot Punctuation Mark '؞'</summary>
+        public const char TripleDotPunctuation = '\u061E';
+
+        /// <summary>Place Of Sajdah '۩'</summary>
+        public const char PlaceOfSajdah = '\u06E9';
     }
 }

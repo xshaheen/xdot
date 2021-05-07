@@ -26,11 +26,11 @@ namespace X.Core.Utils {
             var currentCulture = CultureInfo.CurrentCulture;
             var currentUiCulture = CultureInfo.CurrentUICulture;
 
-            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentCulture   = culture;
             CultureInfo.CurrentUICulture = uiCulture ?? culture;
 
             return new DisposeAction(() => {
-                CultureInfo.CurrentCulture = currentCulture;
+                CultureInfo.CurrentCulture   = currentCulture;
                 CultureInfo.CurrentUICulture = currentUiCulture;
             });
         }
@@ -51,7 +51,7 @@ namespace X.Core.Utils {
 
         public static string GetBaseCultureName(string cultureName) {
             return cultureName.Contains("-")
-                ? cultureName.Left(cultureName.IndexOf("-", StringComparison.Ordinal))
+                ? cultureName[..cultureName.IndexOf("-", StringComparison.Ordinal)]
                 : cultureName;
         }
     }

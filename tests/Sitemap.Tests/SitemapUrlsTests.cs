@@ -160,10 +160,5 @@ namespace Sitemap.Tests {
 
             AssertEquivalentXml(result, expected);
         }
-
-        [Fact]
-        public void Write_to_multiple_streams_if_sitemap_exceeded_max_urls_test() {
-            throw new NotImplementedException();
-        }
     }
 }

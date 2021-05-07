@@ -1,5 +1,6 @@
 using FluentAssertions;
 using X.Core.Extensions;
+using X.Core.Utils;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -7,8 +8,8 @@ namespace Core.Tests.Extensions {
     public class StringExtensionsSearchStringTests {
         private readonly ITestOutputHelper _output;
 
-        public StringExtensionsSearchStringTests(ITestOutputHelper testOutputHelper) {
-            _output = testOutputHelper;
+        public StringExtensionsSearchStringTests(ITestOutputHelper output) {
+            _output = output;
         }
 
         [Theory]
@@ -39,24 +40,15 @@ namespace Core.Tests.Extensions {
         [InlineData("ﺞ", "ج")]
         [InlineData("ﺑ", "ب")]
         [InlineData("ﻬ", "ه")]
-        public void SearchString__should_convert_arabic_context_characters_to_regular_characters(
-            string value,
-            string expected
-        ) {
-            _Test(value, expected);
-        }
-
-        [Theory]
         [InlineData("ى", "ي")] // Alef maqsurah => ya'
         [InlineData("آ", "ا")] // Alef With Madda Above
         [InlineData("إ", "ا")] // Alef With Hamza Below
         [InlineData("أ", "ا")] // Alef With Hamza Above
-        // [InlineData("۽", "ء")] // Arabic Sign Sindhi Ampersand
-        // [InlineData("ۻ", "ض")] // Arabic Letter Dad With Dot Below
-        // [InlineData("ڮ", "ك")] // Arabic Letter Kaf With Three Dots Below
-        // [InlineData("ڪ", "ك")] // Arabic Letter Swash Kaf
-        // [InlineData("ڥ", "ف")] // Arabic Letter Swash Kaf
-        public void SearchString__should_replace_arabic_repeated_characters(
+        [InlineData("ۻ", "ض")] // Arabic Letter Dad With Dot Below
+        [InlineData("ڮ", "ك")] // Arabic Letter Kaf With Three Dots Below
+        [InlineData("ڪ", "ك")] // Arabic Letter Swash Kaf
+        [InlineData("ڥ", "ف")] // Arabic Letter Swash Kaf
+        public void SearchString__should_convert_arabic_context_characters_to_regular_characters(
             string value,
             string expected
         ) {
@@ -74,17 +66,18 @@ namespace Core.Tests.Extensions {
         }
 
         [Theory]
-        [InlineData("،", "")]  // ARABIC COMMA
-        [InlineData("؛‎", "")] // ARABIC SEMICOLON
-        [InlineData("?", "")]  // ARABIC QUESTION MARK
-        [InlineData("۩", "")]  // ARABIC PLACE OF SAJDAH
-        [InlineData("﴾", "")]  // Arabic ornate left parenthesis
-        [InlineData("؏", "")]  // ARABIC SIGN MISRA
-        [InlineData("؁", "")]  // ARABIC SIGN MISRA
-        [InlineData("؂", "")]  // ARABIC SIGN MISRA
-        [InlineData("؃", "")]  // ARABIC SIGN MISRA
-        public void SearchString__should_remove_punctuation_and_ornaments(string value, string expected) {
-            _Test(value, expected);
+        [InlineData(Ar.Semicolon)]
+        [InlineData(Ar.StarOfRubElHizb)]
+        [InlineData(Ar.EndOfAyah)]
+        [InlineData(Ar.Comma)]
+        [InlineData('?')] // ARABIC QUESTION MARK
+        [InlineData('۩')] // ARABIC PLACE OF SAJDAH
+        [InlineData('﴾')] // Arabic ornate left parenthesis
+        [InlineData('؏')] // ARABIC SIGN MISRA
+        [InlineData('؁')] // ARABIC SIGN MISRA
+        [InlineData('؃')] // ARABIC SIGN MISRA
+        public void SearchString__should_remove_punctuation_and_ornaments(char value) {
+            _Test(value.ToString(), "");
         }
 
         [Theory]
@@ -97,10 +90,6 @@ namespace Core.Tests.Extensions {
         [InlineData("ىمنى", "يمني")]
         [InlineData("شاطئ", "شاطي")]
         [InlineData("لؤ", "لو")]
-        [InlineData("۝", "")]
-        [InlineData("؞", "")]
-        [InlineData("؏", "")]
-        [InlineData("،", "")]
         [InlineData("بسم الله الرحمن الرحيم", "بسماللهالرحمنالرحيم")]
         [InlineData("بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", "بسماللهالرحمنالرحيم")]
         [InlineData("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بسماللهالرحمنالرحيم")]
@@ -111,6 +100,7 @@ namespace Core.Tests.Extensions {
         [Theory]
         [InlineData("m", "m")]
         [InlineData(" Mahmoud ", "mahmoud")]
+        [InlineData(" Mahmoud Shaheen", "mahmoudshaheen")]
         [InlineData("crème brûlée", "cremebrulee")]
         public void SearchString__should_work_with_latin(string value, string expected) {
             _Test(value, expected);

@@ -19,10 +19,10 @@ namespace X.Core.Extensions {
         /// Convert the string to SEO optimized and valid url.
         /// </summary>
         /// <param name="input">The string to be converted.</param>
-        /// <param name="key">A unique identifier to append at the end to make uri unique.</param>
+        /// <param name="suffix">A unique identifier to append at the end to make uri unique.</param>
         /// <returns></returns>
-        public static string PermaLink(this string input, string key) {
-            return $"{_ExcludeNonAlpha(input)}-{key.Truncate(10)}";
+        public static string PermaLink(this string input, string suffix) {
+            return $"{_ExcludeNonAlpha(input)}-{suffix}";
         }
 
         private static string _ExcludeNonAlpha(string input) {
