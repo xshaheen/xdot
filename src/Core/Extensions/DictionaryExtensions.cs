@@ -4,68 +4,34 @@ using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace System.Collections.Generic {
+    /// <summary>
+    /// Provides a set of extension methods for operations on <see cref="IDictionary{TKey, TValue}" />.
+    /// </summary>
     [PublicAPI]
     public static class DictionaryExtensions {
-        /// <summary>
-        /// This method is used to try to get a value in a dictionary if it does exists.
-        /// </summary>
-        /// <typeparam name="T">Type of the value</typeparam>
-        /// <param name="dictionary">The collection object</param>
-        /// <param name="key">Key</param>
-        /// <param name="value">Value of the key (or default value if key not exists)</param>
-        /// <returns>True if key does exists in the dictionary</returns>
-        internal static bool TryGetValue<T>(
-            this IDictionary<string, object> dictionary,
-            string key,
-            [NotNullWhen(true)] out T? value
-        ) {
-            if (dictionary.TryGetValue(key, out var valueObj) && valueObj is T obj) {
-                value = obj;
-                return true;
-            }
-
-            value = default;
-            return false;
-        }
-
-        /// <summary>
-        /// Gets a value from the dictionary with given key. Returns default value if can not find.
-        /// </summary>
-        /// <param name="dictionary">Dictionary to check and get</param>
-        /// <param name="key">Key to find the value</param>
-        /// <typeparam name="TKey">Type of the key</typeparam>
-        /// <typeparam name="TValue">Type of the value</typeparam>
-        /// <returns>Value if found, default if can not found.</returns>
-        public static TValue? GetOrDefault<TKey, TValue>(
-            this Dictionary<TKey, TValue> dictionary,
-            TKey key
-        ) where TKey : notnull {
-            return dictionary.TryGetValue(key, out var obj) ? obj : default;
-        }
-
-        /// <summary>
-        /// Gets a value from the dictionary with given key. Returns default value if can not find.
-        /// </summary>
-        /// <param name="dictionary">Dictionary to check and get</param>
-        /// <param name="key">Key to find the value</param>
-        /// <typeparam name="TKey">Type of the key</typeparam>
-        /// <typeparam name="TValue">Type of the value</typeparam>
-        /// <returns>Value if found, default if can not found.</returns>
+        /// <summary>Gets the value associated with the specified key, or a default value if the key was not found.</summary>
+        /// <param name="dictionary">The dictionary to get value from.</param>
+        /// <param name="key">The key of the value to get.</param>
+        /// <typeparam name="TKey">The type of keys in the <paramref name="dictionary"/>.</typeparam>
+        /// <typeparam name="TValue">The type of values in the <paramref name="dictionary"/>.</typeparam>
+        /// <returns>The value associated with the specified key, if the key is found; otherwise, the default value for the <typeparamref name="TValue"/> type.</returns>
+        [Pure]
+        [return: MaybeNull]
         public static TValue? GetOrDefault<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary,
             TKey key
         ) where TKey : notnull {
-            return dictionary.TryGetValue(key, out var obj) ? obj : default;
+            return dictionary.TryGetValue(key, out var value) ? value : default;
         }
 
-        /// <summary>
-        /// Gets a value from the dictionary with given key. Returns default value if can not find.
-        /// </summary>
-        /// <param name="dictionary">Dictionary to check and get</param>
-        /// <param name="key">Key to find the value</param>
-        /// <typeparam name="TKey">Type of the key</typeparam>
-        /// <typeparam name="TValue">Type of the value</typeparam>
-        /// <returns>Value if found, default if can not found.</returns>
+        /// <summary>Gets the value associated with the specified key, or a default value if the key was not found.</summary>
+        /// <param name="dictionary">The dictionary to get value from.</param>
+        /// <param name="key">The key of the value to get.</param>
+        /// <typeparam name="TKey">The type of keys in the <paramref name="dictionary"/>.</typeparam>
+        /// <typeparam name="TValue">The type of values in the <paramref name="dictionary"/>.</typeparam>
+        /// <returns>The value associated with the specified key, if the key is found; otherwise, the default value for the <typeparamref name="TValue"/> type.</returns>
+        [Pure]
+        [return: MaybeNull]
         public static TValue? GetOrDefault<TKey, TValue>(
             this IReadOnlyDictionary<TKey, TValue> dictionary,
             TKey key
@@ -73,14 +39,14 @@ namespace System.Collections.Generic {
             return dictionary.TryGetValue(key, out var obj) ? obj : default;
         }
 
-        /// <summary>
-        /// Gets a value from the dictionary with given key. Returns default value if can not find.
-        /// </summary>
-        /// <param name="dictionary">Dictionary to check and get</param>
-        /// <param name="key">Key to find the value</param>
-        /// <typeparam name="TKey">Type of the key</typeparam>
-        /// <typeparam name="TValue">Type of the value</typeparam>
-        /// <returns>Value if found, default if can not found.</returns>
+        /// <summary>Gets the value associated with the specified key, or a default value if the key was not found.</summary>
+        /// <param name="dictionary">The dictionary to get value from.</param>
+        /// <param name="key">The key of the value to get.</param>
+        /// <typeparam name="TKey">The type of keys in the <paramref name="dictionary"/>.</typeparam>
+        /// <typeparam name="TValue">The type of values in the <paramref name="dictionary"/>.</typeparam>
+        /// <returns>The value associated with the specified key, if the key is found; otherwise, the default value for the <typeparamref name="TValue"/> type.</returns>
+        [Pure]
+        [return: MaybeNull]
         public static TValue? GetOrDefault<TKey, TValue>(
             this ConcurrentDictionary<TKey, TValue> dictionary,
             TKey key

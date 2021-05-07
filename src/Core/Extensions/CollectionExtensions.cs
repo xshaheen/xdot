@@ -5,8 +5,33 @@ using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace System.Collections.Generic {
+    /// <summary>
+    /// Provides a set of extension methods for operations on <see cref="ICollection{T}"/>.
+    /// </summary>
     [PublicAPI]
     public static class CollectionExtensions {
+        /// <summary>
+        /// Adds the specified elements to the end of the collection.
+        /// </summary>
+        /// <typeparam name="T">The type of the elements in the <paramref name="collection"/>.</typeparam>
+        /// <param name="collection">The collection to which the elements should be added.</param>
+        /// <param name="values">The elements to add to <paramref name="collection" />.</param>
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> values) {
+            if (collection is List<T> list) {
+                list.AddRange(values);
+                return;
+            }
+
+            if (collection is ISet<T> set) {
+                set.UnionWith(values);
+                return;
+            }
+
+            foreach (var item in values) {
+                collection.Add(item);
+            }
+        }
+
         /// <summary>
         /// Checks whatever given collection object is null or has no item.
         /// </summary>

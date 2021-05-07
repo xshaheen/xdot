@@ -6,9 +6,52 @@ using JetBrains.Annotations;
 namespace System.Collections.Generic {
     [PublicAPI]
     public static class ListExtensions {
-        public static void InsertRange<T>(this IList<T> source, int index, IEnumerable<T> items) {
+        /// <summary>
+        /// Inserts the elements of a collection into the <see cref="IList{T}"/> at the specified index.
+        /// </summary>
+        /// <typeparam name="T">The type of the elements of <paramref name="source" />.</typeparam>
+        /// <param name="source">The list to which new elements will be inserted.</param>
+        /// <param name="index">The zero-based index at which the new elements should be inserted.</param>
+        /// <param name="items">
+        /// The collection whose elements should be inserted into the <see cref="IList{T}"/>. The collection itself cannot
+        /// be a null reference (<c>Nothing</c> in Visual Basic), but it can contain elements that are a null
+        /// reference (<c>Nothing</c> in Visual Basic), if type <typeparamref name="T"/> is a reference type.
+        /// </param>
+        public static void InsertRange<T>(
+            this IList<T> source,
+            [NonNegativeValue] int index,
+            IEnumerable<T> items
+        ) {
+            if (source is List<T> concreteList) {
+                concreteList.InsertRange(index, items);
+                return;
+            }
+
+            var currentIndex = index;
             foreach (var item in items) {
-                source.Insert(index++, item);
+                source.Insert(currentIndex++, item);
+            }
+        }
+
+        /// <summary>
+        /// Removes a range of elements from the <see cref="IList{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the elements of <paramref name="list" />.</typeparam>
+        /// <param name="list">The list to remove range from.</param>
+        /// <param name="index">The zero-based starting index of the range of elements to remove.</param>
+        /// <param name="count">The number of elements to remove.</param>
+        public static void RemoveRange<T>(
+            this IList<T> list,
+            [NonNegativeValue] int index,
+            [NonNegativeValue] int count
+        ) {
+            if (list is List<T> concreteList) {
+                concreteList.RemoveRange(index, count);
+                return;
+            }
+
+            for (var offset = count - 1; offset >= 0; offset--) {
+                list.RemoveAt(index + offset);
             }
         }
 
