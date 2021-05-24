@@ -4,8 +4,8 @@ namespace Core.Tests {
     /// Note: project must be set to WarningAsError.
     /// </summary>
     public static class CompilerAssert {
-        public static void Nullable(ref string? value) { }
+        public static void Nullable(ref string? _) { }
 
-        public static void NotNullable(object value) { }
+        public static void NotNullable(object _) { }
     }
 }

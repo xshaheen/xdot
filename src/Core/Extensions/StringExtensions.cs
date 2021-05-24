@@ -30,9 +30,9 @@ namespace X.Core.Extensions {
         /// <summary>
         /// Indicates whether a specified string is <c>null</c>, empty, or consists only of white-space characters.
         /// </summary>
-        /// <param name="input">A <see cref="String" /> value.</param>
+        /// <param name="input">A <see cref="string" /> value.</param>
         /// <returns>
-        /// <c>true</c> if the value parameter is <c>null</c> or <see cref="String.Empty" />, or if <paramref name="input"/> consists exclusively of white-space characters.
+        /// <c>true</c> if the value parameter is <c>null</c> or <see cref="string.Empty" />, or if <paramref name="input"/> consists exclusively of white-space characters.
         /// </returns>
         /// <seealso cref="string.IsNullOrWhiteSpace" />
         [Pure]
@@ -60,7 +60,7 @@ namespace X.Core.Extensions {
         /// <code>var displayName = name.NullIfWhiteSpace() ?? "Unknown";</code>
         /// </example>
         /// <returns>
-        /// <paramref name="input"/> if the value parameter is <c>null</c> or <see cref="String.Empty" />, or if <paramref name="input"/> consists exclusively of white-space characters; otherwise, <c>null</c>.
+        /// <paramref name="input"/> if the value parameter is <c>null</c> or <see cref="string.Empty" />, or if <paramref name="input"/> consists exclusively of white-space characters; otherwise, <c>null</c>.
         /// </returns>
         [Pure]
         [return: NotNullIfNotNull("input")]
@@ -211,7 +211,7 @@ namespace X.Core.Extensions {
         /// <summary>
         /// Limits string length to a specified value by discarding any trailing characters after the specified length.
         /// </summary>
-        /// <param name="input">The <see cref="String" /> value to limit to a specified length.</param>
+        /// <param name="input">The <see cref="string" /> value to limit to a specified length.</param>
         /// <param name="maxLength">The maximum length allowed for <paramref name="input"/>.</param>
         /// <returns>
         /// The <paramref name="input" /> string if its length is lesser or equal than
@@ -232,7 +232,7 @@ namespace X.Core.Extensions {
         /// Limits string length to a specified value by discarding a number of trailing characters and adds a specified
         /// suffix (ex "...") if any characters were discarded.
         /// </summary>
-        /// <param name="input">The <see cref="String" /> value to limit to a specified length.</param>
+        /// <param name="input">The <see cref="string" /> value to limit to a specified length.</param>
         /// <param name="maxLength">The maximum length allowed for <paramref name="input"/>.</param>
         /// <param name="suffix">The suffix added to the result if any characters are discarded.</param>
         /// <returns>
@@ -270,7 +270,7 @@ namespace X.Core.Extensions {
         /// <summary>
         /// Limits string length to a specified value by discarding any starting characters before the specified length.
         /// </summary>
-        /// <param name="input">The <see cref="String" /> value to limit to a specified length.</param>
+        /// <param name="input">The <see cref="string" /> value to limit to a specified length.</param>
         /// <param name="maxLength">The maximum length allowed for <paramref name="input"/>.</param>
         /// <returns>
         /// The <paramref name="input" /> string if its length is lesser or equal than
