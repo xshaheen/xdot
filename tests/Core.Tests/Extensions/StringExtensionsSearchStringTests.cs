@@ -36,28 +36,28 @@ namespace Core.Tests.Extensions {
             _Test(value, expected);
         }
 
-        [Theory]
-        [InlineData("ﺞ", "ج")]
-        [InlineData("ﺑ", "ب")]
-        [InlineData("ﻬ", "ه")]
-        [InlineData("ى", "ي")] // Alef maqsurah => ya'
-        [InlineData("آ", "ا")] // Alef With Madda Above
-        [InlineData("إ", "ا")] // Alef With Hamza Below
-        [InlineData("أ", "ا")] // Alef With Hamza Above
-        [InlineData("ۻ", "ض")] // Arabic Letter Dad With Dot Below
-        [InlineData("ڮ", "ك")] // Arabic Letter Kaf With Three Dots Below
-        [InlineData("ڪ", "ك")] // Arabic Letter Swash Kaf
-        [InlineData("ڥ", "ف")] // Arabic Letter Swash Kaf
-        public void SearchString__should_convert_arabic_context_characters_to_regular_characters(
-            string value,
-            string expected
-        ) {
-            _Test(value, expected);
-        }
 
         [Theory]
+        // Alef
+        [InlineData("آ", "ا")]
+        [InlineData("إ", "ا")]
+        [InlineData("أ", "ا")]
+        // Common spelling error
         [InlineData("ة", "ه")]
         [InlineData("ى", "ي")]
+        // Kaf like
+        [InlineData("ڮ", "ك")]
+        [InlineData("ػ", "ك")]
+        [InlineData("ڪ", "ك")]
+        [InlineData("ڴ", "ك")]
+        // Waw like
+        [InlineData("ۈ", "و")]
+        //
+        [InlineData("ؠ", "ي")]
+        [InlineData("ۮ", "د")]
+        [InlineData("ﺞ", "ج")]
+        [InlineData("ﺑ", "ب")]
+        [InlineData("ۻ", "ض")]
         public void SearchString__should_replace_equivalent_characters_with_one_shape(
             string value,
             string expected
@@ -70,12 +70,12 @@ namespace Core.Tests.Extensions {
         [InlineData(Ar.StarOfRubElHizb)]
         [InlineData(Ar.EndOfAyah)]
         [InlineData(Ar.Comma)]
-        [InlineData('?')] // ARABIC QUESTION MARK
-        [InlineData('۩')] // ARABIC PLACE OF SAJDAH
-        [InlineData('﴾')] // Arabic ornate left parenthesis
-        [InlineData('؏')] // ARABIC SIGN MISRA
-        [InlineData('؁')] // ARABIC SIGN MISRA
-        [InlineData('؃')] // ARABIC SIGN MISRA
+        [InlineData('?')]
+        [InlineData('۩')]
+        [InlineData('﴾')]
+        [InlineData('؏')]
+        [InlineData('؁')]
+        [InlineData('؃')]
         public void SearchString__should_remove_punctuation_and_ornaments(char value) {
             _Test(value.ToString(), "");
         }
