@@ -7,6 +7,15 @@ namespace X.Domain {
     }
 
     public abstract class DomainEvent {
-        public DateTimeOffset At { get; protected set; } = DateTimeOffset.UtcNow;
+        protected DomainEvent() {
+            Id = Guid.NewGuid();
+            At = DateTimeOffset.UtcNow;
+        }
+
+        public Guid Id { get; protected set; }
+
+        public DateTimeOffset At { get; protected set; }
+
+        public bool IsPublished { get; set; }
     }
 }
