@@ -27,7 +27,7 @@
     <PackageReference Include="MinVer" PrivateAssets="All" Version="2.5.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
 
-    <PackageReference Include="MappingGenerator" Version="1.22.3">
+    <PackageReference Include="MappingGenerator" Version="2021.6.17">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -47,7 +47,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.9.60">
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.10.56">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
