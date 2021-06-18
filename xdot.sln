@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitemap", "src\Sitemap\Site
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitemap.Tests", "tests\Sitemap.Tests\Sitemap.Tests.csproj", "{A964672B-4ED3-4C91-9C14-492C42E54AD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentValidation", "src\FluentValidation\FluentValidation.csproj", "{3B23DA80-4A38-4303-B25C-B01A68826BC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{A964672B-4ED3-4C91-9C14-492C42E54AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A964672B-4ED3-4C91-9C14-492C42E54AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A964672B-4ED3-4C91-9C14-492C42E54AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B23DA80-4A38-4303-B25C-B01A68826BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B23DA80-4A38-4303-B25C-B01A68826BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B23DA80-4A38-4303-B25C-B01A68826BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B23DA80-4A38-4303-B25C-B01A68826BC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
