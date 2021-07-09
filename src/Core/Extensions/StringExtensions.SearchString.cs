@@ -24,7 +24,7 @@ namespace X.Core.Extensions {
     /// <summary>Utility functions used by to prepare a text to search and index.</summary>
     [PublicAPI]
     public static class StringExtensionsSearchString {
-        private static Dictionary<char, string> _replaces = new() {
+        private static readonly Dictionary<char, string> _replaces = new() {
             // Alef
             [Ar.AlefMadda]      = Ar.Alef.ToString(),
             [Ar.AlefHamzaAbove] = Ar.Alef.ToString(),

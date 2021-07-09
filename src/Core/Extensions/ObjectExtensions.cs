@@ -6,11 +6,21 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
 namespace X.Core.Extensions {
     [PublicAPI]
     public static class ObjectExtensions {
+        private static readonly JsonSerializerOptions Options = new() {
+            IgnoreNullValues = true,
+            WriteIndented = true
+        };
+
+        static ObjectExtensions() {
+            Options.Converters.Add(new JsonStringEnumConverter());
+        }
+
         /// <summary>
         /// Converts the value of a specified object into a JSON string and return
         /// byte representation of the string.
@@ -36,26 +46,10 @@ namespace X.Core.Extensions {
         /// Converts the value of a specified type into a JSON string.
         /// </summary>
         /// <param name="obj">The value to convert.</param>
-        /// <param name="camelCase">Serialized property name style.</param>
-        /// <returns>The JSON string representation of the value.</returns>
-        public static string ToJson(this object obj, bool camelCase = true) {
-            return JsonSerializer.Serialize(
-                obj,
-                camelCase
-                    ? new JsonSerializerOptions {
-                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    }
-                    : null);
-        }
-
-        /// <summary>
-        /// Converts the value of a specified type into a JSON string.
-        /// </summary>
-        /// <param name="obj">The value to convert.</param>
         /// <param name="options">Options to control the conversion behavior.</param>
         /// <returns>The JSON string representation of the value.</returns>
-        public static string ToJson(this object obj, JsonSerializerOptions options) {
-            return JsonSerializer.Serialize(obj, options);
+        public static string ToJson(this object obj, JsonSerializerOptions? options = null) {
+            return JsonSerializer.Serialize(obj, options ?? Options);
         }
 
         /// <summary>
@@ -83,24 +77,20 @@ namespace X.Core.Extensions {
             return (T) Convert.ChangeType(obj, typeof(T), CultureInfo.InvariantCulture);
         }
 
-        /// <summary>
-        /// Check if an item is in a list.
-        /// </summary>
+        /// <summary>Check if an item is in a list.</summary>
         /// <param name="item">Item to check</param>
-        /// <param name="list">List of items</param>
+        /// <param name="collection">List of items</param>
         /// <typeparam name="T">Type of the items</typeparam>
-        public static bool IsIn<T>(this T item, params T[] list) {
-            return list.Contains(item);
+        public static bool IsIn<T>(this T item, ICollection<T> collection) {
+            return collection.Contains(item);
         }
 
-        /// <summary>
-        /// Check if an item is in a list.
-        /// </summary>
+        /// <summary>Check if an item is in a list.</summary>
         /// <param name="item">Item to check</param>
-        /// <param name="list">List of items</param>
+        /// <param name="collection">List of items</param>
         /// <typeparam name="T">Type of the items</typeparam>
-        public static bool IsIn<T>(this T item, IEnumerable<T> list) {
-            return list.Contains(item);
+        public static bool IsIn<T>(this T item, IEnumerable<T> collection) {
+            return collection.Contains(item);
         }
 
         /// <summary>
@@ -148,12 +138,12 @@ namespace X.Core.Extensions {
         public static string? ToInvariantString(this object? obj) {
             // Taken from Flurl which inspired by: http://stackoverflow.com/a/19570016/62600
             return obj switch {
-                null               => null,
-                DateTime dt        => dt.ToString("o", CultureInfo.InvariantCulture),
+                null => null,
+                DateTime dt => dt.ToString("o", CultureInfo.InvariantCulture),
                 DateTimeOffset dto => dto.ToString("o", CultureInfo.InvariantCulture),
-                IConvertible c     => c.ToString(CultureInfo.InvariantCulture),
-                IFormattable f     => f.ToString(null, CultureInfo.InvariantCulture),
-                _                  => obj.ToString(),
+                IConvertible c => c.ToString(CultureInfo.InvariantCulture),
+                IFormattable f => f.ToString(null, CultureInfo.InvariantCulture),
+                _ => obj.ToString(),
             };
         }
     }
