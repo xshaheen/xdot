@@ -50,8 +50,8 @@ namespace X.Core.Utils {
         }
 
         public static string GetBaseCultureName(string cultureName) {
-            return cultureName.Contains("-")
-                ? cultureName[..cultureName.IndexOf("-", StringComparison.Ordinal)]
+            return cultureName.Contains('-')
+                ? cultureName[..cultureName.IndexOf('-')]
                 : cultureName;
         }
     }
