@@ -2,8 +2,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
 
-// ReSharper disable once CheckNamespace
+#pragma warning disable IDE0130
 namespace System.Collections.Generic {
+#pragma warning restore IDE0130
     /// <summary>
     /// Provides a set of extension methods for operations on <see cref="IEnumerable{T}" />.
     /// </summary>

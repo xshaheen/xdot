@@ -6,9 +6,7 @@ using JetBrains.Annotations;
 using X.Core.Utils;
 
 namespace X.Core.Extensions {
-    /// <summary>
-    /// Cast to string implicitly or explicitly to get the string.
-    /// </summary>
+    /// <summary>Cast to string implicitly or explicitly to get the string.</summary>
     public class SearchString {
         private readonly string _str;
 
@@ -24,7 +22,7 @@ namespace X.Core.Extensions {
     /// <summary>Utility functions used by to prepare a text to search and index.</summary>
     [PublicAPI]
     public static class StringExtensionsSearchString {
-        private static readonly Dictionary<char, string> _replaces = new() {
+        private static readonly Dictionary<char, string> _Replaces = new() {
             // Alef
             [Ar.AlefMadda]      = Ar.Alef.ToString(),
             [Ar.AlefHamzaAbove] = Ar.Alef.ToString(),
@@ -126,9 +124,8 @@ namespace X.Core.Extensions {
         /// </summary>
         [Pure]
         public static SearchString SearchString(this string? input) {
-            if (string.IsNullOrWhiteSpace(input)) {
-                return new SearchString("");
-            }
+            if (string.IsNullOrWhiteSpace(input))
+	            return new SearchString("");
 
             var withoutAccentAndSymbols =
                 from ch in input[..]
@@ -164,11 +161,10 @@ namespace X.Core.Extensions {
             var sb = new StringBuilder();
 
             foreach (var cur in (string) input) {
-                if (removes.Any(r => r == cur)) {
-                    continue;
-                }
+                if (removes.Any(r => r == cur))
+	                continue;
 
-                sb.Append(_replaces.TryGetValue(cur, out var replace) ? replace : cur);
+                sb.Append(_Replaces.TryGetValue(cur, out var replace) ? replace : cur);
             }
 
             return sb.ToString();

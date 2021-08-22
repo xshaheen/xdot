@@ -9,7 +9,7 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 indent_size = 2
 tab_width = 2
-indent_style = space
+indent_style = tab
 max_line_length = 120
 
 ############ File Extension Settings
@@ -234,7 +234,7 @@ csharp_style_prefer_not_pattern = true:warning
 csharp_style_throw_expression = true:warning
 csharp_style_conditional_delegate_call = true:warning
 # Code block preferences
-csharp_prefer_braces = false:warning
+csharp_prefer_braces = true:warning
 csharp_prefer_simple_using_statement = true:suggestion
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:warning

@@ -3,8 +3,9 @@ using System.Linq;
 using Ardalis.GuardClauses;
 using JetBrains.Annotations;
 
-// ReSharper disable once CheckNamespace
+#pragma warning disable IDE0130
 namespace System.Collections.Generic {
+#pragma warning restore IDE0130
     /// <summary>
     /// Provides a set of extension methods for operations on <see cref="ICollection{T}"/>.
     /// </summary>
@@ -28,7 +29,7 @@ namespace System.Collections.Generic {
             }
 
             foreach (var item in values) {
-                collection.Add(item);
+	            collection.Add(item);
             }
         }
 
@@ -49,9 +50,8 @@ namespace System.Collections.Generic {
         public static bool AddIfNotContains<T>(this ICollection<T> source, T item) {
             Guard.Against.Null(source, nameof(source));
 
-            if (source.Contains(item)) {
-                return false;
-            }
+            if (source.Contains(item))
+	            return false;
 
             source.Add(item);
             return true;
@@ -73,9 +73,8 @@ namespace System.Collections.Generic {
             var addedItems = new List<T>();
 
             foreach (var item in items) {
-                if (source.Contains(item)) {
-                    continue;
-                }
+                if (source.Contains(item))
+	                continue;
 
                 source.Add(item);
                 addedItems.Add(item);
@@ -102,9 +101,8 @@ namespace System.Collections.Generic {
             Guard.Against.Null(predicate, nameof(predicate));
             Guard.Against.Null(itemFactory, nameof(itemFactory));
 
-            if (source.Any(predicate)) {
-                return false;
-            }
+            if (source.Any(predicate))
+	            return false;
 
             source.Add(itemFactory());
             return true;
@@ -121,7 +119,7 @@ namespace System.Collections.Generic {
             var items = source.Where(predicate).ToList();
 
             foreach (var item in items) {
-                source.Remove(item);
+	            source.Remove(item);
             }
 
             return items;

@@ -53,7 +53,7 @@ namespace X.Core.Extensions {
                 select ch;
 
             foreach (var c in cs) {
-                yield return c;
+	            yield return c;
             }
         }
 
@@ -81,9 +81,8 @@ namespace X.Core.Extensions {
                     yield return char.ToUpperInvariant(c);
                     newWord = false;
                 }
-                else {
-                    yield return c;
-                }
+                else
+	                yield return c;
             }
         }
     }

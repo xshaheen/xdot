@@ -3,33 +3,27 @@ using Ardalis.GuardClauses;
 using JetBrains.Annotations;
 
 namespace X.Core.Utils {
-    /// <summary>
-    /// A helper class for Directory operations.
-    /// </summary>
+    /// <summary>A helper class for Directory operations.</summary>
     [PublicAPI]
     public static class DirectoryHelper {
         public static void CreateIfNotExists(string directory) {
-            if (!Directory.Exists(directory)) {
-                Directory.CreateDirectory(directory);
-            }
+            if (!Directory.Exists(directory))
+	            Directory.CreateDirectory(directory);
         }
 
         public static void DeleteIfExists(string directory) {
-            if (Directory.Exists(directory)) {
-                Directory.Delete(directory);
-            }
+            if (Directory.Exists(directory))
+	            Directory.Delete(directory);
         }
 
         public static void DeleteIfExists(string directory, bool recursive) {
-            if (Directory.Exists(directory)) {
-                Directory.Delete(directory, recursive);
-            }
+            if (Directory.Exists(directory))
+	            Directory.Delete(directory, recursive);
         }
 
         public static void CreateIfNotExists(DirectoryInfo directory) {
-            if (!directory.Exists) {
-                directory.Create();
-            }
+            if (!directory.Exists)
+	            directory.Create();
         }
 
         public static bool IsSubDirectoryOf(string parentDirectoryPath, string childDirectoryPath) {
@@ -42,16 +36,12 @@ namespace X.Core.Utils {
             );
         }
 
-        public static bool IsSubDirectoryOf(
-            DirectoryInfo parentDirectory,
-            DirectoryInfo childDirectory
-        ) {
+        public static bool IsSubDirectoryOf(DirectoryInfo parentDirectory, DirectoryInfo childDirectory) {
             Guard.Against.Null(parentDirectory, nameof(parentDirectory));
             Guard.Against.Null(childDirectory, nameof(childDirectory));
 
-            if (parentDirectory.FullName == childDirectory.FullName) {
-                return true;
-            }
+            if (parentDirectory.FullName == childDirectory.FullName)
+	            return true;
 
             var parentOfChild = childDirectory.Parent;
 

@@ -169,15 +169,13 @@ namespace X.Core.Extensions {
         public static int LastIndexOf<T>(
             this T[] array,
             T? value,
-            int startIndex,
-            int count
+            [NonNegativeValue] int startIndex,
+            [NonNegativeValue] int count
         ) {
             return Array.LastIndexOf(array, value, startIndex, count);
         }
 
-        /// <summary>
-        /// Reverses the sequence of the elements in the entire one-dimensional <see cref="Array" />.
-        /// </summary>
+        /// <summary>Reverses the sequence of the elements in the entire one-dimensional <see cref="Array" />.</summary>
         /// <typeparam name="T">The type of the elements of the array.</typeparam>
         /// <param name="array">The one-dimensional <see cref="Array" /> to reverse.</param>
         /// <exception cref="ArgumentNullException"><paramref name="array" /> is null.</exception>
@@ -186,9 +184,7 @@ namespace X.Core.Extensions {
             Array.Reverse(array);
         }
 
-        /// <summary>
-        /// Reverses the sequence of the elements in the entire one-dimensional <see cref="Array" />.
-        /// </summary>
+        /// <summary>Reverses the sequence of the elements in the entire one-dimensional <see cref="Array" />.</summary>
         /// <typeparam name="T">The type of the elements of the array.</typeparam>
         /// <param name="array">The one-dimensional <see cref="Array" /> to reverse.</param>
         /// <param name="index">The starting index of the section to reverse.</param>

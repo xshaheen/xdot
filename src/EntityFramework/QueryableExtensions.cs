@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using JetBrains.Annotations;
 
-// ReSharper disable once CheckNamespace
+#pragma warning disable IDE0130
 namespace Microsoft.EntityFrameworkCore {
+#pragma warning restore IDE0130
     [PublicAPI]
     public static class QueryableExtensions {
         /// <summary>
@@ -43,11 +44,11 @@ namespace Microsoft.EntityFrameworkCore {
 
             if (months > 1) {
                 first = new DateTime(start.Year, 1, 1);
-                last  = new DateTime(end.Year, 1, 1);
+                last = new DateTime(end.Year, 1, 1);
             }
             else {
                 first = new DateTime(end.Year, 1, 1);
-                last  = new DateTime(end.Year + 1, 1, 1);
+                last = new DateTime(end.Year + 1, 1, 1);
             }
 
 
@@ -197,9 +198,9 @@ namespace Microsoft.EntityFrameworkCore {
         ) {
             Guard.Against.Null(queryable, nameof(queryable));
 
-            if (start > end) {
+            if (start > end)
                 throw new ArgumentException("Start date must be less than the end date.");
-            }
+
 
             var first = start.Date;
             var last = end.Date;

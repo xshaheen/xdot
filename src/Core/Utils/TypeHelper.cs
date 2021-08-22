@@ -6,14 +6,12 @@ namespace X.Core.Utils {
     [PublicAPI]
     public static class TypeHelper {
         public static bool IsFunc(object? obj) {
-            if (obj is null) {
-                return false;
-            }
+            if (obj is null)
+	            return false;
 
             var type = obj.GetType();
-            if (!type.GetTypeInfo().IsGenericType) {
-                return false;
-            }
+            if (!type.GetTypeInfo().IsGenericType)
+	            return false;
 
             return type.GetGenericTypeDefinition() == typeof(Func<>);
         }

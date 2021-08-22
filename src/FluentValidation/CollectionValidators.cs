@@ -2,8 +2,9 @@
 using System.Linq;
 using X.FluentValidation.Resources;
 
-// ReSharper disable once CheckNamespace
+#pragma warning disable IDE0130
 namespace FluentValidation {
+#pragma warning restore IDE0130
     public static class CollectionValidators {
         public static IRuleBuilderOptions<T, ICollection<TElement>> MaximumElements<T, TElement>(
             this IRuleBuilder<T, ICollection<TElement>> builder,
@@ -11,9 +12,9 @@ namespace FluentValidation {
         ) {
             return builder
                 .Must((_, list, context) => {
-                    if (list is null || list.Count <= maxElements) {
+                    if (list is null || list.Count <= maxElements)
                         return true;
-                    }
+
 
                     context.MessageFormatter
                         .AppendArgument("MaxElements", maxElements)

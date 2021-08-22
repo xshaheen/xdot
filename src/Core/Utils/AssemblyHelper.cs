@@ -10,30 +10,22 @@ namespace X.Core.Utils {
     [PublicAPI]
     public static class AssemblyHelper {
         public static List<Assembly> LoadAssemblies(string folderPath, SearchOption searchOption) {
-            var list = new List<Assembly>();
-
-            foreach (var item in GetAssemblyFiles(folderPath, searchOption).ToArray()) {
-                list.Add(AssemblyLoadContext.Default.LoadFromAssemblyPath(item));
-            }
-
-            return list;
+	        return
+		        GetAssemblyFiles(folderPath, searchOption)
+		        .Select(item => AssemblyLoadContext.Default.LoadFromAssemblyPath(item))
+		        .ToList();
         }
 
-        public static IEnumerable<string> GetAssemblyFiles(
-            string folderPath,
-            SearchOption searchOption
-        ) {
-            return Directory.EnumerateFiles(folderPath, "*.*", searchOption)
-                .Where(s =>
-                    s.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)
-                    || s.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
+        public static IEnumerable<string> GetAssemblyFiles(string folderPath, SearchOption searchOption) {
+            return Directory.EnumerateFiles(folderPath, "*.*", searchOption).Where(s =>
+                s.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
+                s.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
         }
 
         public static IReadOnlyList<Type?> GetAllTypes(Assembly assembly) {
             try {
                 return assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException ex) {
+            } catch (ReflectionTypeLoadException ex) {
                 return ex.Types;
             }
         }

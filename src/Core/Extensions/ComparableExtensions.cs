@@ -1,7 +1,8 @@
 using JetBrains.Annotations;
 
-// ReSharper disable once CheckNamespace
+#pragma warning disable IDE0130
 namespace System {
+#pragma warning restore IDE0130
     [PublicAPI]
     public static class ComparableExtensions {
         /// <summary>

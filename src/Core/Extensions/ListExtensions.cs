@@ -2,204 +2,177 @@ using System.Linq;
 using Ardalis.GuardClauses;
 using JetBrains.Annotations;
 
-// ReSharper disable once CheckNamespace
+#pragma warning disable IDE0130
 namespace System.Collections.Generic {
-    [PublicAPI]
-    public static class ListExtensions {
-        /// <summary>
-        /// Inserts the elements of a collection into the <see cref="IList{T}"/> at the specified index.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements of <paramref name="source" />.</typeparam>
-        /// <param name="source">The list to which new elements will be inserted.</param>
-        /// <param name="index">The zero-based index at which the new elements should be inserted.</param>
-        /// <param name="items">
-        /// The collection whose elements should be inserted into the <see cref="IList{T}"/>. The collection itself cannot
-        /// be a null reference (<c>Nothing</c> in Visual Basic), but it can contain elements that are a null
-        /// reference (<c>Nothing</c> in Visual Basic), if type <typeparamref name="T"/> is a reference type.
-        /// </param>
-        public static void InsertRange<T>(
-            this IList<T> source,
-            [NonNegativeValue] int index,
-            IEnumerable<T> items
-        ) {
-            if (source is List<T> concreteList) {
-                concreteList.InsertRange(index, items);
-                return;
-            }
+#pragma warning restore IDE0130
+	[PublicAPI]
+	public static class ListExtensions {
+		/// <summary>Inserts the elements of a collection into the <see cref="IList{T}"/> at the specified index.</summary>
+		/// <typeparam name="T">The type of the elements of <paramref name="source" />.</typeparam>
+		/// <param name="source">The list to which new elements will be inserted.</param>
+		/// <param name="index">The zero-based index at which the new elements should be inserted.</param>
+		/// <param name="items">
+		/// The collection whose elements should be inserted into the <see cref="IList{T}"/>. The collection itself cannot
+		/// be a null reference (<c>Nothing</c> in Visual Basic), but it can contain elements that are a null
+		/// reference (<c>Nothing</c> in Visual Basic), if type <typeparamref name="T"/> is a reference type.
+		/// </param>
+		public static void InsertRange<T>(this IList<T> source, [NonNegativeValue] int index, IEnumerable<T> items) {
+			if (source is List<T> concreteList) {
+				concreteList.InsertRange(index, items);
 
-            var currentIndex = index;
-            foreach (var item in items) {
-                source.Insert(currentIndex++, item);
-            }
-        }
+				return;
+			}
 
-        /// <summary>
-        /// Removes a range of elements from the <see cref="IList{T}"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements of <paramref name="list" />.</typeparam>
-        /// <param name="list">The list to remove range from.</param>
-        /// <param name="index">The zero-based starting index of the range of elements to remove.</param>
-        /// <param name="count">The number of elements to remove.</param>
-        public static void RemoveRange<T>(
-            this IList<T> list,
-            [NonNegativeValue] int index,
-            [NonNegativeValue] int count
-        ) {
-            if (list is List<T> concreteList) {
-                concreteList.RemoveRange(index, count);
-                return;
-            }
+			var currentIndex = index;
 
-            for (var offset = count - 1; offset >= 0; offset--) {
-                list.RemoveAt(index + offset);
-            }
-        }
+			foreach (var item in items) {
+				source.Insert(currentIndex++, item);
+			}
+		}
 
-        public static int FindIndex<T>(this IList<T> source, Predicate<T> selector) {
-            for (var i = 0; i < source.Count; ++i) {
-                if (selector(source[i])) {
-                    return i;
-                }
-            }
+		/// <summary>Removes a range of elements from the <see cref="IList{T}"/>.</summary>
+		/// <typeparam name="T">The type of the elements of <paramref name="list" />.</typeparam>
+		/// <param name="list">The list to remove range from.</param>
+		/// <param name="index">The zero-based starting index of the range of elements to remove.</param>
+		/// <param name="count">The number of elements to remove.</param>
+		public static void RemoveRange<T>(this IList<T> list, [NonNegativeValue] int index, [NonNegativeValue] int count) {
+			if (list is List<T> concreteList) {
+				concreteList.RemoveRange(index, count);
+				return;
+			}
 
-            return -1;
-        }
+			for (var offset = count - 1; offset >= 0; offset--) {
+				list.RemoveAt(index + offset);
+			}
+		}
 
-        public static void AddFirst<T>(this IList<T> source, T item) {
-            source.Insert(0, item);
-        }
+		[Pure] public static int FindIndex<T>(this IList<T> source, Predicate<T> selector) {
+			for (var i = 0; i < source.Count; ++i) {
+				if (selector(source[i]))
+					return i;
+			}
 
-        public static void AddLast<T>(this IList<T> source, T item) {
-            source.Insert(source.Count, item);
-        }
+			return -1;
+		}
 
-        public static void InsertAfter<T>(this IList<T> source, T existingItem, T item) {
-            var index = source.IndexOf(existingItem);
-            if (index < 0) {
-                source.AddFirst(item);
-                return;
-            }
+		public static void AddFirst<T>(this IList<T> source, T item) {
+			source.Insert(0, item);
+		}
 
-            source.Insert(index + 1, item);
-        }
+		public static void AddLast<T>(this IList<T> source, T item) {
+			source.Insert(source.Count, item);
+		}
 
-        public static void InsertAfter<T>(this IList<T> source, Predicate<T> selector, T item) {
-            var index = source.FindIndex(selector);
-            if (index < 0) {
-                source.AddFirst(item);
-                return;
-            }
+		public static void InsertAfter<T>(this IList<T> source, T existingItem, T item) {
+			var index = source.IndexOf(existingItem);
+			if (index < 0) {
+				source.AddFirst(item);
+				return;
+			}
 
-            source.Insert(index + 1, item);
-        }
+			source.Insert(index + 1, item);
+		}
 
-        public static void InsertBefore<T>(this IList<T> source, T existingItem, T item) {
-            var index = source.IndexOf(existingItem);
-            if (index < 0) {
-                source.AddLast(item);
-                return;
-            }
+		public static void InsertAfter<T>(this IList<T> source, Predicate<T> selector, T item) {
+			var index = source.FindIndex(selector);
+			if (index < 0) {
+				source.AddFirst(item);
+				return;
+			}
 
-            source.Insert(index, item);
-        }
+			source.Insert(index + 1, item);
+		}
 
-        public static void InsertBefore<T>(this IList<T> source, Predicate<T> selector, T item) {
-            var index = source.FindIndex(selector);
-            if (index < 0) {
-                source.AddLast(item);
-                return;
-            }
+		public static void InsertBefore<T>(this IList<T> source, T existingItem, T item) {
+			var index = source.IndexOf(existingItem);
+			if (index < 0) {
+				source.AddLast(item);
+				return;
+			}
 
-            source.Insert(index, item);
-        }
+			source.Insert(index, item);
+		}
 
-        public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, T item) {
-            for (var i = 0; i < source.Count; i++) {
-                if (selector(source[i])) {
-                    source[i] = item;
-                }
-            }
-        }
+		public static void InsertBefore<T>(this IList<T> source, Predicate<T> selector, T item) {
+			var index = source.FindIndex(selector);
+			if (index < 0) {
+				source.AddLast(item);
+				return;
+			}
 
-        public static void ReplaceWhile<T>(
-            this IList<T> source,
-            Predicate<T> selector,
-            Func<T, T> itemFactory
-        ) {
-            for (var i = 0; i < source.Count; i++) {
-                var item = source[i];
+			source.Insert(index, item);
+		}
 
-                if (selector(item)) {
-                    source[i] = itemFactory(item);
-                }
-            }
-        }
+		public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, T item) {
+			for (var i = 0; i < source.Count; i++) {
+				if (selector(source[i]))
+					source[i] = item;
+			}
+		}
 
-        public static void ReplaceFirst<T>(this IList<T> source, Predicate<T> selector, T item) {
-            for (var i = 0; i < source.Count; i++) {
-                if (selector(source[i])) {
-                    source[i] = item;
-                    return;
-                }
-            }
-        }
+		public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, Func<T, T> itemFactory) {
+			for (var i = 0; i < source.Count; i++) {
+				var item = source[i];
 
-        public static void ReplaceFirst<T>(
-            this IList<T> source,
-            Predicate<T> selector,
-            Func<T, T> itemFactory
-        ) {
-            for (var i = 0; i < source.Count; i++) {
-                var item = source[i];
-                if (selector(item)) {
-                    source[i] = itemFactory(item);
-                    return;
-                }
-            }
-        }
+				if (selector(item))
+					source[i] = itemFactory(item);
+			}
+		}
 
-        public static void ReplaceFirst<T>(this IList<T> source, T item, T replaceWith) {
-            for (var i = 0; i < source.Count; i++) {
-                if (Comparer<T>.Default.Compare(source[i], item) == 0) {
-                    source[i] = replaceWith;
-                    return;
-                }
-            }
-        }
+		public static void ReplaceFirst<T>(this IList<T> source, Predicate<T> selector, T item) {
+			for (var i = 0; i < source.Count; i++) {
+				if (selector(source[i])) {
+					source[i] = item;
+					return;
+				}
+			}
+		}
 
-        public static void MoveItem<T>(
-            this List<T> source,
-            Predicate<T> selector,
-            int targetIndex
-        ) {
-            var len = source.Count - 1;
-            if (!targetIndex.ExclusiveBetween(0, len)) {
-                throw new ArgumentException($"targetIndex should be between 0 and {len}");
-            }
+		public static void ReplaceFirst<T>(this IList<T> source, Predicate<T> selector, Func<T, T> itemFactory) {
+			for (var i = 0; i < source.Count; i++) {
+				T item = source[i];
 
-            var currentIndex = source.FindIndex(0, selector);
-            if (currentIndex == targetIndex) {
-                return;
-            }
+				if (selector(item)) {
+					source[i] = itemFactory(item);
+					return;
+				}
+			}
+		}
 
-            var item = source[currentIndex];
-            source.RemoveAt(currentIndex);
-            source.Insert(targetIndex, item);
-        }
+		public static void ReplaceFirst<T>(this IList<T> source, T item, T replaceWith) {
+			for (var i = 0; i < source.Count; i++) {
+				if (Comparer<T>.Default.Compare(source[i], item) == 0) {
+					source[i] = replaceWith;
+					return;
+				}
+			}
+		}
 
-        public static T GetOrAdd<T>(this IList<T> source, Func<T, bool> selector, Func<T> factory) {
-            Guard.Against.Null(source, nameof(source));
+		public static void MoveItem<T>(this List<T> source, Predicate<T> selector, [NonNegativeValue] int targetIndex) {
+			Guard.Against.OutOfRange(targetIndex, nameof(targetIndex), 0, source.Count - 1);
 
-            var item = source.FirstOrDefault(selector);
+			var currentIndex = source.FindIndex(0, selector);
 
-            if (item is not null) {
-                return item;
-            }
+			if (currentIndex == targetIndex)
+				return;
 
-            item = factory();
-            source.Add(item);
+			var item = source[currentIndex];
+			source.RemoveAt(currentIndex);
+			source.Insert(targetIndex, item);
+		}
 
-            return item;
-        }
-    }
+		public static T GetOrAdd<T>(this IList<T> source, Func<T, bool> selector, Func<T> factory) {
+			Guard.Against.Null(source, nameof(source));
+
+			T? item = source.FirstOrDefault(selector);
+
+			if (item is not null)
+				return item;
+
+			item = factory();
+			source.Add(item);
+
+			return item;
+		}
+	}
 }

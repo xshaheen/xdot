@@ -11,7 +11,7 @@ namespace X.Core.Utils {
     /// </summary>
     [PublicAPI]
     public static class RandomHelper {
-        private static readonly Random Rnd = new();
+        private static readonly Random _Rnd = new();
 
         /// <summary>
         /// Returns a random number within a specified range.
@@ -27,8 +27,8 @@ namespace X.Core.Utils {
         /// If minValue equals maxValue, minValue is returned.
         /// </returns>
         public static int GetRandom(int minValue, int maxValue) {
-            lock (Rnd) {
-                return Rnd.Next(minValue, maxValue);
+            lock (_Rnd) {
+	            return _Rnd.Next(minValue, maxValue);
             }
         }
 
@@ -45,8 +45,8 @@ namespace X.Core.Utils {
         /// However, if maxValue equals zero, maxValue is returned.
         /// </returns>
         public static int GetRandom(int maxValue) {
-            lock (Rnd) {
-                return Rnd.Next(maxValue);
+            lock (_Rnd) {
+	            return _Rnd.Next(maxValue);
             }
         }
 
@@ -57,8 +57,8 @@ namespace X.Core.Utils {
         /// A 32-bit signed integer greater than or equal to zero and less than <see cref="int.MaxValue"/>.
         /// </returns>
         public static int GetRandom() {
-            lock (Rnd) {
-                return Rnd.Next();
+            lock (_Rnd) {
+	            return _Rnd.Next();
             }
         }
 
@@ -92,7 +92,7 @@ namespace X.Core.Utils {
         public static List<T> GenerateRandomizedList<T>(IList<T> items) {
             Guard.Against.Null(items, nameof(items));
 
-            var randomList = new List<T>();
+            List<T> randomList = new();
 
             while (items.Any()) {
                 var randomIndex = GetRandom(0, items.Count);

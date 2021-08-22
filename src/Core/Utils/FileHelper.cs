@@ -7,19 +7,14 @@ using System;
 using JetBrains.Annotations;
 
 namespace X.Core.Utils {
-    /// <summary>
-    /// A helper class for File operations.
-    /// </summary>
+    /// <summary>A helper class for File operations.</summary>
     [PublicAPI]
     public static class FileHelper {
-        /// <summary>
-        /// Checks and deletes given file if it does exists.
-        /// </summary>
+        /// <summary>Checks and deletes given file if it does exists.</summary>
         /// <param name="filePath">Path of the file</param>
         public static bool DeleteIfExists(string filePath) {
-            if (!File.Exists(filePath)) {
-                return false;
-            }
+            if (!File.Exists(filePath))
+	            return false;
 
             File.Delete(filePath);
             return true;
@@ -47,26 +42,22 @@ namespace X.Core.Utils {
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
         public static async Task<string> ReadAllTextAsync(string path) {
-            using var reader = File.OpenText(path);
+            using StreamReader reader = File.OpenText(path);
             return await reader.ReadToEndAsync();
         }
 
-        /// <summary>
-        /// Opens a text file, reads all lines of the file, and then closes the file.
-        /// </summary>
+        /// <summary>Opens a text file, reads all lines of the file, and then closes the file.</summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
         public static async Task<byte[]> ReadAllBytesAsync(string path) {
-            await using var stream = File.Open(path, FileMode.Open);
+            await using FileStream stream = File.Open(path, FileMode.Open);
 
             var result = new byte[stream.Length];
             await stream.ReadAsync(result.AsMemory(0, (int) stream.Length));
             return result;
         }
 
-        /// <summary>
-        /// Opens a text file, reads all lines of the file, and then closes the file.
-        /// </summary>
+        /// <summary>Opens a text file, reads all lines of the file, and then closes the file.</summary>
         /// <param name="path">The file to open for reading.</param>
         /// <param name="encoding">Encoding of the file. Default is UTF8</param>
         /// <param name="fileMode">Specifies how the operating system should open a file. Default is Open</param>
@@ -111,16 +102,14 @@ namespace X.Core.Utils {
                 string? line;
 
                 while ((line = await reader.ReadLineAsync()) != null) {
-                    lines.Add(line);
+	                lines.Add(line);
                 }
             }
 
             return lines.ToArray();
         }
 
-        /// <summary>
-        /// Opens a text file, reads content without BOM
-        /// </summary>
+        /// <summary>Opens a text file, reads content without BOM.</summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>A string containing all lines of the file.</returns>
         public static async Task<string?> ReadFileWithoutBomAsync(string path) {

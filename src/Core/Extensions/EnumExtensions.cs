@@ -1,14 +1,14 @@
 using System.ComponentModel;
 using JetBrains.Annotations;
 
-// ReSharper disable once CheckNamespace
+#pragma warning disable IDE0130
 namespace System {
+#pragma warning restore IDE0130
     [PublicAPI]
     public static class EnumExtensions {
         public static string Description(this Enum? value) {
-            if (value == null) {
-                return string.Empty;
-            }
+            if (value == null)
+	            return string.Empty;
 
             var attribute = value._GetAttribute<DescriptionAttribute>();
 
@@ -16,9 +16,8 @@ namespace System {
         }
 
         private static T? _GetAttribute<T>(this Enum? value) where T : Attribute {
-            if (value == null) {
-                return null;
-            }
+            if (value == null)
+	            return null;
 
             var member = value.GetType().GetMember(value.ToString());
 

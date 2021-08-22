@@ -5,17 +5,15 @@ namespace X.Domain {
         public Guid Value { get; }
 
         protected TypedIdValueBase(Guid value) {
-            if (value == Guid.Empty) {
-                throw new InvalidOperationException("Id value cannot be empty!");
-            }
+            if (value == Guid.Empty)
+	            throw new InvalidOperationException("Id value cannot be empty!");
 
             Value = value;
         }
 
         public override bool Equals(object? obj) {
-            if (obj is null) {
-                return false;
-            }
+            if (obj is null)
+	            return false;
 
             return obj is TypedIdValueBase other && Equals(other);
         }

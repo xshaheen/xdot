@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 
 namespace X.Core.Utils {
-    /// <summary>Arabic letters & classification</summary>
+    /// <summary>Arabic letters &amp; classification</summary>
     [PublicAPI]
     public static class Ar {
         /// <summary>Alef 'ا'.</summary>

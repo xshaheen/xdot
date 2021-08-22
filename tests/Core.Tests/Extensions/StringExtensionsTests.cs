@@ -74,8 +74,8 @@ namespace Core.Tests.Extensions {
         [Fact]
         public void EnsureEndsWith_culture_specific_tests() {
             using (CultureHelper.Use("tr-TR")) {
-                "Kırmızı".EnsureEndsWith('I', StringComparison.CurrentCultureIgnoreCase).Should()
-                    .Be("Kırmızı");
+                "Kırmızı".EnsureEndsWith('I', StringComparison.CurrentCultureIgnoreCase)
+	                .Should().Be("Kırmızı");
             }
         }
 
@@ -116,8 +116,8 @@ namespace Core.Tests.Extensions {
             "Home.About".RemovePrefix("Home.").Should().Be("About");
 
             //Ignore case
-            "Https://abp.io".RemovePrefix(StringComparison.OrdinalIgnoreCase, "https://").Should()
-                .Be("abp.io");
+            "Https://abp.io".RemovePrefix(StringComparison.OrdinalIgnoreCase, "https://")
+	            .Should().Be("abp.io");
         }
 
         [Fact]
