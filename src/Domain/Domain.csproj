@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
 
-    <RootNamespace>X.Domain</RootNamespace>
-    <Title>Xdot.Domain</Title>
-    <AssemblyName>Xdot.Domain</AssemblyName>
-    <PackageId>Xdot.Domain</PackageId>
-    <Description>Domain utilities.</Description>
-    <PackageTags>xdot, domain, utilities</PackageTags>
-  </PropertyGroup>
+		<RootNamespace>X.Domain</RootNamespace>
+		<Title>Xdot.Domain</Title>
+		<AssemblyName>Xdot.Domain</AssemblyName>
+		<PackageId>Xdot.Domain</PackageId>
+		<Description>Domain utilities.</Description>
+		<PackageTags>xdot, domain, utilities</PackageTags>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MediatR" Version="9.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="9.0.0" />
+	</ItemGroup>
 
 </Project>

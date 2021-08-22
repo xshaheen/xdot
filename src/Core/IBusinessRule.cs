@@ -1,7 +1,7 @@
 namespace X.Core {
-    public interface IBusinessRule {
-        bool IsBroken();
+	public interface IBusinessRule {
+		bool IsBroken();
 
-        ErrorDescriptor Descriptor { get; }
-    }
+		ErrorDescriptor Descriptor { get; }
+	}
 }

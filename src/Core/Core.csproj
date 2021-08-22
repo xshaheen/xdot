@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
 
-    <RootNamespace>X.Core</RootNamespace>
-    <Title>Xdot.Core</Title>
-    <AssemblyName>Xdot.Core</AssemblyName>
-    <PackageId>Xdot.Core</PackageId>
-    <Description>Core helper extensions and utilities.</Description>
-    <PackageTags>xdot, core extensions, extensions, core utility, utility</PackageTags>
-  </PropertyGroup>
+		<RootNamespace>X.Core</RootNamespace>
+		<Title>Xdot.Core</Title>
+		<AssemblyName>Xdot.Core</AssemblyName>
+		<PackageId>Xdot.Core</PackageId>
+		<Description>Core helper extensions and utilities.</Description>
+		<PackageTags>xdot, core extensions, extensions, core utility, utility</PackageTags>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Ardalis.GuardClauses" Version="3.2.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Ardalis.GuardClauses" Version="3.2.0" />
+	</ItemGroup>
 
 </Project>
