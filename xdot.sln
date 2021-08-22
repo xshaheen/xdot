@@ -20,10 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 		README.md = README.md
 		.gitignore = .gitignore
-		NuGet.Config = NuGet.Config
 		dotnet-tools.json = dotnet-tools.json
-		src\Directory.Build.props = src\Directory.Build.props
 		.github\workflows\ci.yml = .github\workflows\ci.yml
+		Directory.Build.props = Directory.Build.props
+		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Table", "src\Table\Table.csproj", "{03AA5DDE-1928-42C7-9861-1BE23ADBEB68}"
