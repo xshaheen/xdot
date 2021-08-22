@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
 using MediatR;
 
 namespace X.Domain {
-    public interface IHasDomainEvent {
-        IReadOnlyCollection<DomainEvent> DomainEvents { get; }
-    }
-
     public abstract class DomainEvent : INotification {
         protected DomainEvent() {
             Id = Guid.NewGuid();
